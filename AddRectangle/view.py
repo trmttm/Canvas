@@ -1,4 +1,4 @@
-def view_add_rectangle_factory(app):
+def view_factory(app):
     def add_rectangle(view_model: dict):
         view_model = [{
             'width': view_model.get('width'),

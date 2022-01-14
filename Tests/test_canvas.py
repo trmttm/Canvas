@@ -63,18 +63,15 @@ class MyTestCase(unittest.TestCase):
         app = app_tkinter_factory()
 
         # Choose presenter & view
-        from AddRectangle.presenter import presenter_add_rectangle_factory
-        from AddRectangle.view import view_add_rectangle_factory
-        presenter_factory = presenter_add_rectangle_factory
-        view_factory = view_add_rectangle_factory
+        from AddRectangle.presenter import presenter_factory
+        from AddRectangle.view import view_factory
 
         presenter = presenter_factory()
         view = view_factory(app)
         presenter.attach(view)
 
         # Define controller command
-        from AddRectangle.controller import controller_add_rectangle
-        controller_command = controller_add_rectangle
+        from AddRectangle.controller import controller_command
 
         # Controller setting
         # Keyboard setting

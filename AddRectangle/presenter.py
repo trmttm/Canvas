@@ -1,8 +1,8 @@
-from .use_case import PresenterAddRectangleABC
+from .use_case import PresenterABC
 
 
-def presenter_add_rectangle_factory():
-    class PresenterAddRectangle(PresenterAddRectangleABC):
+def presenter_factory():
+    class PresenterAddRectangle(PresenterABC):
         def create_view_model(self):
             return self.response_model
 

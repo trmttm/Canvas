@@ -4,7 +4,7 @@ from typing import List
 from typing import Tuple
 
 
-class PresenterAddRectangleABC(abc.ABC):
+class PresenterABC(abc.ABC):
     def __init__(self):
         self._observers: List[Callable, ...] = []
         self.response_model = {}
@@ -33,7 +33,7 @@ class PresenterAddRectangleABC(abc.ABC):
 
 
 class AddRectangle:
-    def __init__(self, presenter: PresenterAddRectangleABC = None, xy: Tuple[int, int] = (20, 20),
+    def __init__(self, presenter: PresenterABC = None, xy: Tuple[int, int] = (20, 20),
                  wh: Tuple[int, int] = (50, 20), border_color='black', border_width=2, fill='white'):
         self._presenter = presenter
         self._x, self._y = xy
