@@ -33,7 +33,7 @@ class PresenterAddRectangleABC(abc.ABC):
 
 
 class AddRectangle:
-    def __init__(self, presenter: PresenterAddRectangleABC, xy: Tuple[int, int] = (20, 20),
+    def __init__(self, presenter: PresenterAddRectangleABC = None, xy: Tuple[int, int] = (20, 20),
                  wh: Tuple[int, int] = (50, 20), border_color='black', border_width=2, fill='white'):
         self._presenter = presenter
         self._x, self._y = xy
@@ -43,4 +43,7 @@ class AddRectangle:
         self._fill = fill
 
     def execute(self):
-        pass
+        if self._presenter is None:
+            return
+        args = (self._x, self._y), (self._width, self._height), self._border_color, self._border_width, self._fill
+        self._presenter.present(*args)

@@ -1,7 +1,7 @@
 import unittest
 
 
-def app():
+def main():
     from view_tkinter import View
     from view_tkinter import tk_interface as intf
     view = View()
@@ -13,8 +13,43 @@ def app():
     return view
 
 
-def run_app(view):
-    view.launch_app()
+def presenter_add_rectangle_factory():
+    from UseCases.add_rectangle import PresenterAddRectangleABC
+    class PresenterAddRectangle(PresenterAddRectangleABC):
+        def create_view_model(self):
+            return self.response_model
+
+    presenter = PresenterAddRectangle()
+    return presenter
+
+
+def run_app(app):
+    app.launch_app()
+
+
+def view_add_rectangle_factory(app):
+    def add_rectangle(view_model: dict):
+        view_model = [{
+            'width': view_model.get('width'),
+            'height': view_model.get('height'),
+            'x': view_model.get('x'),
+            'y': view_model.get('y'),
+            'border_color': view_model.get('border_color'),
+            'border_width': view_model.get('border_width'),
+            'fill': view_model.get('fill'),
+            'text': 'hello',
+            'text_rotation': 0,
+            'tags': '',
+        }, ]
+        app.add_text_box(view_model)
+
+    return add_rectangle
+
+
+def controller_add_rectangle(presenter, kwargs):
+    from UseCases.add_rectangle import AddRectangle
+    command = AddRectangle(presenter, **kwargs)
+    command.execute()
 
 
 class MyTestCase(unittest.TestCase):
@@ -60,34 +95,49 @@ class MyTestCase(unittest.TestCase):
         set_line_color = SetLineColor()
 
     def test_add_rectangle(self):
-        view = app()
+        app = main()
 
-        from UseCases.add_rectangle import AddRectangle
-        from UseCases.add_rectangle import PresenterAddRectangleABC
+        # Set up AddRectangle elements
+        presenter = presenter_add_rectangle_factory()
+        view = view_add_rectangle_factory(app)
+        presenter.attach(view)
 
-        class PresenterAddRectangle(PresenterAddRectangleABC):
-            def create_view_model(self):
-                return self.response_model
-        presenter = PresenterAddRectangle()
-        # presenter.attach(view.add_rectangle)
-        
-        command = AddRectangle(presenter, (20, 20), (50, 20), border_color='orange', border_width=3, fill='light blue')
-        command.execute()
+        # Controller setting
+        # Keyboard
+        def keyboard_shortcut_handler(modifiers: int, key: str):
+            if modifiers == 8 and key == 'a':
+                request_model = {'xy': app.get_mouse_canvas_coordinate(),
+                                 'wh': (50, 20),
+                                 'border_color': 'red',
+                                 'border_width': 1,
+                                 'fill': 'light green', }
+                controller_add_rectangle(presenter, request_model)
 
-        view_model = [{
-            'width': 50,
-            'height': 20,
-            'x': 20,
-            'y': 50,
-            'border_color': 'orange',
-            'border_width': '2',
-            'fill': 'light blue',
-            'text': 'hello',
-            'text_rotation': 0,
-            'tags': '',
-        }, ]
-        view.add_text_box(view_model)
-        run_app(view)
+        app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+
+        # Mouse
+        from mouse import MouseController
+        mouse = MouseController()
+
+        def upon_mouse_click(request):
+            request_model = {'xy': (request['x'], request['y']),
+                             'wh': (50, 20),
+                             'border_color': 'red',
+                             'border_width': 1,
+                             'fill': 'light green', }
+            controller_add_rectangle(presenter, request_model)
+
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
+        app.bind_command_to_widget('canvas1', mouse.handle)
+
+        request_model = {'xy': (20, 20),
+                         'wh': (50, 20),
+                         'border_color': 'red',
+                         'border_width': 1,
+                         'fill': 'light green', }
+        controller_add_rectangle(presenter, request_model)
+
+        run_app(app)
 
 
 if __name__ == '__main__':
