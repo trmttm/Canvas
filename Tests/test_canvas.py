@@ -48,10 +48,6 @@ class MyTestCase(unittest.TestCase):
         set_line_color = SetLineColor()
 
     def test_add_rectangle(self):
-        from AddRectangle.controller import controller_add_rectangle
-        from AddRectangle.presenter import presenter_add_rectangle_factory
-        from AddRectangle.view import view_add_rectangle_factory
-
         color = {
             1: 'black',
             2: 'red',
@@ -66,10 +62,19 @@ class MyTestCase(unittest.TestCase):
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory()
 
-        # Choose AddRectangle presenter & view
-        presenter = presenter_add_rectangle_factory()
-        view = view_add_rectangle_factory(app)
+        # Choose presenter & view
+        from AddRectangle.presenter import presenter_add_rectangle_factory
+        from AddRectangle.view import view_add_rectangle_factory
+        presenter_factory = presenter_add_rectangle_factory()
+        view_factory = view_add_rectangle_factory(app)
+
+        presenter = presenter_factory
+        view = view_factory
         presenter.attach(view)
+
+        # Define controller command
+        from AddRectangle.controller import controller_add_rectangle
+        controller_command = controller_add_rectangle
 
         # Controller setting
         # Keyboard setting
@@ -80,14 +85,14 @@ class MyTestCase(unittest.TestCase):
                                  'border_color': 'red',
                                  'border_width': 1,
                                  'fill': 'light green', }
-                controller_add_rectangle(presenter, request_model)
+                controller_command(presenter, request_model)
             elif key in tuple(str(k) for k in range(9)):
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'wh': (50, 20),
                                  'border_color': color[int(key)],
                                  'border_width': 1,
                                  'fill': 'light green', }
-                controller_add_rectangle(presenter, request_model)
+                controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -101,7 +106,7 @@ class MyTestCase(unittest.TestCase):
                              'border_color': 'red',
                              'border_width': 1,
                              'fill': 'light green', }
-            controller_add_rectangle(presenter, request_model)
+            controller_command(presenter, request_model)
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)
