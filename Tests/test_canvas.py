@@ -1,10 +1,6 @@
 import unittest
 
 
-def run_app(app):
-    app.launch_app()
-
-
 class MyTestCase(unittest.TestCase):
     def test_something(self):
         from UseCases.add_line import AddLine

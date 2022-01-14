@@ -1,7 +1,5 @@
 import unittest
 
-from Tests.test_canvas import run_app
-
 
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
@@ -67,4 +65,4 @@ class MyTestCase(unittest.TestCase):
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)
 
-        run_app(app)
+        app.launch_app()
