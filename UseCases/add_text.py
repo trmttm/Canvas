@@ -1,0 +1,2 @@
+class AddText:
+    pass

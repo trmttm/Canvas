@@ -1,0 +1,2 @@
+class MoveRectangle:
+    pass

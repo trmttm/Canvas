@@ -1,0 +1,2 @@
+class RemoveText:
+    pass

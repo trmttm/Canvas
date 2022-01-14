@@ -1,0 +1,2 @@
+class ChangeFont:
+    pass

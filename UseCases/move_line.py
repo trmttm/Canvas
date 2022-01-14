@@ -1,0 +1,2 @@
+class MoveLine:
+    pass

@@ -1,0 +1,2 @@
+class SetLineColor:
+    pass

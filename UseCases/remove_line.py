@@ -1,0 +1,2 @@
+class RemoveLine:
+    pass
