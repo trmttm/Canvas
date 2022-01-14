@@ -48,6 +48,8 @@ class MyTestCase(unittest.TestCase):
         set_line_color = SetLineColor()
 
     def test_add_rectangle(self):
+        package_name = 'AddRectangle'
+        from importlib import import_module
         color = {
             1: 'black',
             2: 'red',
@@ -63,15 +65,15 @@ class MyTestCase(unittest.TestCase):
         app = app_tkinter_factory()
 
         # Choose presenter & view
-        from AddRectangle.presenter import presenter_factory
-        from AddRectangle.view import view_factory
+        presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
+        view_factory = import_module(f'{package_name}.view', '.').view_factory
 
         presenter = presenter_factory()
         view = view_factory(app)
         presenter.attach(view)
 
         # Define controller command
-        from AddRectangle.controller import controller_command
+        controller_command = import_module(f'{package_name}.controller', '.').controller_command
 
         # Controller setting
         # Keyboard setting

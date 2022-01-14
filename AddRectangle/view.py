@@ -1,4 +1,7 @@
-def view_factory(app):
+from interface_view import ViewABC
+
+
+def view_factory(app: ViewABC):
     def add_rectangle(view_model: dict):
         view_model = [{
             'width': view_model.get('width'),
