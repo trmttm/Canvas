@@ -1,61 +1,14 @@
 import unittest
 
 
-def main():
-    from view_tkinter import View
-    from view_tkinter import tk_interface as intf
-    view = View()
-    view_model = [
-        intf.widget_model('root', 'canvas1', 'canvas', 0, 0, 0, 0, 'nsew', **{'bg': 'light yellow'})
-    ]
-    view.add_widgets(view_model)
-    view.switch_canvas('canvas1')
-    return view
-
-
-def presenter_add_rectangle_factory():
-    from UseCases.add_rectangle import PresenterAddRectangleABC
-    class PresenterAddRectangle(PresenterAddRectangleABC):
-        def create_view_model(self):
-            return self.response_model
-
-    presenter = PresenterAddRectangle()
-    return presenter
-
-
 def run_app(app):
     app.launch_app()
-
-
-def view_add_rectangle_factory(app):
-    def add_rectangle(view_model: dict):
-        view_model = [{
-            'width': view_model.get('width'),
-            'height': view_model.get('height'),
-            'x': view_model.get('x'),
-            'y': view_model.get('y'),
-            'border_color': view_model.get('border_color'),
-            'border_width': view_model.get('border_width'),
-            'fill': view_model.get('fill'),
-            'text': 'hello',
-            'text_rotation': 0,
-            'tags': '',
-        }, ]
-        app.add_text_box(view_model)
-
-    return add_rectangle
-
-
-def controller_add_rectangle(presenter, kwargs):
-    from UseCases.add_rectangle import AddRectangle
-    command = AddRectangle(presenter, **kwargs)
-    command.execute()
 
 
 class MyTestCase(unittest.TestCase):
     def test_something(self):
         from UseCases.add_line import AddLine
-        from UseCases.add_rectangle import AddRectangle
+        from AddRectangle.use_case import AddRectangle
         from UseCases.add_text import AddText
         from UseCases.change_font import ChangeFont
         from UseCases.change_font_size import ChangeFontSize
@@ -95,7 +48,9 @@ class MyTestCase(unittest.TestCase):
         set_line_color = SetLineColor()
 
     def test_add_rectangle(self):
-        app = main()
+        from AddRectangle.controller import controller_add_rectangle
+        from AddRectangle.presenter import presenter_add_rectangle_factory
+        from AddRectangle.view import view_add_rectangle_factory
 
         color = {
             1: 'black',
@@ -106,6 +61,10 @@ class MyTestCase(unittest.TestCase):
             6: 'pink',
             7: 'purple',
         }
+
+        # Choose App/Main
+        from app_tkinter import app_tkinter_factory
+        app = app_tkinter_factory()
 
         # Choose AddRectangle presenter & view
         presenter = presenter_add_rectangle_factory()
