@@ -97,13 +97,23 @@ class MyTestCase(unittest.TestCase):
     def test_add_rectangle(self):
         app = main()
 
-        # Set up AddRectangle elements
+        color = {
+            1: 'black',
+            2: 'red',
+            3: 'blue',
+            4: 'yellow',
+            5: 'orange',
+            6: 'pink',
+            7: 'purple',
+        }
+
+        # Choose AddRectangle presenter & view
         presenter = presenter_add_rectangle_factory()
         view = view_add_rectangle_factory(app)
         presenter.attach(view)
 
         # Controller setting
-        # Keyboard
+        # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == 'a':
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
@@ -112,10 +122,17 @@ class MyTestCase(unittest.TestCase):
                                  'border_width': 1,
                                  'fill': 'light green', }
                 controller_add_rectangle(presenter, request_model)
+            elif key in tuple(str(k) for k in range(9)):
+                request_model = {'xy': app.get_mouse_canvas_coordinate(),
+                                 'wh': (50, 20),
+                                 'border_color': color[int(key)],
+                                 'border_width': 1,
+                                 'fill': 'light green', }
+                controller_add_rectangle(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
-        # Mouse
+        # Mouse setting
         from mouse import MouseController
         mouse = MouseController()
 
@@ -129,13 +146,6 @@ class MyTestCase(unittest.TestCase):
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)
-
-        request_model = {'xy': (20, 20),
-                         'wh': (50, 20),
-                         'border_color': 'red',
-                         'border_width': 1,
-                         'fill': 'light green', }
-        controller_add_rectangle(presenter, request_model)
 
         run_app(app)
 
