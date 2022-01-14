@@ -1,7 +1,6 @@
 import abc
 from typing import Callable
 from typing import List
-from typing import Tuple
 
 
 class PresenterABC(abc.ABC):
@@ -12,17 +11,9 @@ class PresenterABC(abc.ABC):
     def attach(self, observer: Callable):
         self._observers.append(observer)
 
-    def present(self, xy: Tuple[int, int], wh: Tuple[int, int], border_color, border_width, fill, tags):
+    def present(self, rectangle_id):
         self.response_model = {
-            'x': xy[0],
-            'y': xy[1],
-            'width': wh[0],
-            'height': wh[1],
-            'border_color': border_color,
-            'border_width': border_width,
-            'fill': fill,
-            'tags': tags,
-
+            'rectangle_id': rectangle_id,
         }
         view_model = self.create_view_model()
         for observer in self._observers:

@@ -11,7 +11,7 @@ def view_factory(app: ViewABC):
             'border_color': view_model.get('border_color'),
             'border_width': view_model.get('border_width'),
             'fill': view_model.get('fill'),
-            'tags': '',
+            'tags': view_model.get('fill'),
         }
         app.add_rectangle(view_model)
 
