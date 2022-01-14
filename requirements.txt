@@ -1,0 +1,1 @@
+-e git+https://github.com/trmttm/ViewTkinter@016dadf90f531236ec047fc831e4db8ed0a8e146#egg=view_tkinter
