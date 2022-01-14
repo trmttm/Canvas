@@ -1,4 +1,4 @@
-from .use_case import PresenterABC
+from .presenter_abc import PresenterABC
 
 
 def presenter_factory():
