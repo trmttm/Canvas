@@ -7,6 +7,7 @@ class MyTestCase(unittest.TestCase):
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('pink')
 
+        no_modifier = 0
         modifier_add = 8
         modifier_remove = 16
 
@@ -72,8 +73,33 @@ class MyTestCase(unittest.TestCase):
             (modifier_remove, '3'): {'rectangle_id': 'rect_3', 'package_number': 1},
             (modifier_remove, '4'): {'rectangle_id': 'rect_4', 'package_number': 1},
             (modifier_remove, '5'): {'rectangle_id': 'rect_5', 'package_number': 1},
+            (no_modifier, 'Left'): {
+                'rectangle_id': 'rect_0',
+                'delta_x': -10,
+                'delta_y': 0,
+                'package_number': 2
+            },
+            (no_modifier, 'Right'): {
+                'rectangle_id': 'rect_0',
+                'delta_x': 10,
+                'delta_y': 0,
+                'package_number': 2
+            },
+            (no_modifier, 'Up'): {
+                'rectangle_id': 'rect_0',
+                'delta_x': 0,
+                'delta_y': -10,
+                'package_number': 2
+            },
+            (no_modifier, 'Down'): {
+                'rectangle_id': 'rect_0',
+                'delta_x': 0,
+                'delta_y': 10,
+                'package_number': 2
+            },
         }
-        package_names = ['AddRectangle', 'RemoveRectangle']
+
+        package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle']
         commands = []
         presenters = []
         views = []
