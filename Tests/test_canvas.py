@@ -135,12 +135,17 @@ class MyTestCase(unittest.TestCase):
         from mouse import MouseController
         mouse = MouseController()
 
-        def upon_mouse_click(request):
-            request_model = {'rectangle_id': request['rectangle_id'], }
-            controller_command(presenter, request_model)
+        def upon_mouse_click(request, ):
+            command = request['command']
+            if command is not None:
+                command(presenter, request)
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (5,), })
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'rectangle_id': (6,), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (f'rect_{1}',),
+                                                                   'command': None,
+                                                                   })
+        mouse.configure(1, upon_mouse_click, mouse.is_left_drag, {'rectangle_id': (f'rect_{1}',),
+                                                                  'command': commands[2],
+                                                                  })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         app.launch_app()
