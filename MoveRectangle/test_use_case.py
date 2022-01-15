@@ -44,11 +44,17 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_click(request):
-            request_model = {'rectangle_id': request['rectangle_id'], }
+            pass
+
+        def upon_mouse_drag(request):
+            r = request
+            request_model = {'rectangle_id': r['rectangle_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
             controller_command(presenter, request_model)
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (f'rect_{5}',), })
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'rectangle_id': (f'rect_{6}',), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
+        mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})
+        mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'rectangle_id': (f'rect_{1}',), })
+        mouse.configure(3, upon_mouse_drag, mouse.is_shift_left_drag, {'rectangle_id': (f'rect_{2}',), })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete
