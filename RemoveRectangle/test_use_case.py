@@ -26,8 +26,8 @@ class MyTestCase(unittest.TestCase):
             if modifiers == 8 and key == '1':
                 request_model = {'rectangle_id': (1,), }
                 controller_command(presenter, request_model)
-            if key in tuple(f'rect_{k}' for k in range(10)):
-                request_model = {'rectangle_id': (key,), }
+            if key in tuple(str(i) for i in range(10)):
+                request_model = {'rectangle_id': (f'rect_{key}',), }
                 controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -40,8 +40,8 @@ class MyTestCase(unittest.TestCase):
             request_model = {'rectangle_id': request['rectangle_id'], }
             controller_command(presenter, request_model)
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (5,), })
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'rectangle_id': (6,), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (f'rect_{5}',), })
+        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'rectangle_id': (f'rect_{6}',), })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete

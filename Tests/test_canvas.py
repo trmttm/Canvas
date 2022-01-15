@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'red',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('0',),
+                'tags': ('rect_0',),
                 'package_number': 0,
             },
             (modifier_add, '1'): {
@@ -27,7 +27,7 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'green',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('10',),
+                'tags': ('rect_1',),
                 'package_number': 0,
             },
             (modifier_add, '2'): {
@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'blue',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('20',),
+                'tags': ('rect_2',),
                 'package_number': 0,
             },
             (modifier_add, '3'): {
@@ -45,7 +45,7 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'yellow',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('30',),
+                'tags': ('rect_3',),
                 'package_number': 0,
             },
             (modifier_add, '4'): {
@@ -54,7 +54,7 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'orange',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('40',),
+                'tags': ('rect_4',),
                 'package_number': 0,
             },
             (modifier_add, '5'): {
@@ -63,15 +63,15 @@ class MyTestCase(unittest.TestCase):
                 'border_color': 'pink',
                 'border_width': 1,
                 'fill': 'light green',
-                'tags': ('50',),
+                'tags': ('rect_5',),
                 'package_number': 0,
             },
-            (modifier_remove, '0'): {'rectangle_id': '0', 'package_number': 1},
-            (modifier_remove, '1'): {'rectangle_id': '10', 'package_number': 1},
-            (modifier_remove, '2'): {'rectangle_id': '20', 'package_number': 1},
-            (modifier_remove, '3'): {'rectangle_id': '30', 'package_number': 1},
-            (modifier_remove, '4'): {'rectangle_id': '40', 'package_number': 1},
-            (modifier_remove, '5'): {'rectangle_id': '50', 'package_number': 1},
+            (modifier_remove, '0'): {'rectangle_id': 'rect_0', 'package_number': 1},
+            (modifier_remove, '1'): {'rectangle_id': 'rect_1', 'package_number': 1},
+            (modifier_remove, '2'): {'rectangle_id': 'rect_2', 'package_number': 1},
+            (modifier_remove, '3'): {'rectangle_id': 'rect_3', 'package_number': 1},
+            (modifier_remove, '4'): {'rectangle_id': 'rect_4', 'package_number': 1},
+            (modifier_remove, '5'): {'rectangle_id': 'rect_5', 'package_number': 1},
         }
         package_names = ['AddRectangle', 'RemoveRectangle']
         commands = []
