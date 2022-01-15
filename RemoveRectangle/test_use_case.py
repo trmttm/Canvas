@@ -26,7 +26,7 @@ class MyTestCase(unittest.TestCase):
             if modifiers == 8 and key == '1':
                 request_model = {'rectangle_id': (1,), }
                 controller_command(presenter, request_model)
-            if key in tuple(str(k) for k in range(9)):
+            if key in tuple(f'rect_{k}' for k in range(10)):
                 request_model = {'rectangle_id': (key,), }
                 controller_command(presenter, request_model)
 
@@ -53,7 +53,7 @@ class MyTestCase(unittest.TestCase):
                           'border_color': 'red',
                           'border_width': i,
                           'fill': 'light green',
-                          'tags': (i,)
+                          'tags': (f'rect_{i}',)
                           }
 
             app.add_rectangle(view_model)

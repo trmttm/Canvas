@@ -2,7 +2,7 @@ from interface_view import ViewABC
 
 
 def view_factory(app: ViewABC):
-    def add_rectangle(view_model: dict):
+    def view_method(view_model: dict):
         view_model = {
             'width': view_model.get('width'),
             'height': view_model.get('height'),
@@ -15,4 +15,4 @@ def view_factory(app: ViewABC):
         }
         app.add_rectangle(view_model)
 
-    return add_rectangle
+    return view_method
