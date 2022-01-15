@@ -5,7 +5,7 @@ class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory('light blue')
+        app = app_tkinter_factory('light green')
 
         package_name = 'MoveRectangle'
         from importlib import import_module
@@ -23,12 +23,19 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            if modifiers == 8 and key == '1':
-                request_model = {'rectangle_id': (1,), }
-                controller_command(presenter, request_model)
-            if key in tuple(str(i) for i in range(10)):
-                request_model = {'rectangle_id': (f'rect_{key}',), }
-                controller_command(presenter, request_model)
+            delta_x = 10
+            delta_y = 10
+            request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': 0}
+            if modifiers == 0 and key == 'Left':
+                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': -delta_x, 'delta_y': 0}
+            elif modifiers == 0 and key == 'Right':
+                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': 0}
+            elif modifiers == 0 and key == 'Up':
+                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
+            elif modifiers == 0 and key == 'Down':
+                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
+
+            controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
