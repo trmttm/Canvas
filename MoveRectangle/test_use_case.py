@@ -25,15 +25,15 @@ class MyTestCase(unittest.TestCase):
         def keyboard_shortcut_handler(modifiers: int, key: str):
             delta_x = 10
             delta_y = 10
-            request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': 0}
+            request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': 0}
             if modifiers == 0 and key == 'Left':
-                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': -delta_x, 'delta_y': 0}
+                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': -delta_x, 'delta_y': 0}
             elif modifiers == 0 and key == 'Right':
-                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': 0}
+                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': 0}
             elif modifiers == 0 and key == 'Up':
-                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
+                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
             elif modifiers == 0 and key == 'Down':
-                request_model = {'rectangle_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
+                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
 
             controller_command(presenter, request_model)
 
@@ -48,13 +48,13 @@ class MyTestCase(unittest.TestCase):
 
         def upon_mouse_drag(request):
             r = request
-            request_model = {'rectangle_id': r['rectangle_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
+            request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
             controller_command(presenter, request_model)
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})
-        mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'rectangle_id': (f'rect_{1}',), })
-        mouse.configure(3, upon_mouse_drag, mouse.is_shift_left_drag, {'rectangle_id': (f'rect_{2}',), })
+        mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'shape_id': (f'rect_{1}',), })
+        mouse.configure(3, upon_mouse_drag, mouse.is_shift_left_drag, {'shape_id': (f'rect_{2}',), })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete

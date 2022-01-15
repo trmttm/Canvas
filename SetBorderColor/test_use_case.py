@@ -7,7 +7,7 @@ class MyTestCase(unittest.TestCase):
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('light blue')
 
-        package_name = 'RemoveRectangle'
+        package_name = 'SetBorderColor'
         from importlib import import_module
         # Choose presenter & view
         presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory

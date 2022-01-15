@@ -67,32 +67,32 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_5',),
                 'package_number': 0,
             },
-            (modifier_remove, '0'): {'rectangle_id': 'rect_0', 'package_number': 1},
-            (modifier_remove, '1'): {'rectangle_id': 'rect_1', 'package_number': 1},
-            (modifier_remove, '2'): {'rectangle_id': 'rect_2', 'package_number': 1},
-            (modifier_remove, '3'): {'rectangle_id': 'rect_3', 'package_number': 1},
-            (modifier_remove, '4'): {'rectangle_id': 'rect_4', 'package_number': 1},
-            (modifier_remove, '5'): {'rectangle_id': 'rect_5', 'package_number': 1},
+            (modifier_remove, '0'): {'shape_id': 'rect_0', 'package_number': 1},
+            (modifier_remove, '1'): {'shape_id': 'rect_1', 'package_number': 1},
+            (modifier_remove, '2'): {'shape_id': 'rect_2', 'package_number': 1},
+            (modifier_remove, '3'): {'shape_id': 'rect_3', 'package_number': 1},
+            (modifier_remove, '4'): {'shape_id': 'rect_4', 'package_number': 1},
+            (modifier_remove, '5'): {'shape_id': 'rect_5', 'package_number': 1},
             (no_modifier, 'Left'): {
-                'rectangle_id': 'rect_0',
+                'shape_id': 'rect_0',
                 'delta_x': -10,
                 'delta_y': 0,
                 'package_number': 2
             },
             (no_modifier, 'Right'): {
-                'rectangle_id': 'rect_0',
+                'shape_id': 'rect_0',
                 'delta_x': 10,
                 'delta_y': 0,
                 'package_number': 2
             },
             (no_modifier, 'Up'): {
-                'rectangle_id': 'rect_0',
+                'shape_id': 'rect_0',
                 'delta_x': 0,
                 'delta_y': -10,
                 'package_number': 2
             },
             (no_modifier, 'Down'): {
-                'rectangle_id': 'rect_0',
+                'shape_id': 'rect_0',
                 'delta_x': 0,
                 'delta_y': 10,
                 'package_number': 2
@@ -140,10 +140,10 @@ class MyTestCase(unittest.TestCase):
             if command is not None:
                 command(presenter, request)
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (f'rect_{1}',),
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
                                                                    'command': None,
                                                                    })
-        mouse.configure(1, upon_mouse_click, mouse.is_left_drag, {'rectangle_id': (f'rect_{1}',),
+        mouse.configure(1, upon_mouse_click, mouse.is_left_drag, {'shape_id': (f'rect_{1}',),
                                                                   'command': commands[2],
                                                                   })
         app.bind_command_to_widget('canvas1', mouse.handle)
