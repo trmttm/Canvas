@@ -101,9 +101,6 @@ class MyTestCase(unittest.TestCase):
                 n = request_model.get('package_number')
                 command = commands[n]
                 presenter_ = presenters[n]
-
-                id_ = request_model['tags'] if n == 0 else request_model['rectangle_id']
-
                 command(presenter_, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
