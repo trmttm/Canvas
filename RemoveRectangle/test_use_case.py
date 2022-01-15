@@ -3,16 +3,6 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
-        color = {
-            1: 'black',
-            2: 'red',
-            3: 'blue',
-            4: 'yellow',
-            5: 'orange',
-            6: 'pink',
-            7: 'purple',
-        }
-
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('light blue')
@@ -69,3 +59,7 @@ class MyTestCase(unittest.TestCase):
             app.add_rectangle(view_model)
 
         app.launch_app()
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -2,46 +2,125 @@ import unittest
 
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        from UseCases.add_line import AddLine
-        from AddRectangle.use_case import AddRectangle
-        from UseCases.add_text import AddText
-        from UseCases.change_font import ChangeFont
-        from UseCases.change_font_size import ChangeFontSize
-        from UseCases.change_text_color import ChangeTextColor
-        from UseCases.move_line import MoveLine
-        from UseCases.move_rectangle import MoveRectangle
-        from UseCases.move_text import MoveText
-        from UseCases.remove_line import RemoveLine
-        from UseCases.remove_rectangle import RemoveRectangle
-        from UseCases.remove_text import RemoveText
-        from UseCases.set_arrow_head import SetArrowHead
-        from UseCases.set_border_color import SetBorderColor
-        from UseCases.set_border_width import SetBorderWidth
-        from UseCases.set_fill_color import SetFillColor
-        from UseCases.set_line_color import SetLineColor
-        from UseCases.set_line_width import SetLineWidth
+    def test_integrating_multiple_use_cases(self):
+        # Choose App/Main
+        from app_tkinter import app_tkinter_factory
+        app = app_tkinter_factory('pink')
 
-        add_rectangle = AddRectangle()
-        remove_rectangle = RemoveRectangle()
-        move_rectangle = MoveRectangle()
-        set_border_width = SetBorderWidth()
-        set_border_color = SetBorderColor()
-        set_fill_color = SetFillColor()
+        modifier_add = 8
+        modifier_remove = 16
 
-        add_text = AddText()
-        remove_text = RemoveText()
-        move_text = MoveText()
-        change_font = ChangeFont()
-        change_font_size = ChangeFontSize()
-        change_text_color = ChangeTextColor()
+        # (modifier, key): request_model
+        keyboard_shortcut_map = {
+            (modifier_add, '0'): {
+                'xy': (40, 10),
+                'wh': (50, 20),
+                'border_color': 'red',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('0',),
+                'package_number': 0,
+            },
+            (modifier_add, '1'): {
+                'xy': (40, 40),
+                'wh': (50, 20),
+                'border_color': 'green',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('10',),
+                'package_number': 0,
+            },
+            (modifier_add, '2'): {
+                'xy': (40, 70),
+                'wh': (50, 20),
+                'border_color': 'blue',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('20',),
+                'package_number': 0,
+            },
+            (modifier_add, '3'): {
+                'xy': (40, 100),
+                'wh': (50, 20),
+                'border_color': 'yellow',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('30',),
+                'package_number': 0,
+            },
+            (modifier_add, '4'): {
+                'xy': (40, 130),
+                'wh': (50, 20),
+                'border_color': 'orange',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('40',),
+                'package_number': 0,
+            },
+            (modifier_add, '5'): {
+                'xy': (40, 170),
+                'wh': (50, 20),
+                'border_color': 'pink',
+                'border_width': 1,
+                'fill': 'light green',
+                'tags': ('50',),
+                'package_number': 0,
+            },
+            (modifier_remove, '0'): {'rectangle_id': '0', 'package_number': 1},
+            (modifier_remove, '1'): {'rectangle_id': '10', 'package_number': 1},
+            (modifier_remove, '2'): {'rectangle_id': '20', 'package_number': 1},
+            (modifier_remove, '3'): {'rectangle_id': '30', 'package_number': 1},
+            (modifier_remove, '4'): {'rectangle_id': '40', 'package_number': 1},
+            (modifier_remove, '5'): {'rectangle_id': '50', 'package_number': 1},
+        }
+        package_names = ['AddRectangle', 'RemoveRectangle']
+        commands = []
+        presenters = []
+        views = []
+        for package_number, package_name in enumerate(package_names):
+            from importlib import import_module
+            # Choose presenter & view
+            presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
+            view_factory = import_module(f'{package_name}.view', '.').view_factory
 
-        add_line = AddLine()
-        remove_line = RemoveLine()
-        move_line = MoveLine()
-        set_arrow_head = SetArrowHead()
-        set_line_width = SetLineWidth()
-        set_line_color = SetLineColor()
+            presenters.append(presenter_factory())
+            views.append(view_factory(app))
+            presenter = presenters[package_number]
+            view = views[package_number]
+            presenter.attach(view)
+
+            # Define controller command
+            controller_command = import_module(f'{package_name}.controller', '.').controller_command
+            commands.append(controller_command)
+
+        # Controller setting
+        # Keyboard setting
+        def keyboard_shortcut_handler(modifiers: int, key: str):
+            request_model = keyboard_shortcut_map.get((modifiers, key), None)
+            if request_model is not None:
+                n = request_model.get('package_number')
+                command = commands[n]
+                presenter_ = presenters[n]
+
+                id_ = request_model['tags'] if n == 0 else request_model['rectangle_id']
+
+                command(presenter_, request_model)
+
+        app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+
+        # Mouse setting
+        from mouse import MouseController
+        mouse = MouseController()
+
+        def upon_mouse_click(request):
+            request_model = {'rectangle_id': request['rectangle_id'], }
+            controller_command(presenter, request_model)
+
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'rectangle_id': (5,), })
+        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'rectangle_id': (6,), })
+        app.bind_command_to_widget('canvas1', mouse.handle)
+
+        app.launch_app()
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@ from .presenter_abc import PresenterABC
 
 
 class RemoveRectangle:
-    def __init__(self, presenter: PresenterABC, rectangle_id):
+    def __init__(self, presenter: PresenterABC, rectangle_id, **_):
         self._presenter = presenter
         self._rectangle_id = rectangle_id
 

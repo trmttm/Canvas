@@ -66,3 +66,7 @@ class MyTestCase(unittest.TestCase):
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         app.launch_app()
+
+
+if __name__ == '__main__':
+    unittest.main()
