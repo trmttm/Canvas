@@ -142,11 +142,13 @@ class MyTestCase(unittest.TestCase):
                                  'tags': ('line_1',),
                                  'package_number': 11
                                  },
+            (no_modifier, ';'): {'shape_id': 'line_1', 'coordinates_from': (20, 30), 'coordinates_to': (100, 100),
+                                 'package_number': 12},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText',
-                         'AddLine', ]
+                         'AddLine', 'MoveLine']
         command_factories = []
         presenters = []
         views = []
@@ -188,6 +190,7 @@ class MyTestCase(unittest.TestCase):
             presenter_ = request.get('presenter', None)
             if command_factory is not None and presenter_ is not None:
                 del request['presenter']
+                request.update({'coordinates_from':(10,10), 'coordinates_to':(request['x'], request['y'])})
                 command = command_factory(presenter_, request)
                 command.execute()
 
@@ -205,6 +208,13 @@ class MyTestCase(unittest.TestCase):
                                                                     'command_factory': command_factories[9],
                                                                     'presenter': presenters[9],
                                                                     })
+        mouse.configure(4, upon_mouse_action, mouse.is_shift_left_click, {'shape_id': (f'line_{1}',),
+                                                                          'command_factory': None,
+                                                                          })
+        mouse.configure(5, upon_mouse_action, mouse.is_shift_left_drag, {'shape_id': (f'line_{1}',),
+                                                                         'command_factory': command_factories[12],
+                                                                         'presenter': presenters[12],
+                                                                         })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         app.launch_app()
