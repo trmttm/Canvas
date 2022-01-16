@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
 
         no_modifier = 0
         modifier_add = 8
-        modifier_remove = 16
+        modifier_option = 16
 
         # (modifier, key): request_model
         keyboard_shortcut_map = {
@@ -67,12 +67,12 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_5',),
                 'package_number': 0,
             },
-            (modifier_remove, '0'): {'shape_id': 'rect_0', 'package_number': 1},
-            (modifier_remove, '1'): {'shape_id': 'rect_1', 'package_number': 1},
-            (modifier_remove, '2'): {'shape_id': 'rect_2', 'package_number': 1},
-            (modifier_remove, '3'): {'shape_id': 'rect_3', 'package_number': 1},
-            (modifier_remove, '4'): {'shape_id': 'rect_4', 'package_number': 1},
-            (modifier_remove, '5'): {'shape_id': 'rect_5', 'package_number': 1},
+            (modifier_option, '0'): {'shape_id': 'rect_0', 'package_number': 1},
+            (modifier_option, '1'): {'shape_id': 'rect_1', 'package_number': 1},
+            (modifier_option, '2'): {'shape_id': 'rect_2', 'package_number': 1},
+            (modifier_option, '3'): {'shape_id': 'rect_3', 'package_number': 1},
+            (modifier_option, '4'): {'shape_id': 'rect_4', 'package_number': 1},
+            (modifier_option, '5'): {'shape_id': 'rect_5', 'package_number': 1},
             (no_modifier, 'Left'): {
                 'shape_id': 'rect_0',
                 'delta_x': -10,
@@ -100,9 +100,12 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, '1'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 3},
             (no_modifier, '2'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 3},
             (no_modifier, '3'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 3},
+            (no_modifier, '4'): {'shape_id': 'rect_1', 'width': 1, 'package_number': 4},
+            (no_modifier, '5'): {'shape_id': 'rect_1', 'width': 3, 'package_number': 4},
+            (no_modifier, '6'): {'shape_id': 'rect_1', 'width': 5, 'package_number': 4},
         }
 
-        package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderWidth']
+        package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth']
         commands = []
         presenters = []
         views = []
