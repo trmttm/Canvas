@@ -268,13 +268,39 @@ class MyTestCase(unittest.TestCase):
 
         # Add green text box
         package_numbers = (0, 5, 6)
-        request_models = ({'xy': (10, 10), 'wh': (100, 20), 'tags': 'tag1'},
-                          {'shape_id': 'tag1', 'color': 'light green'},
-                          {'xy': (10, 10), 'wh': (100, 20), 'text': 'Green Text', 'tags': 'tag1'},
+        shape_id = 'tag1'
+        request_models = ({'xy': (10, 10), 'wh': (100, 20), 'tags': shape_id},
+                          {'shape_id': shape_id, 'color': 'light green'},
+                          {'xy': (10, 10), 'wh': (100, 20), 'text': 'Green Text', 'tags': shape_id},
                           )
+        # by shortcut
         app.add_keyboard_shortcut(0, 'a', package_numbers, request_models, )
+
+        # programmatically
         command_add_green_text_box = app.create_commands(package_numbers, request_models)
         app.execute(command_add_green_text_box)
+
+        # move green text box
+        package_numbers = (2, 9)
+        shape_id = 'tag1'
+        delta = 10
+        request_models = ({'shape_id': shape_id, 'delta_x': -delta, 'delta_y': 0, 'tags': shape_id},
+                          {'shape_id': shape_id, 'delta_x': -delta, 'delta_y': 0, 'tags': shape_id},
+                          )
+        app.add_keyboard_shortcut(0, 'Left', package_numbers, request_models, )
+        request_models = ({'shape_id': shape_id, 'delta_x': delta, 'delta_y': 0, 'tags': shape_id},
+                          {'shape_id': shape_id, 'delta_x': delta, 'delta_y': 0, 'tags': shape_id},
+                          )
+        app.add_keyboard_shortcut(0, 'Right', package_numbers, request_models, )
+        request_models = ({'shape_id': shape_id, 'delta_x': 0, 'delta_y': -delta, 'tags': shape_id},
+                          {'shape_id': shape_id, 'delta_x': 0, 'delta_y': -delta, 'tags': shape_id},
+                          )
+        app.add_keyboard_shortcut(0, 'Up', package_numbers, request_models, )
+        request_models = ({'shape_id': shape_id, 'delta_x': 0, 'delta_y': delta, 'tags': shape_id},
+                          {'shape_id': shape_id, 'delta_x': 0, 'delta_y': delta, 'tags': shape_id},
+                          )
+        app.add_keyboard_shortcut(0, 'Down', package_numbers, request_models, )
+
         app.launch_app()
 
 
