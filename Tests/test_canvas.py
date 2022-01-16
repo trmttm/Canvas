@@ -242,6 +242,41 @@ class MyTestCase(unittest.TestCase):
 
         app.launch_app()
 
+    def test_add_text_box(self):
+        from main import App
+        from app_tkinter import app_tkinter_factory
+        package_names = [
+            'AddRectangle',  # 0
+            'RemoveRectangle',  # 1
+            'MoveRectangle',  # 2
+            'SetBorderColor',  # 3
+            'SetBorderWidth',  # 4
+            'SetFillColor',  # 5
+            'AddText',  # 6
+            'SetTextColor',  # 7
+            'SetTextFontSize',  # 8
+            'MoveText',  # 9
+            'RemoveText',  # 10
+            'AddLine',  # 11
+            'MoveLine',  # 12
+            'RemoveLine',  # 13
+            'SetLineWidth',  # 14
+            'SetLineColor',  # 15
+            'SetLineArrow'  # 16
+        ]
+        app = App(app_tkinter_factory, package_names)
+
+        # Add green text box
+        package_numbers = (0, 5, 6)
+        request_models = ({'xy': (10, 10), 'wh': (100, 20), 'tags': 'tag1'},
+                          {'shape_id': 'tag1', 'color': 'light green'},
+                          {'xy': (10, 10), 'wh': (100, 20), 'text': 'Green Text', 'tags': 'tag1'},
+                          )
+        app.add_keyboard_shortcut(0, 'a', package_numbers, request_models, )
+        command_add_green_text_box = app.create_commands(package_numbers, request_models)
+        app.execute(command_add_green_text_box)
+        app.launch_app()
+
 
 if __name__ == '__main__':
     unittest.main()
