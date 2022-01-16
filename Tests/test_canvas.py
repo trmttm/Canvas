@@ -245,61 +245,38 @@ class MyTestCase(unittest.TestCase):
     def test_add_text_box(self):
         from main import App
         from app_tkinter import app_tkinter_factory
-        package_names = [
-            'AddRectangle',  # 0
-            'RemoveRectangle',  # 1
-            'MoveRectangle',  # 2
-            'SetBorderColor',  # 3
-            'SetBorderWidth',  # 4
-            'SetFillColor',  # 5
-            'AddText',  # 6
-            'SetTextColor',  # 7
-            'SetTextFontSize',  # 8
-            'MoveText',  # 9
-            'RemoveText',  # 10
-            'AddLine',  # 11
-            'MoveLine',  # 12
-            'RemoveLine',  # 13
-            'SetLineWidth',  # 14
-            'SetLineColor',  # 15
-            'SetLineArrow'  # 16
-        ]
+        from ComplexCommands import instructions as i
+        from ComplexCommands import package_names
+
         app = App(app_tkinter_factory, package_names)
 
         # Add TextBox
-        package_numbers = (0, 5, 6)
-        shape_id = 'tag1'
-        request_models = ({'xy': (10, 10), 'wh': (100, 20), 'tags': shape_id},
-                          {'shape_id': shape_id, 'color': 'light green'},
-                          {'xy': (10, 10), 'wh': (100, 20), 'text': 'Green Text', 'tags': shape_id},
-                          )
-        # by shortcut
-        app.add_keyboard_shortcut(0, 'a', package_numbers, request_models, )
+        instruction_green_tb = i.get_instructions_add_text_box('tag1', 'Green Text', 'light green', (10, 10), (100, 20))
+        instruction_orange_tb = i.get_instructions_add_text_box('tag2', 'Orange Text', 'orange', (10, 50), (100, 20))
+        # ...by shortcut
+        app.add_keyboard_shortcut(0, '1', *instruction_green_tb, )
+        app.add_keyboard_shortcut(0, '2', *instruction_orange_tb, )
 
-        # programmatically
-        command_add_green_text_box = app.create_commands(package_numbers, request_models)
+        # ...programmatically
+        command_add_green_text_box = app.create_commands(*instruction_green_tb)
         app.execute(command_add_green_text_box)
 
         # Move TextBox
-        shape_id = 'tag1'
-        delta = 10
-        package_numbers = (2, 9)
-        request_models = ({'shape_id': shape_id, 'delta_x': -delta, 'delta_y': 0, },
-                          {'shape_id': shape_id, 'delta_x': -delta, 'delta_y': 0, },
-                          )
-        app.add_keyboard_shortcut(0, 'Left', package_numbers, request_models, )
-        request_models = ({'shape_id': shape_id, 'delta_x': delta, 'delta_y': 0, },
-                          {'shape_id': shape_id, 'delta_x': delta, 'delta_y': 0, },
-                          )
-        app.add_keyboard_shortcut(0, 'Right', package_numbers, request_models, )
-        request_models = ({'shape_id': shape_id, 'delta_x': 0, 'delta_y': -delta, },
-                          {'shape_id': shape_id, 'delta_x': 0, 'delta_y': -delta, },
-                          )
-        app.add_keyboard_shortcut(0, 'Up', package_numbers, request_models, )
-        request_models = ({'shape_id': shape_id, 'delta_x': 0, 'delta_y': delta, },
-                          {'shape_id': shape_id, 'delta_x': 0, 'delta_y': delta, },
-                          )
-        app.add_keyboard_shortcut(0, 'Down', package_numbers, request_models, )
+        instruction_move_left = i.get_instruction_move_left('all', 10)
+        instruction_move_right = i.get_instruction_move_right('all', 10)
+        instruction_move_up = i.get_instruction_move_up('all', 10)
+        instruction_move_down = i.get_instruction_move_down('all', 10)
+        app.add_keyboard_shortcut(0, 'Left', *instruction_move_left, )
+        app.add_keyboard_shortcut(0, 'Right', *instruction_move_right)
+        app.add_keyboard_shortcut(0, 'Up', *instruction_move_up)
+        app.add_keyboard_shortcut(0, 'Down', *instruction_move_down)
+
+        # Mouse
+        from mouse import MouseController
+        mouse = MouseController()
+        app._app.bind_command_to_widget('canvas1', mouse.handle)
+        mouse.configure(0, app.execute_mouse, mouse.is_left_click, {})
+        mouse.configure(1, app.execute_mouse, mouse.is_left_drag, {'instructions': instruction_move_right})
 
         app.launch_app()
 

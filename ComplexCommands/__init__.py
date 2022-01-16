@@ -1,0 +1,19 @@
+package_names = [
+    'AddRectangle',  # 0
+    'RemoveRectangle',  # 1
+    'MoveRectangle',  # 2
+    'SetBorderColor',  # 3
+    'SetBorderWidth',  # 4
+    'SetFillColor',  # 5
+    'AddText',  # 6
+    'SetTextColor',  # 7
+    'SetTextFontSize',  # 8
+    'MoveText',  # 9
+    'RemoveText',  # 10
+    'AddLine',  # 11
+    'MoveLine',  # 12
+    'RemoveLine',  # 13
+    'SetLineWidth',  # 14
+    'SetLineColor',  # 15
+    'SetLineArrow'  # 16
+]

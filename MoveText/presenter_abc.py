@@ -11,7 +11,7 @@ class PresenterABC(abc.ABC):
     def attach(self, observer: Callable):
         self._observers.append(observer)
 
-    def present(self, shape_id, delta_x, delta_y):
+    def present(self, shape_id, delta_x, delta_y, **_):
         self.response_model = {
             'shape_id': shape_id,
             'delta_x': delta_x,
