@@ -147,11 +147,31 @@ class MyTestCase(unittest.TestCase):
             (modifier_command, 'BackSpace'): {'shape_id': 'line_1', 'package_number': 13},
             (no_modifier, 'q'): {'shape_id': 'line_1', 'width': 5, 'package_number': 14},
             (modifier_command, 'c'): {'shape_id': 'line_1', 'color': 'yellow', 'package_number': 15},
+            (modifier_option, 'Left'): {
+                'shape_id': 'line_1',
+                'arrow': 'start',
+                'package_number': 16
+            },
+            (modifier_option, 'Right'): {
+                'shape_id': 'line_1',
+                'arrow': 'end',
+                'package_number': 16
+            },
+            (modifier_option, 'Up'): {
+                'shape_id': 'line_1',
+                'arrow': 'both',
+                'package_number': 16
+            },
+            (modifier_option, 'Down'): {
+                'shape_id': 'line_1',
+                'arrow': None,
+                'package_number': 16
+            },
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText',
-                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth', 'SetLineColor']
+                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth', 'SetLineColor', 'SetLineArrow']
         command_factories = []
         presenters = []
         views = []
