@@ -1,2 +1,0 @@
-class RemoveLine:
-    pass

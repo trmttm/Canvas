@@ -144,11 +144,13 @@ class MyTestCase(unittest.TestCase):
                                  },
             (no_modifier, ';'): {'shape_id': 'line_1', 'coordinates_from': (20, 30), 'coordinates_to': (100, 100),
                                  'package_number': 12},
+            (modifier_command, 'BackSpace'): {'shape_id': 'line_1', 'package_number': 13},
+            (no_modifier, 'q'): {'shape_id': 'line_1', 'width': 5, 'package_number': 14},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText',
-                         'AddLine', 'MoveLine']
+                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth']
         command_factories = []
         presenters = []
         views = []
@@ -190,7 +192,7 @@ class MyTestCase(unittest.TestCase):
             presenter_ = request.get('presenter', None)
             if command_factory is not None and presenter_ is not None:
                 del request['presenter']
-                request.update({'coordinates_from':(10,10), 'coordinates_to':(request['x'], request['y'])})
+                request.update({'coordinates_from': (10, 10), 'coordinates_to': (request['x'], request['y'])})
                 command = command_factory(presenter_, request)
                 command.execute()
 
