@@ -5,9 +5,9 @@ class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory('light green')
+        app = app_tkinter_factory('light blue')
 
-        package_name = 'MoveLine'
+        package_name = 'RemoveLine'
         from importlib import import_module
         # Choose presenter & view
         presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
@@ -23,15 +23,8 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            request_model = None
             if modifiers == 8 and key == '1':
-                request_model = {'shape_id': (f'line_{0}',), 'coordinates_from': (100, 50), 'coordinates_to': (300, 50)}
-            elif modifiers == 8 and key == '2':
-                request_model = {'shape_id': (f'line_{1}',), 'coordinates_from': (100, 60), 'coordinates_to': (300, 60)}
-            elif modifiers == 8 and key == '3':
-                request_model = {'shape_id': (f'line_{3}',), 'coordinates_from': (100, 70), 'coordinates_to': (300, 70)}
-
-            if request_model is not None:
+                request_model = {'shape_id': (f'line_{1}',), }
                 command = controller_command_factory(presenter, request_model)
                 command.execute()
 
@@ -42,21 +35,15 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_click(request):
-            pass
+            request_model = {'shape_id': request['shape_id'], }
+            command = controller_command_factory(presenter, request_model)
+            command.execute()
 
-        def upon_mouse_drag(request):
-            shape_id = request.get('shape_id', None)
-            if shape_id is not None:
-                x, y = request['x'], request['y']
-                request_model = {'shape_id': shape_id, 'coordinates_from': (20, 20), 'coordinates_to': (x, y)}
-                command = controller_command_factory(presenter, request_model)
-                command.execute()
-
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
-        mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'shape_id': (f'line_{1}',), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), })
+        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'text_{6}',), })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
-        # Add line
+        # Add line to delete
         for i in range(10):
             view_model = {
                 'line_1': {'coordinate_from': (10, 10),
