@@ -133,10 +133,11 @@ class MyTestCase(unittest.TestCase):
                 'delta_y': 10,
                 'package_number': 9
             },
+            (no_modifier, 'BackSpace'): {'shape_id': 'text_1', 'package_number': 10},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
-                         'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText']
+                         'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText']
         command_factories = []
         presenters = []
         views = []
