@@ -5,7 +5,7 @@ class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory('light blue')
+        app = app_tkinter_factory('light grey')
 
         package_name = 'SetBorderColor'
         from importlib import import_module
@@ -23,11 +23,14 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
+            color = None
             if modifiers == 8 and key == '1':
-                request_model = {'shape_id': (1,), }
-                controller_command(presenter, request_model)
-            if key in tuple(str(i) for i in range(10)):
-                request_model = {'shape_id': (f'rect_{key}',), }
+                color = 'red'
+            elif modifiers == 8 and key == '2':
+                color = 'green'
+
+            if color is not None:
+                request_model = {'shape_id': (f'rect_{1}',), 'color': color}
                 controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)

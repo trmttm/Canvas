@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
-                request_model = {'shape_id': (1,), }
+                request_model = {'shape_id': (f'rect_{1}',), }
                 controller_command(presenter, request_model)
             if key in tuple(str(i) for i in range(10)):
                 request_model = {'shape_id': (f'rect_{key}',), }
