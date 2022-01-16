@@ -108,10 +108,11 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, '9'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 5},
             (no_modifier, 't'): {'tags': 'text_1', 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
             (no_modifier, 'c'): {'shape_id': 'text_1', 'color': 'red', 'package_number': 7},
+            (no_modifier, 'f'): {'shape_id': 'text_1', 'font_size': 15, 'package_number': 8},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
-                         'SetFillColor', 'AddText', 'SetTextColor']
+                         'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize']
         command_factories = []
         presenters = []
         views = []
