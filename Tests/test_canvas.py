@@ -2,7 +2,7 @@ import unittest
 
 
 class MyTestCase(unittest.TestCase):
-    def test_integrating_multiple_use_cases(self):
+    def test_integrating_basic_use_cases(self):
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('pink')
@@ -242,7 +242,7 @@ class MyTestCase(unittest.TestCase):
 
         app.launch_app()
 
-    def test_add_text_box(self):
+    def test_app_encapsulation(self):
         from main import App
         from app_tkinter import app_tkinter_factory
         from ComplexCommands import instructions as i
@@ -284,7 +284,7 @@ class MyTestCase(unittest.TestCase):
         instruction_add_line = (11,), ({'xy1': (10, 10),
                                         'xy2': (100, 100),
                                         'width': 3,
-                                        'color': 'red',
+                                        'color': 'green',
                                         'arrow_at_end': True,
                                         'tags': ('line_0',),
                                         'arrow': 'end',
