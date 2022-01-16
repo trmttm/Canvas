@@ -97,9 +97,12 @@ class MyTestCase(unittest.TestCase):
                 'delta_y': 10,
                 'package_number': 2
             },
+            (no_modifier, '1'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 3},
+            (no_modifier, '2'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 3},
+            (no_modifier, '3'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 3},
         }
 
-        package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle']
+        package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor']
         commands = []
         presenters = []
         views = []
