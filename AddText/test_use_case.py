@@ -5,16 +5,6 @@ class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         package_name = 'AddText'
         from importlib import import_module
-        color = {
-            1: 'black',
-            2: 'red',
-            3: 'blue',
-            4: 'yellow',
-            5: 'orange',
-            6: 'pink',
-            7: 'purple',
-        }
-
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('white')
@@ -36,7 +26,7 @@ class MyTestCase(unittest.TestCase):
             if modifiers == 8 and key == '1':
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'text': 'New Text!',
-                                 'tags': (f'text_1'), }
+                                 'tags': (f'text_1',), }
                 command = controller_command_factory(presenter, request_model)
                 command.execute()
 

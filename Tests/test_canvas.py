@@ -8,12 +8,12 @@ class MyTestCase(unittest.TestCase):
         app = app_tkinter_factory('pink')
 
         no_modifier = 0
-        modifier_add = 8
+        modifier_command = 8
         modifier_option = 16
 
         # (modifier, key): request_model
         keyboard_shortcut_map = {
-            (modifier_add, '0'): {
+            (modifier_command, '0'): {
                 'xy': (40, 10),
                 'wh': (50, 20),
                 'border_color': 'red',
@@ -22,7 +22,7 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_0',),
                 'package_number': 0,
             },
-            (modifier_add, '1'): {
+            (modifier_command, '1'): {
                 'xy': (40, 40),
                 'wh': (50, 20),
                 'border_color': 'green',
@@ -31,7 +31,7 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_1',),
                 'package_number': 0,
             },
-            (modifier_add, '2'): {
+            (modifier_command, '2'): {
                 'xy': (40, 70),
                 'wh': (50, 20),
                 'border_color': 'blue',
@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_2',),
                 'package_number': 0,
             },
-            (modifier_add, '3'): {
+            (modifier_command, '3'): {
                 'xy': (40, 100),
                 'wh': (50, 20),
                 'border_color': 'yellow',
@@ -49,7 +49,7 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_3',),
                 'package_number': 0,
             },
-            (modifier_add, '4'): {
+            (modifier_command, '4'): {
                 'xy': (40, 130),
                 'wh': (50, 20),
                 'border_color': 'orange',
@@ -58,7 +58,7 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_4',),
                 'package_number': 0,
             },
-            (modifier_add, '5'): {
+            (modifier_command, '5'): {
                 'xy': (40, 170),
                 'wh': (50, 20),
                 'border_color': 'pink',
@@ -106,11 +106,12 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, '7'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 5},
             (no_modifier, '8'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 5},
             (no_modifier, '9'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 5},
-            (no_modifier, 'a'): {'shape_id': 'text_1', 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
+            (no_modifier, 't'): {'tags': 'text_1', 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
+            (no_modifier, 'c'): {'shape_id': 'text_1', 'color': 'red', 'package_number': 7},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
-                         'SetFillColor', 'AddText']
+                         'SetFillColor', 'AddText', 'SetTextColor']
         command_factories = []
         presenters = []
         views = []

@@ -18,7 +18,6 @@ class PresenterABC(abc.ABC):
             'y': xy[1],
             'text': text,
             'tags': tags,
-
         }
         view_model = self.create_view_model()
         for observer in self._observers:
