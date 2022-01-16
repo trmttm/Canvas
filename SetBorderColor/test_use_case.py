@@ -28,9 +28,13 @@ class MyTestCase(unittest.TestCase):
                 color = 'red'
             elif modifiers == 8 and key == '2':
                 color = 'green'
+            elif modifiers == 8 and key == '3':
+                color = 'blue'
+            elif modifiers == 8 and key == '4':
+                color = 'yellow'
 
             if color is not None:
-                request_model = {'shape_id': (f'rect_{1}',), 'color': color}
+                request_model = {'shape_id': (f'rect_{8}',), 'color': color}
                 controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
