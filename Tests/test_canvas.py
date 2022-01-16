@@ -106,10 +106,11 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, '7'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 5},
             (no_modifier, '8'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 5},
             (no_modifier, '9'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 5},
+            (no_modifier, 'a'): {'shape_id': 'text_1', 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
-                         'SetFillColor']
+                         'SetFillColor', 'AddText']
         commands = []
         presenters = []
         views = []
@@ -145,17 +146,20 @@ class MyTestCase(unittest.TestCase):
         from mouse import MouseController
         mouse = MouseController()
 
-        def upon_mouse_click(request, ):
+        def upon_mouse_action(request, ):
             command = request['command']
-            if command is not None:
-                command(presenter, request)
+            presenter_ = request.get('presenter', None)
+            if command is not None and presenter_ is not None:
+                del request['presenter']
+                command(presenter_, request)
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
-                                                                   'command': None,
+        mouse.configure(0, upon_mouse_action, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
+                                                                    'command': None,
+                                                                    })
+        mouse.configure(1, upon_mouse_action, mouse.is_left_drag, {'shape_id': (f'rect_{1}',),
+                                                                   'command': commands[2],
+                                                                   'presenter': presenters[2],
                                                                    })
-        mouse.configure(1, upon_mouse_click, mouse.is_left_drag, {'shape_id': (f'rect_{1}',),
-                                                                  'command': commands[2],
-                                                                  })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         app.launch_app()
