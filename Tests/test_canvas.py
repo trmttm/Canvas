@@ -109,10 +109,34 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, 't'): {'tags': 'text_1', 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
             (no_modifier, 'c'): {'shape_id': 'text_1', 'color': 'red', 'package_number': 7},
             (no_modifier, 'f'): {'shape_id': 'text_1', 'font_size': 15, 'package_number': 8},
+            (modifier_command, 'Left'): {
+                'shape_id': 'text_1',
+                'delta_x': -10,
+                'delta_y': 0,
+                'package_number': 9
+            },
+            (modifier_command, 'Right'): {
+                'shape_id': 'text_1',
+                'delta_x': 10,
+                'delta_y': 0,
+                'package_number': 9
+            },
+            (modifier_command, 'Up'): {
+                'shape_id': 'text_1',
+                'delta_x': 0,
+                'delta_y': -10,
+                'package_number': 9
+            },
+            (modifier_command, 'Down'): {
+                'shape_id': 'text_1',
+                'delta_x': 0,
+                'delta_y': 10,
+                'package_number': 9
+            },
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
-                         'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize']
+                         'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText']
         command_factories = []
         presenters = []
         views = []
@@ -150,19 +174,27 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_action(request, ):
-            command = request['command']
+            command_factory = request['command_factory']
             presenter_ = request.get('presenter', None)
-            if command is not None and presenter_ is not None:
+            if command_factory is not None and presenter_ is not None:
                 del request['presenter']
-                command(presenter_, request)
+                command = command_factory(presenter_, request)
+                command.execute()
 
         mouse.configure(0, upon_mouse_action, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
-                                                                    'command': None,
+                                                                    'command_factory': None,
                                                                     })
         mouse.configure(1, upon_mouse_action, mouse.is_left_drag, {'shape_id': (f'rect_{1}',),
-                                                                   'command': command_factories[2],
+                                                                   'command_factory': command_factories[2],
                                                                    'presenter': presenters[2],
                                                                    })
+        mouse.configure(2, upon_mouse_action, mouse.is_right_click, {'shape_id': (f'text_{1}',),
+                                                                     'command_factory': None,
+                                                                     })
+        mouse.configure(3, upon_mouse_action, mouse.is_right_drag, {'shape_id': (f'text_{1}',),
+                                                                    'command_factory': command_factories[9],
+                                                                    'presenter': presenters[9],
+                                                                    })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         app.launch_app()
