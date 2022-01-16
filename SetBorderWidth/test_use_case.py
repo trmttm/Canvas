@@ -23,7 +23,7 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            width = 1
+            width = None
             if modifiers == 8 and key == '1':
                 width = 1
             elif modifiers == 8 and key == '2':
@@ -33,8 +33,9 @@ class MyTestCase(unittest.TestCase):
             elif modifiers == 8 and key == '4':
                 width = 4
 
-            request_model = {'shape_id': (f'rect_{8}',), 'width': width}
-            controller_command(presenter, request_model)
+            if width is not None:
+                request_model = {'shape_id': (f'rect_{8}',), 'width': width}
+                controller_command(presenter, request_model)
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
