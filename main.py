@@ -61,6 +61,21 @@ class App:
         request['delta_x'] /= n
         request['delta_y'] /= n
 
+        x_option = request.get('X', None)
+        y_option = request.get('Y', None)
+        xy_option = request.get('XY', None)
+        last_x_option = request.get('LAST_X', None)
+        last_y_option = request.get('LAST_Y', None)
+        last_xy_option = request.get('LAST_XY', None)
+        clicked_x_option = request.get('CLICKED_X', None)
+        clicked_y_option = request.get('CLICKED_Y', None)
+        clicked_xy_option = request.get('CLICKED_XY', None)
+        x = request['x']
+        y = request['y']
+        last_x = x - request['delta_x']
+        last_y = y - request['delta_y']
+        clicked_x, clicked_y = request['coordinates'][0]
+
         """
         Directly invokes presenter, as opposed to instantiating UseCases commands.
         This is because request_model cannot be determined until mouse input is provided.
@@ -68,6 +83,29 @@ class App:
         for package_number, request_model in zip(package_numbers, request_models):
             presenter_ = self._presenters[package_number]
             request_model.update(request)
+
+            """
+            Assign current mouse x,y to option dynamically.
+            """
+
+            if x_option is not None:
+                request_model[x_option] = x
+            if y_option is not None:
+                request_model[y_option] = y
+            if xy_option is not None:
+                request_model[xy_option] = x, y
+            if last_x_option is not None:
+                request_model[last_x_option] = last_x
+            if last_y_option is not None:
+                request_model[last_y_option] = last_y
+            if last_xy_option is not None:
+                request_model[last_xy_option] = last_x, last_y
+            if clicked_x_option is not None:
+                request_model[clicked_x_option] = clicked_x
+            if clicked_y_option is not None:
+                request_model[clicked_y_option] = clicked_y
+            if clicked_xy_option is not None:
+                request_model[clicked_xy_option] = clicked_x, clicked_y
             presenter_.present(**request_model)  # Directly invoking presenter
 
     def _assign_keyboard_shortcuts(self):

@@ -275,8 +275,30 @@ class MyTestCase(unittest.TestCase):
         from mouse import MouseController
         mouse = MouseController()
         app._app.bind_command_to_widget('canvas1', mouse.handle)
+
+        # Move Shapes
         mouse.configure(0, app.execute_mouse, mouse.is_left_click, {})
         mouse.configure(1, app.execute_mouse, mouse.is_left_drag, {'instructions': instruction_move_right})
+
+        # Draw Line
+        instruction_add_line = (11,), ({'xy1': (10, 10),
+                                        'xy2': (100, 100),
+                                        'width': 3,
+                                        'color': 'red',
+                                        'arrow_at_end': True,
+                                        'tags': ('line_0',),
+                                        'arrow': 'end',
+                                        },)
+        instruction_move_line = (12,), ({'shape_id': 'line_0', 'coordinates_from': None, 'coordinates_to': None},)
+        mouse.configure(2, app.execute_mouse, mouse.is_shift_left_click, {'instructions': instruction_add_line,
+                                                                          'save click coordinate': True,
+                                                                          'CLICKED_XY': 'xy1',
+                                                                          'XY': 'xy2',
+                                                                          })
+        mouse.configure(3, app.execute_mouse, mouse.is_shift_left_drag, {'instructions': instruction_move_line,
+                                                                         'CLICKED_XY': 'coordinates_from',
+                                                                         'XY': 'coordinates_to',
+                                                                         })
 
         app.launch_app()
 
