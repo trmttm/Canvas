@@ -146,11 +146,12 @@ class MyTestCase(unittest.TestCase):
                                  'package_number': 12},
             (modifier_command, 'BackSpace'): {'shape_id': 'line_1', 'package_number': 13},
             (no_modifier, 'q'): {'shape_id': 'line_1', 'width': 5, 'package_number': 14},
+            (modifier_command, 'c'): {'shape_id': 'line_1', 'color': 'yellow', 'package_number': 15},
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText',
-                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth']
+                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth', 'SetLineColor']
         command_factories = []
         presenters = []
         views = []
