@@ -33,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            if modifiers == 8 and key == 'a':
+            if modifiers == 8 and key == '1':
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'text': 'New Text!',
                                  'tags': (f'text_1'), }

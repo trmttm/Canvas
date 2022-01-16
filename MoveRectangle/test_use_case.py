@@ -34,6 +34,8 @@ class MyTestCase(unittest.TestCase):
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
             elif modifiers == 0 and key == 'Down':
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
+            elif modifiers == 8 and key == '1':
+                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
 
             controller_command(presenter, request_model)
 
