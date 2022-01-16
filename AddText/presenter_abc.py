@@ -12,11 +12,14 @@ class PresenterABC(abc.ABC):
     def attach(self, observer: Callable):
         self._observers.append(observer)
 
-    def present(self, xy: Tuple[int, int], text, tags):
+    def present(self, xy: Tuple[int, int], text, width, height, text_rotation, tags):
         self.response_model = {
             'x': xy[0],
             'y': xy[1],
             'text': text,
+            'width': width,
+            'height': height,
+            'text_rotation': text_rotation,
             'tags': tags,
         }
         view_model = self.create_view_model()
