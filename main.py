@@ -60,6 +60,11 @@ class App:
         # delta will be applied to the same tag n times.
         request['delta_x'] /= n
         request['delta_y'] /= n
+
+        """
+        Directly invokes presenter, as opposed to instantiating UseCases commands.
+        This is because request_model cannot be determined until mouse input is provided.
+        """
         for package_number, request_model in zip(package_numbers, request_models):
             presenter_ = self._presenters[package_number]
             request_model.update(request)
