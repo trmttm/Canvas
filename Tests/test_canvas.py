@@ -111,7 +111,7 @@ class MyTestCase(unittest.TestCase):
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText']
-        commands = []
+        command_factories = []
         presenters = []
         views = []
         for package_number, package_name in enumerate(package_names):
@@ -128,7 +128,7 @@ class MyTestCase(unittest.TestCase):
 
             # Define controller command
             controller_command = import_module(f'{package_name}.controller', '.').controller_command
-            commands.append(controller_command)
+            command_factories.append(controller_command)
 
         # Controller setting
         # Keyboard setting
@@ -136,9 +136,10 @@ class MyTestCase(unittest.TestCase):
             request_model = keyboard_shortcut_map.get((modifiers, key), None)
             if request_model is not None:
                 n = request_model.get('package_number')
-                command = commands[n]
+                command_factory = command_factories[n]
                 presenter_ = presenters[n]
-                command(presenter_, request_model)
+                command = command_factory(presenter_, request_model)
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -157,7 +158,7 @@ class MyTestCase(unittest.TestCase):
                                                                     'command': None,
                                                                     })
         mouse.configure(1, upon_mouse_action, mouse.is_left_drag, {'shape_id': (f'rect_{1}',),
-                                                                   'command': commands[2],
+                                                                   'command': command_factories[2],
                                                                    'presenter': presenters[2],
                                                                    })
         app.bind_command_to_widget('canvas1', mouse.handle)

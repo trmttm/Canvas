@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
         presenter.attach(view)
 
         # Define controller command
-        controller_command = import_module(f'{package_name}.controller', '.').controller_command
+        controller_command_factory = import_module(f'{package_name}.controller', '.').controller_command
 
         # Controller setting
         # Keyboard setting
@@ -39,14 +39,16 @@ class MyTestCase(unittest.TestCase):
                                  'border_color': 'red',
                                  'border_width': 1,
                                  'fill': 'light green', }
-                controller_command(presenter, request_model)
+                command = controller_command_factory(presenter, request_model)
+                command.execute()
             elif key in tuple(str(k) for k in range(9)):
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'wh': (50, 20),
                                  'border_color': color[int(key)],
                                  'border_width': 1,
                                  'fill': 'light green', }
-                controller_command(presenter, request_model)
+                command = controller_command_factory(presenter, request_model)
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -60,7 +62,8 @@ class MyTestCase(unittest.TestCase):
                              'border_color': 'red',
                              'border_width': 1,
                              'fill': 'light green', }
-            controller_command(presenter, request_model)
+            command = controller_command_factory(presenter, request_model)
+            command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)

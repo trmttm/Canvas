@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
         presenter.attach(view)
 
         # Define controller command
-        controller_command = import_module(f'{package_name}.controller', '.').controller_command
+        controller_command_factory = import_module(f'{package_name}.controller', '.').controller_command
 
         # Controller setting
         # Keyboard setting
@@ -37,7 +37,8 @@ class MyTestCase(unittest.TestCase):
             elif modifiers == 8 and key == '1':
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
 
-            controller_command(presenter, request_model)
+            command = controller_command_factory(presenter, request_model)
+            command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -51,7 +52,8 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_drag(request):
             r = request
             request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
-            controller_command(presenter, request_model)
+            command = controller_command_factory(presenter, request_model)
+            command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})
