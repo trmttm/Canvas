@@ -7,7 +7,7 @@ setup(
               'canvas.RemoveText', 'canvas.AddRectangle', 'canvas.SetFillColor', 'canvas.SetLineArrow',
               'canvas.SetLineColor', 'canvas.SetLineWidth', 'canvas.SetTextColor', 'canvas.MoveRectangle',
               'canvas.SetBorderColor', 'canvas.SetBorderWidth', 'canvas.ComplexCommands', 'canvas.RemoveRectangle',
-              'canvas.SetTextFontSize', 'canvas.ChangeRectangleShape',
+              'canvas.SetTextFontSize', 'canvas.ChangeRectangleShape', 'canvas.RequestModel',
               ],
     url='',
     license='',

@@ -2,7 +2,6 @@ from importlib import import_module
 from typing import Callable
 from typing import Iterable
 from typing import List
-from typing import Optional
 
 from interface_view import ViewABC
 
