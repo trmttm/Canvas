@@ -2,6 +2,7 @@ from importlib import import_module
 from typing import Callable
 from typing import Iterable
 from typing import List
+from typing import Optional
 
 from interface_view import ViewABC
 
@@ -10,8 +11,8 @@ class App:
     _package_number = 'package_number'
     _instructions = 'instructions'
 
-    def __init__(self, app_factory: Callable[[str], ViewABC], package_names: List[str]):
-        self._app = app_factory('dark gray')
+    def __init__(self, app_factory: Callable[[], ViewABC], package_names: List[str]):
+        self._app = app_factory()
         self._command_factories = []
         self._presenters = []
         self._views = []
