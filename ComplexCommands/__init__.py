@@ -16,4 +16,5 @@ package_names = [
     'SetLineWidth',  # 14
     'SetLineColor',  # 15
     'SetLineArrow'  # 16
+    'ChangeRectangleShape'  # 17
 ]
