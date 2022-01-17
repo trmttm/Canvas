@@ -1,0 +1,20 @@
+package_names = [
+    'canvas.AddRectangle',  # 0
+    'canvas.RemoveRectangle',  # 1
+    'canvas.MoveRectangle',  # 2
+    'canvas.SetBorderColor',  # 3
+    'canvas.SetBorderWidth',  # 4
+    'canvas.SetFillColor',  # 5
+    'canvas.AddText',  # 6
+    'canvas.SetTextColor',  # 7
+    'canvas.SetTextFontSize',  # 8
+    'canvas.MoveText',  # 9
+    'canvas.RemoveText',  # 10
+    'canvas.AddLine',  # 11
+    'canvas.MoveLine',  # 12
+    'canvas.RemoveLine',  # 13
+    'canvas.SetLineWidth',  # 14
+    'canvas.SetLineColor',  # 15
+    'canvas.SetLineArrow',  # 16
+    'canvas.ChangeRectangleShape'  # 17
+]

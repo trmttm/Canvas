@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-    name='Canvas',
-    version='',
-    packages=['src', 'src.AddLine', 'src.AddText', 'src.MoveLine', 'src.MoveText', 'src.RemoveLine', 'src.RemoveText',
-              'src.AddRectangle', 'src.SetFillColor', 'src.SetLineArrow', 'src.SetLineColor', 'src.SetLineWidth',
-              'src.SetTextColor', 'src.MoveRectangle', 'src.SetBorderColor', 'src.SetBorderWidth',
-              'src.ComplexCommands', 'src.RemoveRectangle', 'src.SetTextFontSize', 'src.ChangeRectangleShape',
+    name='canvas',
+    version='1.0',
+    packages=['canvas', 'canvas.AddLine', 'canvas.AddText', 'canvas.MoveLine', 'canvas.MoveText', 'canvas.RemoveLine', 'canvas.RemoveText',
+              'canvas.AddRectangle', 'canvas.SetFillColor', 'canvas.SetLineArrow', 'canvas.SetLineColor', 'canvas.SetLineWidth',
+              'canvas.SetTextColor', 'canvas.MoveRectangle', 'canvas.SetBorderColor', 'canvas.SetBorderWidth',
+              'canvas.ComplexCommands', 'canvas.RemoveRectangle', 'canvas.SetTextFontSize', 'canvas.ChangeRectangleShape',
               ],
     url='',
     license='',

@@ -174,10 +174,10 @@ class MyTestCase(unittest.TestCase):
                                  },
         }
 
-        package_names = ['src.AddRectangle', 'src.RemoveRectangle', 'src.MoveRectangle', 'src.SetBorderColor',
-                         'src.SetBorderWidth', 'src.SetFillColor', 'src.AddText', 'src.SetTextColor',
-                         'src.SetTextFontSize', 'src.SetLineWidth', 'src.SetLineColor', 'src.SetLineArrow',
-                         'src.ChangeRectangleShape']
+        package_names = ['canvas.AddRectangle', 'canvas.RemoveRectangle', 'canvas.MoveRectangle', 'canvas.SetBorderColor',
+                         'canvas.SetBorderWidth', 'canvas.SetFillColor', 'canvas.AddText', 'canvas.SetTextColor',
+                         'canvas.SetTextFontSize', 'canvas.SetLineWidth', 'canvas.SetLineColor', 'canvas.SetLineArrow',
+                         'canvas.ChangeRectangleShape']
         command_factories = []
         presenters = []
         views = []
@@ -251,8 +251,8 @@ class MyTestCase(unittest.TestCase):
     def test_app_encapsulation(self):
         from main import App
         from app_tkinter import app_tkinter_factory
-        from src.ComplexCommands import instructions as i
-        from src.ComplexCommands import package_names
+        from canvas.ComplexCommands import instructions as i
+        from canvas.ComplexCommands import package_names
 
         app = App(app_tkinter_factory, package_names)
 
