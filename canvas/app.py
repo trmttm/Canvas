@@ -116,6 +116,9 @@ class App:
 
         self._app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
+    def bind_command_to_widget(self, widget_id, command):
+        self._app.bind_command_to_widget(widget_id, command)
+
     def launch_app(self):
         self._assign_keyboard_shortcuts()
         self._app.launch_app()
