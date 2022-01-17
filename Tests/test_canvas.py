@@ -249,7 +249,7 @@ class MyTestCase(unittest.TestCase):
         app.launch_app()
 
     def test_app_encapsulation(self):
-        from main import App
+        from canvas.main import App
         from app_tkinter import app_tkinter_factory
         from canvas.ComplexCommands import instructions as i
         from canvas.ComplexCommands import package_names
