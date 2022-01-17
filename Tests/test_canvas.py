@@ -167,11 +167,17 @@ class MyTestCase(unittest.TestCase):
                 'arrow': None,
                 'package_number': 16
             },
+            (no_modifier, 'z'): {'coordinates_from': (100, 100),
+                                 'coordinates_to': (250, 250),
+                                 'shape_id': 'rect_1',
+                                 'package_number': 17
+                                 },
         }
 
         package_names = ['AddRectangle', 'RemoveRectangle', 'MoveRectangle', 'SetBorderColor', 'SetBorderWidth',
                          'SetFillColor', 'AddText', 'SetTextColor', 'SetTextFontSize', 'MoveText', 'RemoveText',
-                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth', 'SetLineColor', 'SetLineArrow']
+                         'AddLine', 'MoveLine', 'RemoveLine', 'SetLineWidth', 'SetLineColor', 'SetLineArrow',
+                         'ChangeRectangleShape']
         command_factories = []
         presenters = []
         views = []

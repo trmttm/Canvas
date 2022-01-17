@@ -7,7 +7,7 @@ class MyTestCase(unittest.TestCase):
         from app_tkinter import app_tkinter_factory
         app = app_tkinter_factory('light green')
 
-        package_name = 'MoveRectangle'
+        package_name = 'ChangeRectangleShape'
         from importlib import import_module
         # Choose presenter & view
         presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
@@ -23,22 +23,17 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            delta_x = 10
-            delta_y = 10
-            request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': 0}
-            if modifiers == 0 and key == 'Left':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': -delta_x, 'delta_y': 0}
-            elif modifiers == 0 and key == 'Right':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': 0}
-            elif modifiers == 0 and key == 'Up':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
-            elif modifiers == 0 and key == 'Down':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
-            elif modifiers == 8 and key == '1':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
+            request_model = None
+            if modifiers == 8 and key == '1':
+                request_model = {'shape_id': (f'rect_{0}',), 'coordinates_from': (10, 50), 'coordinates_to': (99, 150)}
+            elif modifiers == 8 and key == '2':
+                request_model = {'shape_id': (f'rect_{1}',), 'coordinates_from': (10, 60), 'coordinates_to': (99, 160)}
+            elif modifiers == 8 and key == '3':
+                request_model = {'shape_id': (f'rect_{3}',), 'coordinates_from': (10, 70), 'coordinates_to': (99, 170)}
 
-            command = controller_command_factory(presenter, request_model)
-            command.execute()
+            if request_model is not None:
+                command = controller_command_factory(presenter, request_model)
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -50,18 +45,18 @@ class MyTestCase(unittest.TestCase):
             pass
 
         def upon_mouse_drag(request):
-            r = request
-            request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
-            command = controller_command_factory(presenter, request_model)
-            command.execute()
+            shape_id = request.get('shape_id', None)
+            if shape_id is not None:
+                x, y = request['x'], request['y']
+                request_model = {'shape_id': shape_id, 'coordinates_from': (20, 20), 'coordinates_to': (x, y)}
+                command = controller_command_factory(presenter, request_model)
+                command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
-        mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})
         mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'shape_id': (f'rect_{1}',), })
-        mouse.configure(3, upon_mouse_drag, mouse.is_shift_left_drag, {'shape_id': (f'rect_{2}',), })
         app.bind_command_to_widget('canvas1', mouse.handle)
 
-        # Add rectangles
+        # Add rectangles to delete
         for i in range(10):
             view_model = {'x': 40,
                           'y': 10 + i * 30,
