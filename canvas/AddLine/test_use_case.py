@@ -7,7 +7,6 @@ class MyTestCase(unittest.TestCase):
         from importlib import import_module
         # Choose App/Main
         from app_tkinter import app_tkinter_factory
-        from canvas.AddLine.request_model import get_request_model
         app = app_tkinter_factory('white')
 
         # Choose presenter & view
