@@ -174,10 +174,10 @@ class MyTestCase(unittest.TestCase):
                                  },
         }
 
-        package_names = ['canvas.AddRectangle', 'canvas.RemoveRectangle', 'canvas.MoveRectangle', 'canvas.SetBorderColor',
-                         'canvas.SetBorderWidth', 'canvas.SetFillColor', 'canvas.AddText', 'canvas.SetTextColor',
-                         'canvas.SetTextFontSize', 'canvas.SetLineWidth', 'canvas.SetLineColor', 'canvas.SetLineArrow',
-                         'canvas.ChangeRectangleShape']
+        package_names = ['use_cases.AddRectangle', 'use_cases.RemoveRectangle', 'use_cases.MoveRectangle', 'use_cases.SetBorderColor',
+                         'use_cases.SetBorderWidth', 'use_cases.SetFillColor', 'use_cases.AddText', 'use_cases.SetTextColor',
+                         'use_cases.SetTextFontSize', 'use_cases.SetLineWidth', 'use_cases.SetLineColor', 'use_cases.SetLineArrow',
+                         'use_cases.ChangeRectangleShape']
         command_factories = []
         presenters = []
         views = []
@@ -249,10 +249,10 @@ class MyTestCase(unittest.TestCase):
         app.launch_app()
 
     def test_app_encapsulation(self):
-        from canvas.app import App
+        from use_cases.app import App
         from app_tkinter import app_tkinter_factory
-        from canvas.ComplexCommands import instructions as i
-        from canvas import package_names
+        from use_cases.ComplexCommands import instructions as i
+        from use_cases import package_names
 
         app = App(app_tkinter_factory, package_names)
 
