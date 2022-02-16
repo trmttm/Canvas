@@ -11,11 +11,9 @@ class PresenterABC(abc.ABC):
     def attach(self, observer: Callable):
         self._observers.append(observer)
 
-    def present(self, shape_id, arrow, **_):
-        self.response_model = {shape_id: arrow, }
-        view_model = self.create_view_model()
-        for observer in self._observers:
-            observer(view_model)
+    @abc.abstractmethod
+    def present(self, *args, **kwargs):
+        pass
 
     @abc.abstractmethod
     def create_view_model(self):

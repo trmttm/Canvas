@@ -6,7 +6,7 @@ from typing import List
 from interface_view import ViewABC
 
 from entities import Entities
-from .use_cases.use_case_abc import UseCaseABC
+from use_cases.use_case_abc import UseCaseABC
 
 
 class App:
