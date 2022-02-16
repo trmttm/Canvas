@@ -4,8 +4,11 @@ from typing import Iterable
 from typing import List
 
 from interface_view import ViewABC
+from view_tkinter import View
+from view_tkinter import tk_interface as intf
 
 from entities import Entities
+from use_cases import package_names
 from use_cases.use_case_abc import UseCaseABC
 
 
@@ -137,3 +140,18 @@ class App:
     def launch_app(self):
         self._assign_keyboard_shortcuts()
         self._app.launch_app()
+
+
+def get_app(view_model=None) -> App:
+    return App(lambda: app_tkinter_factory(view_model), package_names)
+
+
+def app_tkinter_factory(view_model=None):
+    view = View()
+    if view_model is None:
+        view_model = [
+            intf.widget_model('root', 'canvas1', 'use_cases', 0, 0, 0, 0, 'nsew', **{'bg': 'white'})
+        ]
+    view.add_widgets(view_model)
+    view.switch_canvas('canvas1')
+    return view

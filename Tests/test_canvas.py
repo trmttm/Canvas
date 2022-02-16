@@ -254,7 +254,7 @@ class MyTestCase(unittest.TestCase):
     def test_app_encapsulation(self):
         from app import App
         from app_tkinter import app_tkinter_factory
-        from use_cases.ComplexCommands import instructions as i
+        from complex_commands import instructions as i
         from use_cases import package_names
 
         app = App(app_tkinter_factory, package_names)
