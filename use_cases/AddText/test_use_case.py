@@ -28,7 +28,7 @@ class MyTestCase(unittest.TestCase):
                                  'text': 'New Text!',
                                  'tags': (f'text_1',), }
                 command = controller_command_factory(presenter, request_model)
-                command.execute()
+                command.update_entities()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -41,7 +41,7 @@ class MyTestCase(unittest.TestCase):
                              'text': 'New Text by mouse!',
                              'tabs': 'text_1', }
             command = controller_command_factory(presenter, request_model)
-            command.execute()
+            command.update_entities()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)

@@ -206,7 +206,7 @@ class MyTestCase(unittest.TestCase):
                 command_factory = command_factories[n]
                 presenter_ = presenters[n]
                 command = command_factory(presenter_, request_model)
-                command.execute()
+                command.update_entities()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -221,7 +221,7 @@ class MyTestCase(unittest.TestCase):
                 del request['presenter']
                 request.update({'coordinates_from': (10, 10), 'coordinates_to': (request['x'], request['y'])})
                 command = command_factory(presenter_, request)
-                command.execute()
+                command.update_entities()
 
         mouse.configure(0, upon_mouse_action, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
                                                                     'command_factory': None,

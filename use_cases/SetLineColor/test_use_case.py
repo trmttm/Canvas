@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
             if color is not None:
                 request_model = {'shape_id': (f'line_{8}',), 'color': color}
                 command = controller_command_factory(presenter, request_model)
-                command.execute()
+                command.update_entities()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -47,7 +47,7 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_click(request):
             request_model = {'shape_id': request['shape_id'], }
             command = controller_command_factory(presenter, request_model)
-            command.execute()
+            command.update_entities()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), })
         mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'text_{6}',), })

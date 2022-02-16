@@ -12,7 +12,13 @@ class SetFillColor(UseCaseABC):
     def set_entities(self, entities):
         self._entities = entities
 
-    def execute(self):
+    def update_entities(self):
         if self._presenter is None:
             return
-        self._presenter.present(self._shape_id, self._color)
+
+        args = self._shape_id, self._color
+        self._update_entities(*args)
+        self._presenter.present(*args)
+
+    def _update_entities(self, *args, **kwargs):
+        pass

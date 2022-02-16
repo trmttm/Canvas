@@ -32,7 +32,8 @@ class MyTestCase(unittest.TestCase):
                                  'tags': ('line_1',),
                                  }
                 command = controller_command_factory(presenter, request_model)
-                command.execute()
+                command.update_entities()
+                command.present()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -49,6 +50,8 @@ class MyTestCase(unittest.TestCase):
                              'tags': ('line_1',),
                              }
             command = controller_command_factory(presenter, request_model)
+            # command.update_entities()
+            # command.present()
             command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
