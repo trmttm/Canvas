@@ -5,6 +5,8 @@ from ..use_case_abc import UseCaseABC
 
 class MoveLine(UseCaseABC):
     def __init__(self, presenter: PresenterABC, shape_id, coordinates_from, coordinates_to, **_):
+        UseCaseABC.__init__(self)
+
         self._presenter = presenter
         self._shape_id = shape_id
         self._coordinates_from = coordinates_from
@@ -18,8 +20,12 @@ class MoveLine(UseCaseABC):
             return
 
         args = self._shape_id, self._coordinates_from, self._coordinates_to
-        self._update_entities(*args)
-        self._presenter.present(*args)
+        self._set_response_model(*args)
 
-    def _update_entities(self, *args, **kwargs):
-        pass
+    def _set_response_model(self, *args, **kwargs):
+        self._response_model = args
+
+    def present(self):
+        if self._presenter is None:
+            return
+        self._presenter.present(*self._response_model)

@@ -38,7 +38,7 @@ class MyTestCase(unittest.TestCase):
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
 
             command = controller_command_factory(presenter, request_model)
-            command.update_entities()
+            command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -53,7 +53,7 @@ class MyTestCase(unittest.TestCase):
             r = request
             request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
             command = controller_command_factory(presenter, request_model)
-            command.update_entities()
+            command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})

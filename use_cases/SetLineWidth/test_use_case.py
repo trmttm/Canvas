@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
             if width is not None:
                 request_model = {'shape_id': (f'line_{0}',), 'width': width}
                 command = controller_command_factory(presenter, request_model)
-                command.update_entities()
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -47,7 +47,7 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_click(request):
             request_model = {'shape_id': request['shape_id'], }
             command = controller_command_factory(presenter, request_model)
-            command.update_entities()
+            command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'rect_{5}',), })
         mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'rect_{6}',), })

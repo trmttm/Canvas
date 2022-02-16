@@ -21,13 +21,15 @@ class AddText(UseCaseABC):
         self._entities = entities
 
     def update_entities(self):
-        if self._presenter is None:
-            return
         width, height = self._wh
 
         args = self._xy, self._text, width, height, self._text_rotation, self._tags
-        self._update_entities(*args)
-        self._presenter.present(*args)
+        self._set_response_model(*args)
 
-    def _update_entities(self, *args, **kwargs):
-        pass
+    def _set_response_model(self, *args, **kwargs):
+        self._response_model = args
+
+    def present(self):
+        if self._presenter is None:
+            return
+        self._presenter.present(*self._response_model)

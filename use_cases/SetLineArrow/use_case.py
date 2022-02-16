@@ -12,6 +12,8 @@ class SetLineArrow(UseCaseABC):
         :param arrow: 'start', 'end', 'both', or None
         :param _:
         """
+        UseCaseABC.__init__(self)
+
         self._presenter = presenter
         self._shape_id = shape_id
         self._arrow = arrow
@@ -24,8 +26,12 @@ class SetLineArrow(UseCaseABC):
             return
 
         args = self._shape_id, self._arrow
-        self._update_entities(*args)
-        self._presenter.present(*args)
+        self._set_response_model(*args)
 
-    def _update_entities(self, *args, **kwargs):
-        pass
+    def _set_response_model(self, *args, **kwargs):
+        self._response_model = args
+
+    def present(self):
+        if self._presenter is None:
+            return
+        self._presenter.present(*self._response_model)

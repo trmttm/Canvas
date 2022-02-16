@@ -27,14 +27,13 @@ class AddLine(UseCaseABC):
         self._entities = entities
 
     def update_entities(self):
-        if self._presenter is None:
-            return
-
         args = self._xy1, self._xy2, self._color, self._width, self._tags, self._arrow
-        self._update_entities(*args)
+        self._set_response_model(*args)
 
-    def _update_entities(self, *args, **kwargs):
+    def _set_response_model(self, *args, **kwargs):
         self._response_model = args
 
     def present(self):
+        if self._presenter is None:
+            return
         self._presenter.present(*self._response_model)

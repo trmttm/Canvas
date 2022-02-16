@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
                                  'border_width': 1,
                                  'fill': 'light green', }
                 command = controller_command_factory(presenter, request_model)
-                command.update_entities()
+                command.execute()
             elif key in tuple(str(k) for k in range(9)):
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'wh': (50, 20),
@@ -48,7 +48,7 @@ class MyTestCase(unittest.TestCase):
                                  'border_width': 1,
                                  'fill': 'light green', }
                 command = controller_command_factory(presenter, request_model)
-                command.update_entities()
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -63,7 +63,7 @@ class MyTestCase(unittest.TestCase):
                              'border_width': 1,
                              'fill': 'light green', }
             command = controller_command_factory(presenter, request_model)
-            command.update_entities()
+            command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
         app.bind_command_to_widget('canvas1', mouse.handle)

@@ -174,9 +174,12 @@ class MyTestCase(unittest.TestCase):
                                  },
         }
 
-        package_names = ['use_cases.AddRectangle', 'use_cases.RemoveRectangle', 'use_cases.MoveRectangle', 'use_cases.SetBorderColor',
-                         'use_cases.SetBorderWidth', 'use_cases.SetFillColor', 'use_cases.AddText', 'use_cases.SetTextColor',
-                         'use_cases.SetTextFontSize', 'use_cases.SetLineWidth', 'use_cases.SetLineColor', 'use_cases.SetLineArrow',
+        package_names = ['use_cases.AddRectangle', 'use_cases.RemoveRectangle', 'use_cases.MoveRectangle',
+                         'use_cases.SetBorderColor',
+                         'use_cases.SetBorderWidth', 'use_cases.SetFillColor', 'use_cases.AddText',
+                         'use_cases.SetTextColor',
+                         'use_cases.SetTextFontSize', 'use_cases.SetLineWidth', 'use_cases.SetLineColor',
+                         'use_cases.SetLineArrow',
                          'use_cases.ChangeRectangleShape']
         command_factories = []
         presenters = []
@@ -206,7 +209,7 @@ class MyTestCase(unittest.TestCase):
                 command_factory = command_factories[n]
                 presenter_ = presenters[n]
                 command = command_factory(presenter_, request_model)
-                command.update_entities()
+                command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -221,7 +224,7 @@ class MyTestCase(unittest.TestCase):
                 del request['presenter']
                 request.update({'coordinates_from': (10, 10), 'coordinates_to': (request['x'], request['y'])})
                 command = command_factory(presenter_, request)
-                command.update_entities()
+                command.execute()
 
         mouse.configure(0, upon_mouse_action, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
                                                                     'command_factory': None,

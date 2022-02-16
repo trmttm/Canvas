@@ -16,12 +16,13 @@ class ChangeRectangleShape(UseCaseABC):
         self._entities = entities
 
     def update_entities(self):
+        args = self._shape_id, self._coordinates_from, self._coordinates_to
+        self._set_response_model(*args)
+
+    def _set_response_model(self, *args, **kwargs):
+        self._response_model = args
+
+    def present(self):
         if self._presenter is None:
             return
-
-        args = self._shape_id, self._coordinates_from, self._coordinates_to
-        self._update_entities(*args)
-        self._presenter.present(*args)
-
-    def _update_entities(self, *args, **kwargs):
-        pass
+        self._presenter.present(*self._response_model)

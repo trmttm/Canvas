@@ -4,6 +4,8 @@ from ..use_case_abc import UseCaseABC
 
 class MoveRectangle(UseCaseABC):
     def __init__(self, presenter: PresenterABC, shape_id, delta_x, delta_y, **_):
+        UseCaseABC.__init__(self)
+
         self._presenter = presenter
         self._shape_id = shape_id
         self._delta_x = delta_x
@@ -17,8 +19,12 @@ class MoveRectangle(UseCaseABC):
             return
 
         args = self._shape_id, self._delta_x, self._delta_y
-        self._update_entities(*args)
-        self._presenter.present(*args)
+        self._set_response_model(*args)
 
-    def _update_entities(self, *args, **kwargs):
-        pass
+    def _set_response_model(self, *args, **kwargs):
+        self._response_model = args
+
+    def present(self):
+        if self._presenter is None:
+            return
+        self._presenter.present(*self._response_model)

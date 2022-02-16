@@ -56,12 +56,12 @@ class App:
     @staticmethod
     def execute(commands: Iterable):
         for command in commands:
-            command.update_entities()
+            command.execute()
 
     def execute_mouse(self, request):
         package_numbers, request_models = request.get(self._instructions, ((), ()))
         n = max(len(package_numbers), 1)
-        # delta will be applied to the same tag n times.
+        # delta will be applied to the same tag n times. So divide by n.
         request['delta_x'] /= n
         request['delta_y'] /= n
 
@@ -116,7 +116,7 @@ class App:
         def keyboard_shortcut_handler(modifiers: int, key: str):
             commands = self._keyboard_shortcut_map.get((modifiers, key), ())
             for command in commands:
-                command.update_entities()
+                command.execute()
 
         self._app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
