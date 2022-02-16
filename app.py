@@ -5,6 +5,8 @@ from typing import List
 
 from interface_view import ViewABC
 
+from .entities import Entities
+
 
 class App:
     _package_number = 'package_number'
@@ -15,6 +17,7 @@ class App:
         self._command_factories = []
         self._presenters = []
         self._views = []
+        self._entities = Entities()
         for package_number, package_name in enumerate(package_names):
             # Choose presenter & view
             presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
@@ -47,6 +50,7 @@ class App:
         command_factory = self._command_factories[package_number]
         presenter_ = self._presenters[package_number]
         command = command_factory(presenter_, request_model)
+        command.set_entities(self._entities)
         return command
 
     @staticmethod
