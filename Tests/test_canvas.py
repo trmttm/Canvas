@@ -262,9 +262,11 @@ class MyTestCase(unittest.TestCase):
         # Add TextBox
         instruction_green_tb = i.get_instructions_add_text_box('tag1', 'Green Text', 'light green', (10, 10), (100, 20))
         instruction_orange_tb = i.get_instructions_add_text_box('tag2', 'Orange Text', 'orange', (10, 50), (100, 20))
+        instruction_remove_all = i.get_instructions_remove_all()
         # ...by shortcut
         app.add_keyboard_shortcut(0, '1', *instruction_green_tb, )
         app.add_keyboard_shortcut(0, '2', *instruction_orange_tb, )
+        app.add_keyboard_shortcut(0, '3', *instruction_remove_all, )
 
         # ...programmatically
         command_add_green_text_box = app.create_commands(*instruction_green_tb)
@@ -310,6 +312,9 @@ class MyTestCase(unittest.TestCase):
                                                                          })
 
         app.launch_app()
+
+    def test_entities_implementation(self):
+        pass
 
 
 if __name__ == '__main__':
