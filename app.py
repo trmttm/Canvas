@@ -6,6 +6,7 @@ from typing import List
 from interface_view import ViewABC
 
 from entities import Entities
+from .use_cases.use_case_abc import UseCaseABC
 
 
 class App:
@@ -54,7 +55,17 @@ class App:
         return command
 
     @staticmethod
-    def execute(commands: Iterable):
+    def update_entities(commands: Iterable[UseCaseABC]):
+        for command in commands:
+            command.update_entities()
+
+    @staticmethod
+    def present(commands: Iterable[UseCaseABC]):
+        for command in commands:
+            command.present()
+
+    @staticmethod
+    def execute(commands: Iterable[UseCaseABC]):
         for command in commands:
             command.execute()
 
