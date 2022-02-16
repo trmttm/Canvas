@@ -5,7 +5,7 @@ from typing import List
 
 from interface_view import ViewABC
 
-from .entities import Entities
+from entities import Entities
 
 
 class App:
