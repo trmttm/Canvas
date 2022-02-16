@@ -19,7 +19,7 @@ from .SetLineWidth.request_model import get_request_model as rm14
 from .SetLineColor.request_model import get_request_model as rm15
 from .SetLineArrow.request_model import get_request_model as rm16
 from .ChangeRectangleShape.request_model import get_request_model as rm17
-from .app import App
+from app import App
 
 package_names = [
     'use_cases.AddRectangle',  # 0

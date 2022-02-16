@@ -1,9 +1,10 @@
 from typing import Tuple
 
 from .presenter_abc import PresenterABC
+from ..use_case_abc import UseCaseABC
 
 
-class AddLine:
+class AddLine(UseCaseABC):
     def __init__(self, presenter: PresenterABC, xy1: Tuple[int, int], xy2: Tuple[int, int], color='black', width=2,
                  arrow_at_start=False, arrow_at_end=False, tags=(), **_):
         self._presenter = presenter
@@ -19,6 +20,9 @@ class AddLine:
             self._arrow = 'start'
         elif arrow_at_end:
             self._arrow = 'end'
+
+    def set_entities(self, entities):
+        self._entities = entities
 
     def execute(self):
         if self._presenter is None:

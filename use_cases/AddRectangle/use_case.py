@@ -1,9 +1,10 @@
 from typing import Tuple
 
 from .presenter_abc import PresenterABC
+from ..use_case_abc import UseCaseABC
 
 
-class AddRectangle:
+class AddRectangle(UseCaseABC):
     def __init__(self, presenter: PresenterABC = None, xy: Tuple[int, int] = (20, 20),
                  wh: Tuple[int, int] = (50, 20), border_color='black', border_width=2, fill='white', tags=(), **_):
         self._presenter = presenter
@@ -13,6 +14,9 @@ class AddRectangle:
         self._border_width = border_width
         self._fill = fill
         self._tags = tags
+
+    def set_entities(self, entities):
+        self._entities = entities
 
     def execute(self):
         if self._presenter is None:

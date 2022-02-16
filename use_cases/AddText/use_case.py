@@ -1,9 +1,10 @@
 from typing import Tuple
 
 from .presenter_abc import PresenterABC
+from ..use_case_abc import UseCaseABC
 
 
-class AddText:
+class AddText(UseCaseABC):
     def __init__(self, presenter: PresenterABC = None, xy: Tuple[int, int] = (20, 20), text: str = 'text',
                  wh: Tuple[int, int] = (0, 0), text_rotation=0, tags=(),
                  **_):
@@ -13,6 +14,9 @@ class AddText:
         self._wh = wh
         self._text_rotation = text_rotation
         self._tags = tags
+
+    def set_entities(self, entities):
+        self._entities = entities
 
     def execute(self):
         if self._presenter is None:
