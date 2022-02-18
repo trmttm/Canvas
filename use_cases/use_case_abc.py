@@ -11,10 +11,6 @@ class UseCaseABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def _set_response_model(self, *args, **kwargs):
-        pass
-
-    @abc.abstractmethod
     def update_entities(self):
         pass
 

@@ -31,7 +31,8 @@ class MyTestCase(unittest.TestCase):
                                  'arrow_at_end': True,
                                  'tags': ('line_1',),
                                  }
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter)
+                command.configure(**request_model)
                 command.update_entities()
                 command.present()
 
