@@ -1,5 +1,7 @@
 import unittest
 
+from use_cases_hl.add_new_text_box import AddNewTextBox
+
 
 class MyTestCase(unittest.TestCase):
     def test_integrating_basic_use_cases(self):
@@ -314,7 +316,17 @@ class MyTestCase(unittest.TestCase):
         app.launch_app()
 
     def test_entities_implementation(self):
-        pass
+        from app import App
+        from app_tkinter import app_tkinter_factory
+        from use_cases import package_names
+        from entities import Entities
+
+        app = App(app_tkinter_factory, package_names)
+        entities = Entities()
+        add_light_blue_rectangle = AddNewTextBox(app, entities, fill_color='light blue', wh=(150, 20))
+        app.add_keyboard_shortcut_commands(0, '1', [add_light_blue_rectangle])
+
+        app.launch_app()
 
 
 if __name__ == '__main__':
