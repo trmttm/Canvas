@@ -10,10 +10,12 @@ from use_cases import rm13
 
 def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
     package_numbers = (0, 5, 6)
+    rectangle_id = f'rectangle_{shape_id}'
+    text_id = f'text_{shape_id}'
     request_models = (
-        rm00(xy, wh, tags=shape_id),
-        rm05(shape_id, fill_color),
-        rm06(xy, text, wh, tags=shape_id),
+        rm00(xy, wh, tags=rectangle_id),
+        rm05(rectangle_id, fill_color),
+        rm06(xy, text, wh, tags=text_id),
     )
     return package_numbers, request_models
 
