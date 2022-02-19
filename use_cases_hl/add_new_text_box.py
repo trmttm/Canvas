@@ -1,4 +1,5 @@
 from app import App
+from complex_commands import instructions as i
 from entities import Entities
 
 
@@ -16,12 +17,7 @@ class AddNewTextBox:
         self._options.update(options)
 
     def update_entities(self):
-        from complex_commands import instructions as i
-
         new_shape_id = self._entities.shapes.add_text_box(**self._options)
-        self._entities.selection.select(new_shape_id)
-        xy = self._options['xy']
-        self.configure(xy=(xy[0], xy[1] + 20))
         instruction = i.get_instructions_add_text_box(new_shape_id, **self._options)
         self._commands = self._app.create_commands(*instruction)
         self._app.update_entities(self._commands)

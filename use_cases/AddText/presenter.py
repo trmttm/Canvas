@@ -1,25 +1,19 @@
-from typing import Tuple
-
 from use_cases.presenter_abc import PresenterABC
 
 
 class Presenter(PresenterABC):
-    def present(self, xy: Tuple[int, int], text, width, height, text_rotation, tags, **_):
-        self.response_model = {
-            'x': xy[0],
-            'y': xy[1],
-            'text': text,
-            'width': width,
-            'height': height,
-            'text_rotation': text_rotation,
-            'tags': tags,
+    def present(self, **response_model):
+        view_model = {
+            'x': response_model.get('xy', (0, 0))[0],
+            'y': response_model.get('xy', (0, 0))[1],
+            'text': response_model.get('text'),
+            'width': response_model.get('wh', (0, 0))[0],
+            'height': response_model.get('wh', (0, 0))[1],
+            'text_rotation': response_model.get('text_rotation'),
+            'tags': response_model.get('tags'),
         }
-        view_model = self.create_view_model()
         for observer in self._observers:
             observer(view_model)
-
-    def create_view_model(self):
-        return self.response_model
 
 
 def presenter_factory():

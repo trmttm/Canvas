@@ -25,11 +25,13 @@ class MyTestCase(unittest.TestCase):
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
                 request_model = {'shape_id': (f'text_{1}',), }
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
             if key in tuple(str(i) for i in range(10)):
                 request_model = {'shape_id': (f'text_{key}',), }
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -40,7 +42,8 @@ class MyTestCase(unittest.TestCase):
 
         def upon_mouse_click(request):
             request_model = {'shape_id': request['shape_id'], }
-            command = controller_command_factory(presenter, request_model)
+            command = controller_command_factory(presenter, None)
+            command.configure(**request_model)
             command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), })

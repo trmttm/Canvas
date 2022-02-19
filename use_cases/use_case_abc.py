@@ -1,14 +1,14 @@
 import abc
 
+from entities import Entities
+from use_cases.presenter_abc import PresenterABC
+
 
 class UseCaseABC(abc.ABC):
-    def __init__(self):
-        self._entities = None
+    def __init__(self, presenter: PresenterABC, entities: Entities):
+        self._presenter = presenter
+        self._entities = entities
         self._response_model = None
-
-    @abc.abstractmethod
-    def set_entities(self, entities):
-        pass
 
     @abc.abstractmethod
     def update_entities(self):

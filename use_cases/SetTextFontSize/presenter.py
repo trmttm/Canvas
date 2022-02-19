@@ -2,9 +2,8 @@ from use_cases.presenter_abc import PresenterABC
 
 
 class Presenter(PresenterABC):
-    def present(self, shape_id, size, **_):
-        self.response_model = {shape_id: size, }
-        view_model = self.create_view_model()
+    def present(self, **response_model):
+        view_model = {response_model.get('shape_id'): response_model.get('font_size')}
         for observer in self._observers:
             observer(view_model)
 

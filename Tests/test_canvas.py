@@ -176,13 +176,7 @@ class MyTestCase(unittest.TestCase):
                                  },
         }
 
-        package_names = ['use_cases.AddRectangle', 'use_cases.RemoveRectangle', 'use_cases.MoveRectangle',
-                         'use_cases.SetBorderColor',
-                         'use_cases.SetBorderWidth', 'use_cases.SetFillColor', 'use_cases.AddText',
-                         'use_cases.SetTextColor',
-                         'use_cases.SetTextFontSize', 'use_cases.SetLineWidth', 'use_cases.SetLineColor',
-                         'use_cases.SetLineArrow',
-                         'use_cases.ChangeRectangleShape']
+        from use_cases import package_names
         command_factories = []
         presenters = []
         views = []
@@ -208,10 +202,12 @@ class MyTestCase(unittest.TestCase):
             request_model = keyboard_shortcut_map.get((modifiers, key), None)
             if request_model is not None:
                 n = request_model.get('package_number')
-                command_factory = command_factories[n]
-                presenter_ = presenters[n]
-                command = command_factory(presenter_, request_model)
-                command.execute()
+                if n is not None:
+                    command_factory = command_factories[n]
+                    presenter_ = presenters[n]
+                    command = command_factory(presenter_, None)
+                    command.configure(**request_model)
+                    command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -223,9 +219,10 @@ class MyTestCase(unittest.TestCase):
             command_factory = request['command_factory']
             presenter_ = request.get('presenter', None)
             if command_factory is not None and presenter_ is not None:
-                del request['presenter']
                 request.update({'coordinates_from': (10, 10), 'coordinates_to': (request['x'], request['y'])})
-                command = command_factory(presenter_, request)
+
+                command = command_factory(presenter_, None)
+                command.configure(**request)
                 command.execute()
 
         mouse.configure(0, upon_mouse_action, mouse.is_left_click, {'shape_id': (f'rect_{1}',),
@@ -324,7 +321,14 @@ class MyTestCase(unittest.TestCase):
         app = App(app_tkinter_factory, package_names)
         entities = Entities()
         add_light_blue_rectangle = AddNewTextBox(app, entities, fill_color='light blue', wh=(150, 20))
-        app.add_keyboard_shortcut_commands(0, '1', [add_light_blue_rectangle])
+
+        def place_the_new_shape():
+            new_shape_id = max(entities.shapes.shape_ids)
+            entities.shapes.configure(new_shape_id, xy=(20, new_shape_id * 30))
+
+        # Update Entity vs Present
+        # My responsibility vs App Specific logic
+        app.add_keyboard_shortcut_commands(0, '1', [add_light_blue_rectangle, place_the_new_shape])
 
         app.launch_app()
 

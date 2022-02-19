@@ -35,7 +35,8 @@ class MyTestCase(unittest.TestCase):
 
             if font_size is not None:
                 request_model = {'shape_id': (f'text_{8}',), 'font_size': font_size}
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -45,12 +46,13 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_click(request):
-            request_model = {'shape_id': request['shape_id'], }
-            command = controller_command_factory(presenter, request_model)
+            request_model = {'shape_id': request['shape_id'], 'font_size': request['size']}
+            command = controller_command_factory(presenter, None)
+            command.configure(**request_model)
             command.execute()
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), })
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'text_{6}',), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), 'size': 4})
+        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'text_{6}',), 'size': 14})
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete

@@ -1,6 +1,6 @@
 from .use_case import SetFillColor
 
 
-def controller_command(presenter, kwargs):
-    command = SetFillColor(presenter, **kwargs)
+def controller_command(presenter, entities):
+    command = SetFillColor(presenter, entities)
     return command

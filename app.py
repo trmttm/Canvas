@@ -59,8 +59,8 @@ class App:
     def _create_command(self, package_number: int, request_model: dict) -> Callable:
         command_factory = self._command_factories[package_number]
         presenter_ = self._presenters[package_number]
-        command = command_factory(presenter_, request_model)
-        command.set_entities(self._entities)
+        command = command_factory(presenter_, self._entities)
+        command.configure(**request_model)
         return command
 
     @staticmethod

@@ -32,7 +32,8 @@ class MyTestCase(unittest.TestCase):
                 request_model = {'shape_id': (f'rect_{3}',), 'coordinates_from': (10, 70), 'coordinates_to': (99, 170)}
 
             if request_model is not None:
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -49,7 +50,8 @@ class MyTestCase(unittest.TestCase):
             if shape_id is not None:
                 x, y = request['x'], request['y']
                 request_model = {'shape_id': shape_id, 'coordinates_from': (20, 20), 'coordinates_to': (x, y)}
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})

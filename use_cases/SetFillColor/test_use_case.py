@@ -35,7 +35,8 @@ class MyTestCase(unittest.TestCase):
 
             if color is not None:
                 request_model = {'shape_id': (f'rect_{8}',), 'color': color}
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -45,12 +46,13 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_click(request):
-            request_model = {'shape_id': request['shape_id'], }
-            command = controller_command_factory(presenter, request_model)
+            request_model = {'shape_id': request['shape_id'], 'color': request['color']}
+            command = controller_command_factory(presenter, None)
+            command.configure(**request_model)
             command.execute()
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'rect_{5}',), })
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'rect_{6}',), })
+        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'rect_{5}',), 'color': 'orange'})
+        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'rect_{6}',), 'color': 'pink'})
         app.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete

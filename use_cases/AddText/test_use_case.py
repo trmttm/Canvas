@@ -27,7 +27,8 @@ class MyTestCase(unittest.TestCase):
                 request_model = {'xy': app.get_mouse_canvas_coordinate(),
                                  'text': 'New Text!',
                                  'tags': (f'text_1',), }
-                command = controller_command_factory(presenter, request_model)
+                command = controller_command_factory(presenter, None)
+                command.configure(**request_model)
                 command.execute()
 
         app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
@@ -39,8 +40,9 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_click(request):
             request_model = {'xy': (request['x'], request['y']),
                              'text': 'New Text by mouse!',
-                             'tabs': 'text_1', }
-            command = controller_command_factory(presenter, request_model)
+                             'tags': 'text_1', }
+            command = controller_command_factory(presenter, None)
+            command.configure(**request_model)
             command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})

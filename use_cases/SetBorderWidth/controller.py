@@ -1,6 +1,6 @@
 from .use_case import SetBorderWidth
 
 
-def controller_command(presenter, kwargs):
-    command = SetBorderWidth(presenter, **kwargs)
+def controller_command(presenter, entities):
+    command = SetBorderWidth(presenter, entities)
     return command
