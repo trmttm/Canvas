@@ -3,22 +3,13 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
-        # Choose App/Main
-        from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory('light green')
-
+        from apps.test_app import TestApp
         package_name = 'use_cases.MoveText'
-        from importlib import import_module
-        # Choose presenter & view
-        presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
-        view_factory = import_module(f'{package_name}.view', '.').view_factory
-
-        presenter = presenter_factory()
-        view = view_factory(app)
-        presenter.attach(view)
-
-        # Define controller command
-        controller_command_factory = import_module(f'{package_name}.controller', '.').controller_command
+        canvas_color = 'light green'
+        test_app = TestApp(package_name, canvas_color)
+        view = test_app.view
+        presenter = test_app.presenter
+        use_case_command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
@@ -37,11 +28,11 @@ class MyTestCase(unittest.TestCase):
             elif modifiers == 8 and key == '1':
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
 
-            command = controller_command_factory(presenter, None)
+            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
-        app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+        view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
         # Mouse setting
         from mouse import MouseController
@@ -53,7 +44,7 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_drag(request):
             r = request
             request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
-            command = controller_command_factory(presenter, None)
+            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
@@ -61,7 +52,7 @@ class MyTestCase(unittest.TestCase):
         mouse.configure(1, upon_mouse_click, mouse.is_shift_left_click, {})
         mouse.configure(2, upon_mouse_drag, mouse.is_left_drag, {'shape_id': (f'rect_{1}',), })
         mouse.configure(3, upon_mouse_drag, mouse.is_shift_left_drag, {'shape_id': (f'rect_{2}',), })
-        app.bind_command_to_widget('canvas1', mouse.handle)
+        view.bind_command_to_widget('canvas1', mouse.handle)
 
         # Add rectangles to delete
         for i in range(10):
@@ -74,9 +65,9 @@ class MyTestCase(unittest.TestCase):
                           'tags': (f'rect_{i}',)
                           }
 
-            app.add_text(view_model)
+            view.add_text(view_model)
 
-        app.launch_app()
+        view.launch_app()
 
 
 if __name__ == '__main__':

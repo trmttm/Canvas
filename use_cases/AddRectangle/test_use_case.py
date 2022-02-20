@@ -3,8 +3,14 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
+        from apps.test_app import TestApp
         package_name = 'use_cases.AddRectangle'
-        from importlib import import_module
+        canvas_color = 'light yellow'
+        test_app = TestApp(package_name, canvas_color)
+        view = test_app.view
+        presenter = test_app.presenter
+        use_case_command = test_app.use_case_command
+
         color = {
             1: 'black',
             2: 'red',
@@ -15,44 +21,29 @@ class MyTestCase(unittest.TestCase):
             7: 'purple',
         }
 
-        # Choose App/Main
-        from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory()
-
-        # Choose presenter & view
-        presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
-        view_factory = import_module(f'{package_name}.view', '.').view_factory
-
-        presenter = presenter_factory()
-        view = view_factory(app)
-        presenter.attach(view)
-
-        # Define controller command
-        controller_command_factory = import_module(f'{package_name}.controller', '.').controller_command
-
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == 'a':
-                request_model = {'xy': app.get_mouse_canvas_coordinate(),
+                request_model = {'xy': view.get_mouse_canvas_coordinate(),
                                  'wh': (50, 20),
                                  'border_color': 'red',
                                  'border_width': 1,
                                  'fill': 'light green', }
-                command = controller_command_factory(presenter, None)
+                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
             elif key in tuple(str(k) for k in range(9)):
-                request_model = {'xy': app.get_mouse_canvas_coordinate(),
+                request_model = {'xy': view.get_mouse_canvas_coordinate(),
                                  'wh': (50, 20),
                                  'border_color': color[int(key)],
                                  'border_width': 1,
                                  'fill': 'light green', }
-                command = controller_command_factory(presenter, None)
+                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 
-        app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+        view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
         # Mouse setting
         from mouse import MouseController
@@ -64,14 +55,14 @@ class MyTestCase(unittest.TestCase):
                              'border_color': 'red',
                              'border_width': 1,
                              'fill': 'light green', }
-            command = controller_command_factory(presenter, None)
+            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
-        app.bind_command_to_widget('canvas1', mouse.handle)
+        view.bind_command_to_widget('canvas1', mouse.handle)
 
-        app.launch_app()
+        view.launch_app()
 
 
 if __name__ == '__main__':

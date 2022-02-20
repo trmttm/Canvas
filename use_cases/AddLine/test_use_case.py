@@ -3,40 +3,31 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
+        from apps.test_app import TestApp
         package_name = 'use_cases.AddLine'
-        from importlib import import_module
-        # Choose App/Main
-        from app_tkinter import app_tkinter_factory
-        app = app_tkinter_factory('white')
-
-        # Choose presenter & view
-        presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
-        view_factory = import_module(f'{package_name}.view', '.').view_factory
-
-        presenter = presenter_factory()
-        view = view_factory(app)
-        presenter.attach(view)
-
-        # Define controller command
-        controller_command_factory = import_module(f'{package_name}.controller', '.').controller_command
+        canvas_color = 'white'
+        test_app = TestApp(package_name, canvas_color)
+        view = test_app.view
+        presenter = test_app.presenter
+        use_case_command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
                 request_model = {'xy1': (10, 10),
-                                 'xy2': app.get_mouse_canvas_coordinate(),
+                                 'xy2': view.get_mouse_canvas_coordinate(),
                                  'width': 3,
                                  'color': 'red',
                                  'arrow_at_end': True,
                                  'tags': ('line_1',),
                                  }
-                command = controller_command_factory(presenter, None)
+                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.update_entities()
                 command.present()
 
-        app.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+        view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
         # Mouse setting
         from mouse import MouseController
@@ -44,22 +35,22 @@ class MyTestCase(unittest.TestCase):
 
         def upon_mouse_click(request):
             request_model = {'xy1': (10, 10),
-                             'xy2': app.get_mouse_canvas_coordinate(),
+                             'xy2': view.get_mouse_canvas_coordinate(),
                              'width': 5,
                              'color': 'blue',
                              'arrow_at_end': True,
                              'tags': ('line_1',),
                              }
-            command = controller_command_factory(presenter, None)
+            command = use_case_command(presenter, None)
             command.configure(**request_model)
             # command.update_entities()
             # command.present()
             command.execute()
 
         mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
-        app.bind_command_to_widget('canvas1', mouse.handle)
+        view.bind_command_to_widget('canvas1', mouse.handle)
 
-        app.launch_app()
+        view.launch_app()
 
 
 if __name__ == '__main__':
