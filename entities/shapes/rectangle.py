@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from entities.shapes.base_shape import ShapesWithXYWH
 
 
@@ -28,3 +30,10 @@ class Rectangles(ShapesWithXYWH):
 
     def set_border_width(self, shape_id, value):
         self.configure(shape_id, border_width=value)
+
+    def set_shape(self, shape_id, coordinates_from: Tuple[int, int], coordinates_to: Tuple[int, int]):
+        x1, y1 = coordinates_from
+        x2, y2 = coordinates_to
+        wh = x2 - x1, y2 - y1
+        self.set_xy(shape_id, (x1, y1))
+        self.set_wh(shape_id, wh)

@@ -86,6 +86,12 @@ class ShapesWithXY(Shapes):
         x = self.get_x(shape_id)
         self.configure(shape_id, xy=(x, value))
 
+    def move(self, shape_id, delta_x, delta_y):
+        x, y = self.get_x(shape_id), self.get_y(shape_id)
+        x += delta_x
+        y += delta_y
+        self.set_xy(shape_id, (x, y))
+
 
 class ShapesWithXYWH(ShapesWithXY):
     def get_wh(self, shape_id):

@@ -8,11 +8,9 @@ class ChangeRectangleShape(UseCaseABC):
 
     def update_entities(self):
         shape_id = self._configuration.get('shape_id')
-        x1, y1 = self._configuration.get('coordinates_from')
-        x2, y2 = self._configuration.get('coordinates_to')
-        wh = x2 - x1, y2 - y1
-        self._entities.rectangles.set_xy(shape_id, (x1, y1))
-        self._entities.rectangles.set_wh(shape_id, wh)
+        coordinates_from = self._configuration.get('coordinates_from')
+        coordinates_to = self._configuration.get('coordinates_to')
+        self._entities.rectangles.set_shape(shape_id, coordinates_from, coordinates_to)
 
     def present(self):
         self._presenter.present(**self._configuration)

@@ -6,7 +6,9 @@ class SetFillColor(UseCaseABC):
         self._configuration = {'shape_id': shape_id, 'color': color}
 
     def update_entities(self):
-        pass
+        shape_id = self._configuration.get('shape_id')
+        color = self._configuration.get('color')
+        self._entities.rectangles.set_fill_color(shape_id, color)
 
     def present(self):
         self._presenter.present(**self._configuration)

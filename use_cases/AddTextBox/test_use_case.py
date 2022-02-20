@@ -16,11 +16,12 @@ class MyTestCase(unittest.TestCase):
         from use_cases.AddText.request_model import get_request_model as get_request_model_02
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
-                wh = (50, 20)
+                wh = (100, 20)
                 request_model = {
                     '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
                                               'rect_01'),
-                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
+                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', 13, wh,
+                                              tags=('text_01',)),
                 }
                 command.configure(**request_model)
                 command.execute()
@@ -29,11 +30,11 @@ class MyTestCase(unittest.TestCase):
 
         # Mouse setting
         def upon_mouse_click(request):
-            wh = (100, 20)
+            wh = (200, 40)
             request_model = {
                 '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
                                           'rect_01'),
-                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
+                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', 30, wh, tags=('text_01',)),
             }
             command.configure(**request_model)
             command.execute()

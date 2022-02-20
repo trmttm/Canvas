@@ -16,6 +16,8 @@ class MyTestCase(unittest.TestCase):
             if modifiers == 8 and key == '1':
                 request_model = {'xy': view.get_mouse_canvas_coordinate(),
                                  'text': 'New Text!',
+                                 'color': 'blue',
+                                 'font_size': 13,
                                  'tags': (f'text_1',), }
                 command.configure(**request_model)
                 command.execute()
@@ -26,6 +28,8 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_click(request):
             request_model = {'xy': (request['x'], request['y']),
                              'text': 'New Text by mouse!',
+                             'color': 'orange',
+                             'font_size': 30,
                              'tags': 'text_1', }
             command.configure(**request_model)
             command.execute()

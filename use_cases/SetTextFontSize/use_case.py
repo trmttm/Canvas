@@ -6,7 +6,9 @@ class SetTextFontSize(UseCaseABC):
         self._configuration = {'shape_id': shape_id, 'font_size': font_size}
 
     def update_entities(self):
-        pass
+        shape_id = self._configuration.get('shape_id')
+        font_size = self._configuration.get('font_size')
+        self._entities.texts.set_font_size(shape_id, font_size)
 
     def present(self):
         if self._presenter is None:
