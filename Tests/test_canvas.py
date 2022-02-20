@@ -284,7 +284,7 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
         app._app.bind_command_to_widget('canvas1', mouse.handle)
 
-        # Move Shapes
+        # Move ShapesCore
         mouse.configure(0, app.execute_mouse, mouse.is_left_click, {})
         mouse.configure(1, app.execute_mouse, mouse.is_left_drag, {'instructions': instruction_move_right})
 

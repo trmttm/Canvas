@@ -4,12 +4,12 @@ from entities.shapes.base_shape import Shapes
 
 
 class Rectangles(Shapes):
-    def add(self, xy: tuple = (20, 20), wh: tuple = (50, 20), fill_color: str = 'white', border_color: str = 'black',
+    def add(self, xy: tuple = (20, 20), wh: tuple = (50, 20), fill: str = 'white', border_color: str = 'black',
             border_width: int = 1, tags=(), **options):
         options.update({
             'xy': xy,
             'wh': wh,
-            'fill_color': fill_color,
+            'fill': fill,
             'border_color': border_color,
             'border_width': border_width,
             'tags': tags,
@@ -23,7 +23,7 @@ class Rectangles(Shapes):
         return self.get(shape_id, 'wh')
 
     def get_fill_color(self, shape_id):
-        return self.get(shape_id, 'fill_color')
+        return self.get(shape_id, 'fill')
 
     def get_border_width(self, shape_id):
         return self.get(shape_id, 'border_width')
@@ -66,7 +66,7 @@ class Rectangles(Shapes):
         self.configure(shape_id, wh=(width, value))
 
     def set_fill_color(self, shape_id, color):
-        self.configure(shape_id, fill_color=color)
+        self.configure(shape_id, fill=color)
 
     def set_border_color(self, shape_id, color):
         self.configure(shape_id, border_color=color)
@@ -92,7 +92,3 @@ class Rectangles(Shapes):
 
     def _get_wh(self, index_, shape_id):
         return self._get_pair_values(index_, 'wh', shape_id)
-
-    def _get_pair_values(self, index_: int, pair_key: str, shape_id):
-        pair_values = self.get(shape_id, pair_key)
-        return pair_values[index_] if pair_values is not None else None

@@ -14,7 +14,7 @@ class AddLine(UseCaseABC):
             arrow = 'start'
         elif arrow_at_end:
             arrow = 'end'
-        self._response_model = {
+        self._configuration = {
             'xy1': xy1,
             'xy2': xy2,
             'color': color,
@@ -23,7 +23,7 @@ class AddLine(UseCaseABC):
             'arrow': arrow, }
 
     def update_entities(self):
-        pass
+        self._entities.lines.add(**self._configuration)
 
     def present(self):
-        self._presenter.present(**self._response_model)
+        self._presenter.present(**self._configuration)

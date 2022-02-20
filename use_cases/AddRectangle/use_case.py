@@ -16,15 +16,7 @@ class AddRectangle(UseCaseABC):
         }
 
     def update_entities(self):
-        rm = self._configuration
-        self._entities.rectangles.add(
-            rm['xy'],
-            rm['wh'],
-            rm['fill'],
-            rm['border_color'],
-            rm['border_width'],
-            rm['tags'],
-        )
+        self._entities.rectangles.add(**self._configuration)
 
     def present(self):
         self._presenter.present(**self._configuration)
