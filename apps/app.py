@@ -39,6 +39,10 @@ class App:
 
         self._keyboard_shortcut_map = {}
 
+    @property
+    def entities(self) -> Entities:
+        return self._entities
+
     def add_keyboard_shortcut(self, modifier, key, package_numbers: Iterable[int], request_models: Iterable[dict]):
         commands = self.create_commands(package_numbers, request_models)
         self._keyboard_shortcut_map[(modifier, key)] = commands
@@ -49,14 +53,14 @@ class App:
     def add_keyboard_shortcut_commands(self, modifier, key, commands: Iterable):
         self._keyboard_shortcut_map[(modifier, key)] = commands
 
-    def create_commands(self, package_numbers: Iterable, request_models: Iterable):
+    def create_commands(self, package_numbers: Iterable, request_models: Iterable) -> List[UseCaseABC]:
         commands = []
         for package_number, request_model in zip(package_numbers, request_models):
-            command = self._create_command(package_number, request_model)
+            command = self.create_command(package_number, request_model)
             commands.append(command)
         return commands
 
-    def _create_command(self, package_number: int, request_model: dict) -> Callable:
+    def create_command(self, package_number: int, request_model: dict) -> UseCaseABC:
         command_factory = self._command_factories[package_number]
         presenter_ = self._presenters[package_number]
         command = command_factory(presenter_, self._entities)
