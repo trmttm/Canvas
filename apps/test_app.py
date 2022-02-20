@@ -1,4 +1,7 @@
 from importlib import import_module
+from typing import Callable
+
+from mouse import MouseController
 
 from app_tkinter import app_tkinter_factory
 
@@ -22,6 +25,10 @@ class TestApp:
         # Define controller command
         self._use_case = import_module(f'{package_name}.controller', '.').controller_command
 
+        self._mouse = MouseController()
+        self._mouse_key = 0
+        self._view.bind_command_to_widget('canvas1', self._mouse.handle)
+
     @property
     def view(self):
         return self._view
@@ -33,3 +40,19 @@ class TestApp:
     @property
     def presenter(self):
         return self._presenter
+
+    def set_keyboard_shortcut_handler(self, keyboard_shortcut_handler):
+        self._view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+
+    @property
+    def mouse(self):
+        return self._mouse
+
+    def configure_mouse(self, command:Callable, condition, command_specific_arguments_dict: dict = None):
+        if command_specific_arguments_dict is None:
+            command_specific_arguments_dict = {}
+        self._mouse.configure(self._mouse_key, command, condition, command_specific_arguments_dict)
+        self._mouse_key += 1
+
+    def launch_app(self):
+        self._view.launch_app()

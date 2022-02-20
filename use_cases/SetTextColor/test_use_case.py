@@ -30,21 +30,19 @@ class MyTestCase(unittest.TestCase):
                 command.configure(**request_model)
                 command.execute()
 
-        view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+        test_app.set_keyboard_shortcut_handler(keyboard_shortcut_handler)
 
         # Mouse setting
-        from mouse import MouseController
-        mouse = MouseController()
-
         def upon_mouse_click(request):
             request_model = {'shape_id': request['shape_id'], 'color': request['color']}
             command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {'shape_id': (f'text_{5}',), 'color': 'blue'})
-        mouse.configure(1, upon_mouse_click, mouse.is_right_click, {'shape_id': (f'text_{6}',), 'color': 'orange'})
-        view.bind_command_to_widget('canvas1', mouse.handle)
+        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click,
+                                 {'shape_id': (f'text_{5}',), 'color': 'blue'})
+        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click,
+                                 {'shape_id': (f'text_{6}',), 'color': 'orange'})
 
         # Add rectangles to delete
         for i in range(10):
@@ -59,7 +57,7 @@ class MyTestCase(unittest.TestCase):
 
             view.add_text(view_model)
 
-        view.launch_app()
+        test_app.launch_app()
 
 
 if __name__ == '__main__':

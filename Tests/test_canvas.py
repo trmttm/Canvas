@@ -249,7 +249,7 @@ class MyTestCase(unittest.TestCase):
         app.launch_app()
 
     def test_implementation_by_higher_level_commands(self):
-        from app import App
+        from apps.app import App
         from app_tkinter import app_tkinter_factory
         from complex_commands import instructions as i
         from use_cases import package_names
@@ -312,7 +312,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_implementation_by_higher_level_use_cases(self):
         # This is the better wat, because entity manipylation can be encapsulated in each use_case command.
-        from app import App
+        from apps.app import App
         from app_tkinter import app_tkinter_factory
         from use_cases import package_names
         from entities import Entities

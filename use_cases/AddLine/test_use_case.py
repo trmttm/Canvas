@@ -27,12 +27,9 @@ class MyTestCase(unittest.TestCase):
                 command.update_entities()
                 command.present()
 
-        view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
+        test_app.set_keyboard_shortcut_handler(keyboard_shortcut_handler)
 
         # Mouse setting
-        from mouse import MouseController
-        mouse = MouseController()
-
         def upon_mouse_click(request):
             request_model = {'xy1': (10, 10),
                              'xy2': view.get_mouse_canvas_coordinate(),
@@ -47,10 +44,8 @@ class MyTestCase(unittest.TestCase):
             # command.present()
             command.execute()
 
-        mouse.configure(0, upon_mouse_click, mouse.is_left_click, {})
-        view.bind_command_to_widget('canvas1', mouse.handle)
-
-        view.launch_app()
+        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
+        test_app.launch_app()
 
 
 if __name__ == '__main__':
