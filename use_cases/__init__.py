@@ -36,7 +36,7 @@ package_names = [
     'use_cases.SetLineWidth',  # 14
     'use_cases.SetLineColor',  # 15
     'use_cases.SetLineArrow',  # 16
-    'use_cases.ChangeRectangleShape'  # 17
+    'use_cases.ChangeRectangleShape',  # 17
     # Higher Level UseCases
     'use_cases.AddTextBox'  # 18
 ]

@@ -26,10 +26,11 @@ class MyTestCase(unittest.TestCase):
         from use_cases.AddText.request_model import get_request_model as get_request_model_02
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
+                wh = (50, 20)
                 request_model = {
-                    '1': get_request_model_01(app.get_mouse_canvas_coordinate(), (50, 20), 'red', 1, 'light green',
+                    '1': get_request_model_01(app.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
                                               'rect_01'),
-                    '2': get_request_model_02(app.get_mouse_canvas_coordinate(), 'New Text!', tags=('text_01',)),
+                    '2': get_request_model_02(app.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
                 }
                 command = controller_command_factory(presenter, None)
                 command.configure(**request_model)
@@ -42,9 +43,12 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
 
         def upon_mouse_click(request):
-            request_model = {'xy': (request['x'], request['y']),
-                             'text': 'New Text by mouse!',
-                             'tags': 'text_1', }
+            wh = (100, 20)
+            request_model = {
+                '1': get_request_model_01(app.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
+                                          'rect_01'),
+                '2': get_request_model_02(app.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
+            }
             command = controller_command_factory(presenter, None)
             command.configure(**request_model)
             command.execute()
