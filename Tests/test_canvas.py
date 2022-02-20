@@ -324,8 +324,7 @@ class MyTestCase(unittest.TestCase):
         add_light_blue_rectangle = app.create_commands((18,), request_models)
 
         def place_the_new_shape():
-            new_shape_id = max(entities.shapes.shape_ids)
-            entities.shapes.configure(new_shape_id, xy=(20, new_shape_id * 30))
+            pass
 
         app.add_keyboard_shortcut_commands(0, '1', add_light_blue_rectangle + [place_the_new_shape])
 

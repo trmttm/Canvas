@@ -8,7 +8,7 @@ class UseCaseABC(abc.ABC):
     def __init__(self, presenter: PresenterABC, entities: Entities):
         self._presenter = presenter
         self._entities = entities
-        self._response_model = None
+        self._configuration = None
 
     @abc.abstractmethod
     def update_entities(self):
