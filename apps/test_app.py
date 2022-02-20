@@ -4,6 +4,7 @@ from typing import Callable
 from mouse import MouseController
 
 from app_tkinter import app_tkinter_factory
+from entities import Entities
 
 
 class TestApp:
@@ -11,6 +12,8 @@ class TestApp:
         self._package_name = package_name
         self._canvas_color = canvas_color
 
+        # Instantiate Entities
+        self._entities = Entities()
         # Choose View
         self._view = app_tkinter_factory(canvas_color)
 
@@ -23,7 +26,8 @@ class TestApp:
         self._presenter.attach(view_method)
 
         # Define controller command
-        self._use_case = import_module(f'{package_name}.controller', '.').controller_command
+        command_factory = import_module(f'{package_name}.controller', '.').controller_command
+        self._use_case = command_factory(self._presenter, self._entities)
 
         self._mouse = MouseController()
         self._mouse_key = 0
@@ -37,10 +41,6 @@ class TestApp:
     def use_case_command(self):
         return self._use_case
 
-    @property
-    def presenter(self):
-        return self._presenter
-
     def set_keyboard_shortcut_handler(self, keyboard_shortcut_handler):
         self._view.set_keyboard_shortcut_handler('root', keyboard_shortcut_handler)
 
@@ -48,7 +48,7 @@ class TestApp:
     def mouse(self):
         return self._mouse
 
-    def configure_mouse(self, command:Callable, condition, command_specific_arguments_dict: dict = None):
+    def configure_mouse(self, command: Callable, condition, command_specific_arguments_dict: dict = None):
         if command_specific_arguments_dict is None:
             command_specific_arguments_dict = {}
         self._mouse.configure(self._mouse_key, command, condition, command_specific_arguments_dict)

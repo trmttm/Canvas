@@ -8,8 +8,7 @@ class MyTestCase(unittest.TestCase):
         canvas_color = 'light green'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
-        presenter = test_app.presenter
-        use_case_command = test_app.use_case_command
+        command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
@@ -28,7 +27,6 @@ class MyTestCase(unittest.TestCase):
             elif modifiers == 8 and key == '1':
                 request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
 
-            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
@@ -41,7 +39,6 @@ class MyTestCase(unittest.TestCase):
         def upon_mouse_drag(request):
             r = request
             request_model = {'shape_id': r['shape_id'], 'delta_x': r['delta_x'], 'delta_y': r['delta_y']}
-            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 

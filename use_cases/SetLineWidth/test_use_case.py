@@ -8,8 +8,7 @@ class MyTestCase(unittest.TestCase):
         canvas_color = 'orange'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
-        presenter = test_app.presenter
-        use_case_command = test_app.use_case_command
+        command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
@@ -26,7 +25,6 @@ class MyTestCase(unittest.TestCase):
 
             if width is not None:
                 request_model = {'shape_id': (f'line_{0}',), 'width': width}
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 
@@ -35,7 +33,6 @@ class MyTestCase(unittest.TestCase):
         # Mouse setting
         def upon_mouse_click(request):
             request_model = {'shape_id': request['shape_id'], 'width': request['width']}
-            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 

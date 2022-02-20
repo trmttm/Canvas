@@ -8,8 +8,7 @@ class MyTestCase(unittest.TestCase):
         canvas_color = 'light yellow'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
-        presenter = test_app.presenter
-        use_case_command = test_app.use_case_command
+        command = test_app.use_case_command
 
         color = {
             1: 'black',
@@ -30,7 +29,6 @@ class MyTestCase(unittest.TestCase):
                                  'border_color': 'red',
                                  'border_width': 1,
                                  'fill': 'light green', }
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
             elif key in tuple(str(k) for k in range(9)):
@@ -39,7 +37,6 @@ class MyTestCase(unittest.TestCase):
                                  'border_color': color[int(key)],
                                  'border_width': 1,
                                  'fill': 'light green', }
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 
@@ -53,7 +50,6 @@ class MyTestCase(unittest.TestCase):
                              'border_color': 'red',
                              'border_width': 1,
                              'fill': 'light green', }
-            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 

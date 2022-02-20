@@ -8,8 +8,7 @@ class MyTestCase(unittest.TestCase):
         canvas_color = 'light green'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
-        presenter = test_app.presenter
-        use_case_command = test_app.use_case_command
+        command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
@@ -23,7 +22,6 @@ class MyTestCase(unittest.TestCase):
                 request_model = {'shape_id': (f'line_{3}',), 'coordinates_from': (100, 70), 'coordinates_to': (300, 70)}
 
             if request_model is not None:
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 
@@ -38,7 +36,6 @@ class MyTestCase(unittest.TestCase):
             if shape_id is not None:
                 x, y = request['x'], request['y']
                 request_model = {'shape_id': shape_id, 'coordinates_from': (20, 20), 'coordinates_to': (x, y)}
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 

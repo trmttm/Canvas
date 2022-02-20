@@ -8,8 +8,7 @@ class MyTestCase(unittest.TestCase):
         canvas_color = 'light yellow'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
-        presenter = test_app.presenter
-        use_case_command = test_app.use_case_command
+        command = test_app.use_case_command
 
         # Controller setting
         # Keyboard setting
@@ -23,7 +22,6 @@ class MyTestCase(unittest.TestCase):
                                               'rect_01'),
                     '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
                 }
-                command = use_case_command(presenter, None)
                 command.configure(**request_model)
                 command.execute()
 
@@ -37,7 +35,6 @@ class MyTestCase(unittest.TestCase):
                                           'rect_01'),
                 '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', wh, tags=('text_01',)),
             }
-            command = use_case_command(presenter, None)
             command.configure(**request_model)
             command.execute()
 
