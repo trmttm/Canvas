@@ -1,17 +1,15 @@
+from use_cases.AddLine.view_model import create_view_model
 from use_cases.presenter_abc import PresenterABC
 
 
 class Presenter(PresenterABC):
     def present(self, **response_model):
-        view_model = {
-            response_model.get('tags'): {'coordinate_from': response_model.get('xy1'),
-                                         'coordinate_to': response_model.get('xy2'),
-                                         'line_color': response_model.get('color'),
-                                         'line_width': response_model.get('width'),
-                                         'tags': response_model.get('tags')}
-        }
+        view_model = self.create_view_model(response_model)
         for observer in self._observers:
             observer(view_model)
+
+    def create_view_model(self, response_model):
+        return create_view_model(response_model)
 
 
 def presenter_factory():

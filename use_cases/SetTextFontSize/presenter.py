@@ -1,14 +1,15 @@
+from use_cases.SetTextFontSize.view_model import create_view_model
 from use_cases.presenter_abc import PresenterABC
 
 
 class Presenter(PresenterABC):
     def present(self, **response_model):
-        view_model = {response_model.get('shape_id'): response_model.get('font_size')}
+        view_model = self.create_view_model(response_model)
         for observer in self._observers:
             observer(view_model)
 
-    def create_view_model(self):
-        return self.response_model
+    def create_view_model(self, response_model):
+        return create_view_model(response_model)
 
 
 def presenter_factory():

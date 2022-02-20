@@ -1,6 +1,6 @@
 import unittest
 
-from use_cases_hl.add_new_text_box import AddNewTextBox
+
 
 
 class MyTestCase(unittest.TestCase):
@@ -317,6 +317,7 @@ class MyTestCase(unittest.TestCase):
         from app_tkinter import app_tkinter_factory
         from use_cases import package_names
         from entities import Entities
+        from use_cases_hl.add_new_text_box import AddNewTextBox
 
         app = App(app_tkinter_factory, package_names)
         entities = Entities()

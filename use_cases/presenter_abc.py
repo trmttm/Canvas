@@ -11,5 +11,9 @@ class PresenterABC(abc.ABC):
         self._observers.append(observer)
 
     @abc.abstractmethod
-    def present(self, *args, **kwargs):
+    def create_view_model(self, response_model):
+        pass
+
+    @abc.abstractmethod
+    def present(self, **response_model):
         pass
