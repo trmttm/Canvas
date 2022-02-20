@@ -315,20 +315,25 @@ class MyTestCase(unittest.TestCase):
         from apps.app import App
         from app_tkinter import app_tkinter_factory
         from use_cases import package_names
-        from entities import Entities
-        from use_cases.AddTextBox.request_model import get_request_model
-
+        import use_cases
         app = App(app_tkinter_factory, package_names)
-        entities = Entities()
-        request_models = [get_request_model(text='Text!', fill='light blue')]
-        add_light_blue_rectangle = app.create_commands((18,), request_models)
 
-        def place_the_new_shape():
-            pass
+        def add_operator_command(text: str, tag):
+            add_text_box = app.create_command(18, use_cases.rm18(text=text, font_size=20, tags_text=(tag,)))
+            add_text_box.execute()
 
-        app.add_keyboard_shortcut_commands(0, '1', add_light_blue_rectangle + [place_the_new_shape])
+            shape_id0 = app.entities.rectangles.get_shape_ids_by_tag(tag)[0]
+            shape_id1 = app.entities.texts.get_shape_ids_by_tag(tag)[0]
 
+            fill_pink = app.create_command(5, use_cases.rm05(shape_id0, 'light green'))
+            position1 = app.create_command(2, use_cases.rm02(shape_id0, 100, 100))
+            position2 = app.create_command(9, use_cases.rm09(shape_id1, 100, 100))
+            commands = [fill_pink, position1, position2]
+            app.execute(commands)
+
+        app.add_keyboard_shortcut_command(0, '1', lambda: add_operator_command('+', 't'))
         app.launch_app()
+
 
 
 if __name__ == '__main__':
