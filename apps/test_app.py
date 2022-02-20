@@ -13,7 +13,7 @@ class TestApp:
         self._canvas_color = canvas_color
 
         # Instantiate Entities
-        self._entities = Entities()
+        entities = Entities()
         # Choose View
         self._view = app_tkinter_factory(canvas_color)
 
@@ -27,7 +27,7 @@ class TestApp:
 
         # Define controller command
         command_factory = import_module(f'{package_name}.controller', '.').controller_command
-        self._use_case = command_factory(self._presenter, self._entities)
+        self._use_case = command_factory(self._presenter, entities)
 
         self._mouse = MouseController()
         self._mouse_key = 0
