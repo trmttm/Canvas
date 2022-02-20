@@ -49,7 +49,7 @@ class App:
     def add_keyboard_shortcut_commands(self, modifier, key, commands: Iterable):
         self._keyboard_shortcut_map[(modifier, key)] = commands
 
-    def create_commands(self, package_numbers, request_models):
+    def create_commands(self, package_numbers: Iterable, request_models: Iterable):
         commands = []
         for package_number, request_model in zip(package_numbers, request_models):
             command = self._create_command(package_number, request_model)

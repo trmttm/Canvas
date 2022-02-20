@@ -1,8 +1,6 @@
 import unittest
 
 
-
-
 class MyTestCase(unittest.TestCase):
     def test_integrating_basic_use_cases(self):
         # Choose App/Main
@@ -250,7 +248,7 @@ class MyTestCase(unittest.TestCase):
 
         app.launch_app()
 
-    def test_app_encapsulation(self):
+    def test_implementation_by_higher_level_commands(self):
         from app import App
         from app_tkinter import app_tkinter_factory
         from complex_commands import instructions as i
@@ -312,24 +310,24 @@ class MyTestCase(unittest.TestCase):
 
         app.launch_app()
 
-    def test_entities_implementation(self):
+    def test_implementation_by_higher_level_use_cases(self):
+        # This is the better wat, because entity manipylation can be encapsulated in each use_case command.
         from app import App
         from app_tkinter import app_tkinter_factory
         from use_cases import package_names
         from entities import Entities
-        from use_cases_hl.add_new_text_box import AddNewTextBox
+        from use_cases.AddTextBox.request_model import get_request_model
 
         app = App(app_tkinter_factory, package_names)
         entities = Entities()
-        add_light_blue_rectangle = AddNewTextBox(app, entities, fill_color='light blue', wh=(150, 20))
+        request_models = [get_request_model(text='Text!', fill='light blue')]
+        add_light_blue_rectangle = app.create_commands((18,), request_models)
 
         def place_the_new_shape():
             new_shape_id = max(entities.shapes.shape_ids)
             entities.shapes.configure(new_shape_id, xy=(20, new_shape_id * 30))
 
-        # Update Entity vs Present
-        # My responsibility vs App Specific logic
-        app.add_keyboard_shortcut_commands(0, '1', [add_light_blue_rectangle, place_the_new_shape])
+        app.add_keyboard_shortcut_commands(0, '1', add_light_blue_rectangle + [place_the_new_shape])
 
         app.launch_app()
 

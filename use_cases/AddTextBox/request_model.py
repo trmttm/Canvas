@@ -8,7 +8,7 @@ def get_request_model(xy_rect: Tuple[int, int] = (20, 20), wh_rect: Tuple[int, i
                       border_width=2, fill='white', tags_rect=(), xy_text=(20, 20), text='text', wh_text=(0, 0),
                       text_rotation=0, tags_text=()):
     request_model = {
-        0: get_requset_model_01(xy_rect, wh_rect, border_color, border_width, fill, tags_rect),
-        1: get_requset_model_02(xy_text, text, wh_text, text_rotation, tags_text),
+        '1': get_requset_model_01(xy_rect, wh_rect, border_color, border_width, fill, tags_rect),
+        '2': get_requset_model_02(xy_text, text, wh_text, text_rotation, tags_text),
     }
     return request_model
