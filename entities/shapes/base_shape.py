@@ -54,6 +54,14 @@ class Shapes(ShapesCore):
         new_tags = tuple(tag for tag in tags if tag != value)
         self.configure(shape_id, tags=new_tags)
 
+    def get_shape_ids_by_tag(self, tag) -> tuple:
+        shape_ids = set()
+        for shape_id, data in self._data.items():
+            tags = data['tags'] if 'tags' in data else ()
+            if tag in tags:
+                shape_ids.add(shape_id)
+        return tuple(shape_ids)
+
     def _get_pair_values(self, index_: int, pair_key: str, shape_id):
         pair_values = self.get(shape_id, pair_key)
         return pair_values[index_] if pair_values is not None else None
