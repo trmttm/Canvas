@@ -40,8 +40,6 @@ class MyTestCase(unittest.TestCase):
                              }
             command = use_case_command(presenter, None)
             command.configure(**request_model)
-            # command.update_entities()
-            # command.present()
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
