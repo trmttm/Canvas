@@ -12,11 +12,11 @@ class AddTextBox(UseCaseABC):
     def configure(self, **request_model):
         for use_case, sub_request_model in zip(self._sub_use_cases, request_model.values()):
             use_case.configure(**sub_request_model)
-        self._response_model = request_model
+        self._configuration = request_model
 
     def update_entities(self):
         for use_case in self._sub_use_cases:
             use_case.update_entities()
 
     def present(self):
-        self._presenter.present(**self._response_model)
+        self._presenter.present(**self._configuration)

@@ -23,6 +23,8 @@ class ShapesCore:
     def configure(self, shape_id, **options):
         if shape_id in self._data:
             self._data[shape_id].update(options)
+        else:
+            self._data[shape_id] = options
 
     def get(self, shape_id, option: str):
         individual_data = self._data.get(shape_id, None)

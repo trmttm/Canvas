@@ -15,11 +15,11 @@ class MyTestCase(unittest.TestCase):
         def keyboard_shortcut_handler(modifiers: int, key: str):
             request_model = None
             if modifiers == 8 and key == '1':
-                request_model = {'shape_id': (f'rect_{0}',), 'coordinates_from': (10, 50), 'coordinates_to': (99, 150)}
+                request_model = {'shape_id': f'rect_{0}', 'coordinates_from': (10, 50), 'coordinates_to': (99, 150)}
             elif modifiers == 8 and key == '2':
-                request_model = {'shape_id': (f'rect_{1}',), 'coordinates_from': (10, 60), 'coordinates_to': (99, 160)}
+                request_model = {'shape_id': f'rect_{1}', 'coordinates_from': (10, 60), 'coordinates_to': (99, 160)}
             elif modifiers == 8 and key == '3':
-                request_model = {'shape_id': (f'rect_{3}',), 'coordinates_from': (10, 70), 'coordinates_to': (99, 170)}
+                request_model = {'shape_id': f'rect_{3}', 'coordinates_from': (10, 70), 'coordinates_to': (99, 170)}
 
             if request_model is not None:
                 command.configure(**request_model)
@@ -53,7 +53,6 @@ class MyTestCase(unittest.TestCase):
                           'fill': 'light green',
                           'tags': (f'rect_{i}',)
                           }
-
             view.add_rectangle(view_model)
 
         test_app.launch_app()
