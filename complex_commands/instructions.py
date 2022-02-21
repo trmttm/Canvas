@@ -15,7 +15,7 @@ def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
     request_models = (
         rm00(xy, wh, tags=rectangle_id),
         rm05(rectangle_id, fill_color),
-        rm06(xy, text, wh, tags=text_id),
+        rm06(xy, text, wh=wh, tags=text_id),
     )
     return package_numbers, request_models
 
