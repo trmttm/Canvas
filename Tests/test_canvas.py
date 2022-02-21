@@ -284,7 +284,7 @@ class MyTestCase(unittest.TestCase):
         mouse = MouseController()
         app._app.bind_command_to_widget('canvas1', mouse.handle)
 
-        # Move ShapesCore
+        # Move Shapes
         mouse.configure(0, app.execute_mouse, mouse.is_left_click, {})
         mouse.configure(1, app.execute_mouse, mouse.is_left_drag, {'instructions': instruction_move_right})
 
@@ -333,7 +333,6 @@ class MyTestCase(unittest.TestCase):
 
         app.add_keyboard_shortcut_command(0, '1', lambda: add_operator_command('+', 't'))
         app.launch_app()
-
 
 
 if __name__ == '__main__':

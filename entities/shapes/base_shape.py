@@ -3,7 +3,7 @@ from typing import Dict
 from typing import Tuple
 
 
-class ShapesCore:
+class Shapes:
     def __init__(self):
         self._next_id = 0
         self._data: Dict[Any, dict] = {}
@@ -32,11 +32,30 @@ class ShapesCore:
             return individual_data.get(option, None)
 
 
-class Shapes(ShapesCore):
-    # ShapesCore with common implementations
+class ShapesWithTags(Shapes):
+    # Shapes with common implementations
+    _prefix_tags = '_tags'
+
+    def __init__(self):
+        Shapes.__init__(self)
+        self._data[self._prefix_tags] = {}
+
     @property
     def shape_ids(self) -> tuple:
         return tuple(self._data.keys())
+
+    def add(self, **options) -> int:
+        tags = options.get('tags', ())
+        shape_id = options.get('shape_id', None)
+        for tag in tags:
+            if tag in self._data[self._prefix_tags]:
+                self._data[self._prefix_tags][tag].append(shape_id)
+            else:
+                self._data[self._prefix_tags][tag] = [shape_id]
+        return Shapes.add(self, **options)
+
+    def get_shape_ids_by_tag(self, tag) -> tuple:
+        return tuple(self._data[self._prefix_tags].get(tag, []))
 
     def get_tags(self, shape_id):
         return self.get(shape_id, 'tags')
@@ -54,20 +73,12 @@ class Shapes(ShapesCore):
         new_tags = tuple(tag for tag in tags if tag != value)
         self.configure(shape_id, tags=new_tags)
 
-    def get_shape_ids_by_tag(self, tag) -> tuple:
-        shape_ids = set()
-        for shape_id, data in self._data.items():
-            tags = data['tags'] if 'tags' in data else ()
-            if tag in tags:
-                shape_ids.add(shape_id)
-        return tuple(shape_ids)
-
     def _get_pair_values(self, index_: int, pair_key: str, shape_id):
         pair_values = self.get(shape_id, pair_key)
         return pair_values[index_] if pair_values is not None else None
 
 
-class ShapesWithXY(Shapes):
+class ShapesWithTagsXY(ShapesWithTags):
     def get_xy(self, shape_id):
         return self.get(shape_id, 'xy')
 
@@ -101,7 +112,7 @@ class ShapesWithXY(Shapes):
         self.set_xy(shape_id, (x, y))
 
 
-class ShapesWithXYWH(ShapesWithXY):
+class ShapesWithTagsXYWH(ShapesWithTagsXY):
     def get_wh(self, shape_id):
         return self.get(shape_id, 'wh')
 

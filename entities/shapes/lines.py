@@ -1,10 +1,10 @@
 from typing import Tuple
 
-from entities.shapes.base_shape import Shapes
+from entities.shapes.base_shape import ShapesWithTags
 
 
-class Lines(Shapes):
-    def add(self, xy1: tuple, xy2: tuple, color: str, width: int, arrow, tags: tuple, **options):
+class Lines(ShapesWithTags):
+    def add(self, xy1: tuple, xy2: tuple, color: str, width: int, arrow, tags: tuple, **options) -> int:
         options.update({
             'xy1': xy1,
             'xy2': xy2,
@@ -13,7 +13,7 @@ class Lines(Shapes):
             'arrow': arrow,
             'tags': tags,
         })
-        Shapes.add(self, **options)
+        return ShapesWithTags.add(self, **options)
 
     def get_xy1(self, shape_id):
         return self.get(shape_id, 'xy1')

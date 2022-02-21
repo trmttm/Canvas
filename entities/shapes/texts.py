@@ -1,11 +1,11 @@
 from typing import Tuple
 
-from entities.shapes.base_shape import ShapesWithXYWH
+from entities.shapes.base_shape import ShapesWithTagsXYWH
 
 
-class Texts(ShapesWithXYWH):
+class Texts(ShapesWithTagsXYWH):
     def add(self, xy: Tuple[int, int] = (20, 20), text: str = 'text', color: str = 'black',
-            wh: Tuple[int, int] = (0, 0), text_rotation=0, font_size=13, tags=(), **options):
+            wh: Tuple[int, int] = (0, 0), text_rotation=0, font_size=13, tags=(), **options) -> int:
         options.update({
             'xy': xy,
             'wh': wh,
@@ -15,7 +15,7 @@ class Texts(ShapesWithXYWH):
             'font_size': font_size,
             'tags': tags,
         })
-        ShapesWithXYWH.add(self, **options)
+        return ShapesWithTagsXYWH.add(self, **options)
 
     def get_text(self, shape_id):
         return self.get(shape_id, 'text')

@@ -1,11 +1,11 @@
 from typing import Tuple
 
-from entities.shapes.base_shape import ShapesWithXYWH
+from entities.shapes.base_shape import ShapesWithTagsXYWH
 
 
-class Rectangles(ShapesWithXYWH):
+class Rectangles(ShapesWithTagsXYWH):
     def add(self, xy: tuple = (20, 20), wh: tuple = (50, 20), fill: str = 'white', border_color: str = 'black',
-            border_width: int = 1, tags=(), **options):
+            border_width: int = 1, tags=(), **options) -> int:
         options.update({
             'xy': xy,
             'wh': wh,
@@ -14,7 +14,7 @@ class Rectangles(ShapesWithXYWH):
             'border_width': border_width,
             'tags': tags,
         })
-        ShapesWithXYWH.add(self, **options)
+        return ShapesWithTagsXYWH.add(self, **options)
 
     def get_fill_color(self, shape_id):
         return self.get(shape_id, 'fill')
