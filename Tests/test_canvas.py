@@ -10,7 +10,6 @@ class MyTestCase(unittest.TestCase):
         no_modifier = 0
         modifier_command = 8
         modifier_option = 16
-
         # (modifier, key): request_model
         keyboard_shortcut_map = {
             (modifier_command, '0'): {
@@ -196,6 +195,8 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
+        from entities import Entities
+        entities = Entities()
         def keyboard_shortcut_handler(modifiers: int, key: str):
             request_model = keyboard_shortcut_map.get((modifiers, key), None)
             if request_model is not None:
@@ -203,7 +204,7 @@ class MyTestCase(unittest.TestCase):
                 if n is not None:
                     command_factory = command_factories[n]
                     presenter_ = presenters[n]
-                    command = command_factory(presenter_, None)
+                    command = command_factory(presenter_, entities)
                     command.configure(**request_model)
                     command.execute()
 
@@ -219,7 +220,7 @@ class MyTestCase(unittest.TestCase):
             if command_factory is not None and presenter_ is not None:
                 request.update({'coordinates_from': (10, 10), 'coordinates_to': (request['x'], request['y'])})
 
-                command = command_factory(presenter_, None)
+                command = command_factory(presenter_, entities)
                 command.configure(**request)
                 command.execute()
 
@@ -248,7 +249,7 @@ class MyTestCase(unittest.TestCase):
 
         app.launch_app()
 
-    def test_implementation_by_higher_level_commands(self):
+    def test_implementation_by_complex_level_commands(self):
         from apps.app import App
         from app_tkinter import app_tkinter_factory
         from complex_commands import instructions as i

@@ -20,7 +20,7 @@ class MyTestCase(unittest.TestCase):
                 request_model = {
                     '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
                                               'rect_01'),
-                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', 13, wh,
+                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=13, wh=wh,
                                               tags=('text_01',)),
                 }
                 command.configure(**request_model)
@@ -34,7 +34,8 @@ class MyTestCase(unittest.TestCase):
             request_model = {
                 '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
                                           'rect_01'),
-                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', 30, wh, tags=('text_01',)),
+                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=30, wh=wh,
+                                          tags=('text_01',)),
             }
             command.configure(**request_model)
             command.execute()

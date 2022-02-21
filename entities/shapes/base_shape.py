@@ -107,9 +107,10 @@ class ShapesWithTagsXY(ShapesWithTags):
 
     def move(self, shape_id, delta_x, delta_y):
         x, y = self.get_x(shape_id), self.get_y(shape_id)
-        x += delta_x
-        y += delta_y
-        self.set_xy(shape_id, (x, y))
+        if x is not None and y is not None:
+            x += delta_x
+            y += delta_y
+            self.set_xy(shape_id, (x, y))
 
 
 class ShapesWithTagsXYWH(ShapesWithTagsXY):
