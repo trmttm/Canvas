@@ -25,12 +25,13 @@ class App:
         for package_number, package_name in enumerate(package_names):
             # Choose presenter & view
             presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
-            view_factory = import_module(f'{package_name}.view', '.').view_factory
+            presenter = presenter_factory()
 
-            self._presenters.append(presenter_factory())
-            self._views.append(view_factory(self._app))
-            presenter = self._presenters[package_number]
-            view = self._views[package_number]
+            view_factory = import_module(f'{package_name}.view', '.').view_factory
+            view = view_factory(self._app)
+
+            self._presenters.append(presenter)
+            self._views.append(view)
             presenter.attach(view)
 
             # Define controller command
