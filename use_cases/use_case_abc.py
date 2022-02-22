@@ -18,6 +18,6 @@ class UseCaseABC(abc.ABC):
     def present(self):
         pass
 
+    @abc.abstractmethod
     def execute(self):
-        self.update_entities()
-        self.present()
+        pass

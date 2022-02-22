@@ -1,9 +1,9 @@
 from typing import Tuple
 
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class AddRectangle(UseCaseABC):
+class AddRectangle(BaseUseCase):
     def configure(self, xy: Tuple[int, int] = (20, 20), wh: Tuple[int, int] = (50, 20), border_color='black',
                   border_width=2, fill='white', tags=(), **_):
         self._configuration = {
@@ -17,6 +17,3 @@ class AddRectangle(UseCaseABC):
 
     def update_entities(self):
         self._entities.rectangles.add(**self._configuration)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

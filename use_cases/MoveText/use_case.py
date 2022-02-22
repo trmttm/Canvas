@@ -1,7 +1,7 @@
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class MoveText(UseCaseABC):
+class MoveText(BaseUseCase):
     def configure(self, shape_id, delta_x, delta_y, **_):
         self._configuration = {'shape_id': shape_id, 'delta_x': delta_x, 'delta_y': delta_y}
 
@@ -10,6 +10,3 @@ class MoveText(UseCaseABC):
         delta_x = self._configuration.get('delta_x')
         delta_y = self._configuration.get('delta_y')
         self._entities.texts.move(shape_id, delta_x, delta_y)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

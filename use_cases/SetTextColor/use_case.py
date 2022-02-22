@@ -1,7 +1,7 @@
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class SetTextColor(UseCaseABC):
+class SetTextColor(BaseUseCase):
     def configure(self, shape_id, color, **_):
         self._configuration = {'shape_id': shape_id, 'color': color}
 
@@ -9,6 +9,3 @@ class SetTextColor(UseCaseABC):
         shape_id = self._configuration.get('shape_id')
         color = self._configuration.get('color')
         self._entities.texts.set_color(shape_id, color)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

@@ -1,7 +1,7 @@
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class SetBorderWidth(UseCaseABC):
+class SetBorderWidth(BaseUseCase):
     def configure(self, shape_id, width, **_):
         self._configuration = {'shape_id': shape_id, 'width': width}
 
@@ -9,6 +9,3 @@ class SetBorderWidth(UseCaseABC):
         shape_id = self._configuration.get('shape_id')
         width = self._configuration.get('width')
         self._entities.rectangles.set_border_width(shape_id, width)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

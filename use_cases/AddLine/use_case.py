@@ -1,9 +1,9 @@
 from typing import Tuple
 
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class AddLine(UseCaseABC):
+class AddLine(BaseUseCase):
 
     def configure(self, xy1: Tuple[int, int], xy2: Tuple[int, int], color='black', width=2, arrow_at_start=False,
                   arrow_at_end=False, tags=(), **_):
@@ -24,6 +24,3 @@ class AddLine(UseCaseABC):
 
     def update_entities(self):
         self._entities.lines.add(**self._configuration)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

@@ -1,9 +1,9 @@
 from typing import Tuple
 
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class AddText(UseCaseABC):
+class AddText(BaseUseCase):
     def configure(self, xy: Tuple[int, int] = (20, 20), text: str = 'text', font_size: int = 13, color: str = 'black',
                   wh: Tuple[int, int] = (0, 0), text_rotation=0, tags=(), **_):
         self._configuration = {'xy': xy,
@@ -16,6 +16,3 @@ class AddText(UseCaseABC):
 
     def update_entities(self):
         self._entities.texts.add(**self._configuration)
-
-    def present(self):
-        self._presenter.present(**self._configuration)

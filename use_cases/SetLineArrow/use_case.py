@@ -1,7 +1,7 @@
-from ..use_case_abc import UseCaseABC
+from ..use_case import BaseUseCase
 
 
-class SetLineArrow(UseCaseABC):
+class SetLineArrow(BaseUseCase):
     def configure(self, shape_id, arrow, **_):
         self._configuration = {'shape_id': shape_id, 'arrow': arrow}
 
@@ -9,6 +9,3 @@ class SetLineArrow(UseCaseABC):
         shape_id = self._configuration.get('shape_id')
         arrow = self._configuration.get('arrow')
         self._entities.lines.set_arrow(shape_id, arrow)
-
-    def present(self):
-        self._presenter.present(**self._configuration)
