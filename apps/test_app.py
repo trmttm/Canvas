@@ -10,7 +10,7 @@ from entities import Entities
 class TestApp:
     def __init__(self, package_name: str, canvas_color='white'):
         # Instantiate Entities
-        self._entites = entities = Entities()
+        self._entities = entities = Entities()
         # Choose View
         self._view = app_tkinter_factory(canvas_color)
 
@@ -32,7 +32,7 @@ class TestApp:
 
     @property
     def entities(self) -> Entities:
-        return self._entites
+        return self._entities
 
     @property
     def view(self):

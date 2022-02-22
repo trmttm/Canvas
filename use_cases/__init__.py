@@ -17,6 +17,7 @@ from .SetLineColor.request_model import get_request_model as rm15
 from .SetLineArrow.request_model import get_request_model as rm16
 from .ChangeRectangleShape.request_model import get_request_model as rm17
 from .AddTextBox.request_model import get_request_model as rm18
+from .RemoveTextBox.request_model import get_request_model as rm19
 
 package_names = [
     'use_cases.AddRectangle',  # 0
@@ -39,4 +40,5 @@ package_names = [
     'use_cases.ChangeRectangleShape',  # 17
     # Higher Level UseCases
     'use_cases.AddTextBox',  # 18
+    'use_cases.RemoveTextBox',  # 19
 ]

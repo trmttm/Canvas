@@ -12,17 +12,25 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
-        from use_cases.AddRectangle.request_model import get_request_model as get_request_model_01
-        from use_cases.AddText.request_model import get_request_model as get_request_model_02
+        from use_cases.RemoveRectangle.request_model import get_request_model as get_request_model_01
+        from use_cases.RemoveText.request_model import get_request_model as get_request_model_02
         def keyboard_shortcut_handler(modifiers: int, key: str):
+            n = None
             if modifiers == 8 and key == '1':
-                wh = (100, 20)
+                n = 3
+            elif modifiers == 8 and key == '2':
+                n = 4
+            elif modifiers == 8 and key == '3':
+                n = 5
+            elif modifiers == 8 and key == '4':
+                n = 6
+
+            if n is not None:
                 request_model = {
-                    '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
-                                              'rect_01'),
-                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=13, wh=wh,
-                                              tags=('text_01',)),
+                    '1': get_request_model_01(f'text_box_{n}'),
+                    '2': get_request_model_02(f'text_box_{n}'),
                 }
+
                 command.configure(**request_model)
                 command.execute()
 
@@ -30,23 +38,28 @@ class MyTestCase(unittest.TestCase):
 
         # Mouse setting
         def upon_mouse_click(request):
-            wh = (200, 40)
             request_model = {
-                '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green', 'rect_01'),
-                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=30, wh=wh,
-                                          tags=('text_01',)),
+                '1': get_request_model_01(f'text_box_{request["n"]}'),
+                '2': get_request_model_02(f'text_box_{request["n"]}'),
             }
             command.configure(**request_model)
             command.execute()
 
-        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
+        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {'n': 1})
+        test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click, {'n': 2})
 
         from use_cases.AddTextBox.use_case import AddTextBox
         from use_cases.AddTextBox.presenter import presenter_factory
+        from use_cases.AddTextBox.view import view_factory
+        from use_cases import rm18
         presenter = presenter_factory()
+        presenter.attach(view_factory(view))
         for i in range(10):
             # Add 10 text boxes
-            command = AddTextBox(presenter, test_app.entities)
+            command_add = AddTextBox(presenter, test_app.entities)
+            command_add.configure(**rm18(xy_rect=(20, 30 * i), xy_text=(20, 30 * i), text=f'text {i}',
+                                         tags_rect=f'text_box_{i}', tags_text=f'text_box_{i}'))
+            command_add.execute()
 
         test_app.launch_app()
 
