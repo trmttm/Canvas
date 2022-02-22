@@ -18,7 +18,8 @@ class Texts(ShapesWithTagsXYWH):
             'font_size': font_size,
             'tags': tags,
         })
-        return ShapesWithTagsXYWH.add(self, **options)
+        shape_id = ShapesWithTagsXYWH.add(self, **options)
+        return shape_id
 
     def get_text(self, shape_id):
         return self.get(shape_id, 'text')

@@ -66,45 +66,45 @@ class MyTestCase(unittest.TestCase):
                 'tags': ('rect_5',),
                 'package_number': 0,
             },
-            (modifier_option, '0'): {'shape_id': 'rect_0', 'package_number': 1},
-            (modifier_option, '1'): {'shape_id': 'rect_1', 'package_number': 1},
-            (modifier_option, '2'): {'shape_id': 'rect_2', 'package_number': 1},
-            (modifier_option, '3'): {'shape_id': 'rect_3', 'package_number': 1},
-            (modifier_option, '4'): {'shape_id': 'rect_4', 'package_number': 1},
-            (modifier_option, '5'): {'shape_id': 'rect_5', 'package_number': 1},
+            (modifier_option, '0'): {'shape_id': 'rectangle_0', 'package_number': 1},
+            (modifier_option, '1'): {'shape_id': 'rectangle_1', 'package_number': 1},
+            (modifier_option, '2'): {'shape_id': 'rectangle_2', 'package_number': 1},
+            (modifier_option, '3'): {'shape_id': 'rectangle_3', 'package_number': 1},
+            (modifier_option, '4'): {'shape_id': 'rectangle_4', 'package_number': 1},
+            (modifier_option, '5'): {'shape_id': 'rectangle_5', 'package_number': 1},
             (no_modifier, 'Left'): {
-                'shape_id': 'rect_0',
+                'shape_id': 'rectangle_0',
                 'delta_x': -10,
                 'delta_y': 0,
                 'package_number': 2
             },
             (no_modifier, 'Right'): {
-                'shape_id': 'rect_0',
+                'shape_id': 'rectangle_0',
                 'delta_x': 10,
                 'delta_y': 0,
                 'package_number': 2
             },
             (no_modifier, 'Up'): {
-                'shape_id': 'rect_0',
+                'shape_id': 'rectangle_0',
                 'delta_x': 0,
                 'delta_y': -10,
                 'package_number': 2
             },
             (no_modifier, 'Down'): {
-                'shape_id': 'rect_0',
+                'shape_id': 'rectangle_0',
                 'delta_x': 0,
                 'delta_y': 10,
                 'package_number': 2
             },
-            (no_modifier, '1'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 3},
-            (no_modifier, '2'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 3},
-            (no_modifier, '3'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 3},
-            (no_modifier, '4'): {'shape_id': 'rect_1', 'width': 1, 'package_number': 4},
-            (no_modifier, '5'): {'shape_id': 'rect_1', 'width': 3, 'package_number': 4},
-            (no_modifier, '6'): {'shape_id': 'rect_1', 'width': 5, 'package_number': 4},
-            (no_modifier, '7'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 5},
-            (no_modifier, '8'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 5},
-            (no_modifier, '9'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 5},
+            (no_modifier, '1'): {'shape_id': 'rectangle_1', 'color': 'red', 'package_number': 3},
+            (no_modifier, '2'): {'shape_id': 'rectangle_1', 'color': 'green', 'package_number': 3},
+            (no_modifier, '3'): {'shape_id': 'rectangle_1', 'color': 'blue', 'package_number': 3},
+            (no_modifier, '4'): {'shape_id': 'rectangle_1', 'width': 1, 'package_number': 4},
+            (no_modifier, '5'): {'shape_id': 'rectangle_1', 'width': 3, 'package_number': 4},
+            (no_modifier, '6'): {'shape_id': 'rectangle_1', 'width': 5, 'package_number': 4},
+            (no_modifier, '7'): {'shape_id': 'rectangle_1', 'color': 'red', 'package_number': 5},
+            (no_modifier, '8'): {'shape_id': 'rectangle_1', 'color': 'green', 'package_number': 5},
+            (no_modifier, '9'): {'shape_id': 'rectangle_1', 'color': 'blue', 'package_number': 5},
             (no_modifier, 't'): {'tags': ('text_1',), 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
             (no_modifier, 'c'): {'shape_id': 'text_1', 'color': 'red', 'package_number': 7},
             (no_modifier, 'f'): {'shape_id': 'text_1', 'font_size': 15, 'package_number': 8},
@@ -168,7 +168,7 @@ class MyTestCase(unittest.TestCase):
             },
             (no_modifier, 'z'): {'coordinates_from': (100, 100),
                                  'coordinates_to': (250, 250),
-                                 'shape_id': 'rect_1',
+                                 'shape_id': 'rectangle_1',
                                  'package_number': 17
                                  },
         }
@@ -272,10 +272,10 @@ class MyTestCase(unittest.TestCase):
         app.execute(command_add_green_text_box)
 
         # Move TextBox
-        instruction_move_left = i.get_instruction_move_left('all', 10)
-        instruction_move_right = i.get_instruction_move_right('all', 10)
-        instruction_move_up = i.get_instruction_move_up('all', 10)
-        instruction_move_down = i.get_instruction_move_down('all', 10)
+        instruction_move_left = i.get_instruction_move_left('rectangle_1', 'text_1', 10)
+        instruction_move_right = i.get_instruction_move_right('rectangle_1', 'text_1', 10)
+        instruction_move_up = i.get_instruction_move_up('rectangle_1', 'text_1', 10)
+        instruction_move_down = i.get_instruction_move_down('rectangle_1', 'text_1', 10)
         app.add_keyboard_shortcut(0, 'Left', *instruction_move_left, )
         app.add_keyboard_shortcut(0, 'Right', *instruction_move_right)
         app.add_keyboard_shortcut(0, 'Up', *instruction_move_up)
@@ -330,8 +330,8 @@ class MyTestCase(unittest.TestCase):
             shape_id1 = app.entities.texts.get_shape_ids_by_tag(tag)[-1]
 
             fill_pink = app.create_command(uc.SetFillColor, uc.get_request_model_for_set_fill_color(shape_id0, 'green'))
-            position1 = app.create_command(uc.MoveRectangle, uc.get_request_model_for_move_rectangle(shape_id1, 100, 100))
-            position2 = app.create_command(uc.MoveText, uc.get_request_model_for_move_text(tag, 100, 100))
+            position1 = app.create_command(uc.MoveRectangle, uc.get_request_model_for_move_rectangle(shape_id0, 100, 100))
+            position2 = app.create_command(uc.MoveText, uc.get_request_model_for_move_text(shape_id1, 100, 100))
             commands = [fill_pink, position1, position2]
             app.execute(commands)
 

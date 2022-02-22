@@ -15,17 +15,17 @@ class MyTestCase(unittest.TestCase):
         def keyboard_shortcut_handler(modifiers: int, key: str):
             delta_x = 10
             delta_y = 10
-            request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': 0}
+            request_model = {'shape_id': f'text_{1}', 'delta_x': 0, 'delta_y': 0}
             if modifiers == 0 and key == 'Left':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': -delta_x, 'delta_y': 0}
+                request_model = {'shape_id': f'text_{1}', 'delta_x': -delta_x, 'delta_y': 0}
             elif modifiers == 0 and key == 'Right':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': 0}
+                request_model = {'shape_id': f'text_{1}', 'delta_x': delta_x, 'delta_y': 0}
             elif modifiers == 0 and key == 'Up':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': -delta_y}
+                request_model = {'shape_id': f'text_{1}', 'delta_x': 0, 'delta_y': -delta_y}
             elif modifiers == 0 and key == 'Down':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': 0, 'delta_y': delta_y}
+                request_model = {'shape_id': f'text_{1}', 'delta_x': 0, 'delta_y': delta_y}
             elif modifiers == 8 and key == '1':
-                request_model = {'shape_id': (f'rect_{1}',), 'delta_x': delta_x, 'delta_y': delta_y}
+                request_model = {'shape_id': f'text_{1}', 'delta_x': delta_x, 'delta_y': delta_y}
 
             command.configure(**request_model)
             command.execute()
@@ -44,21 +44,18 @@ class MyTestCase(unittest.TestCase):
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_shift_left_click, {})
-        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': (f'rect_{1}',), })
-        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_shift_left_drag, {'shape_id': (f'rect_{2}',), })
+        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': f'text_{1}', })
+        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_shift_left_drag, {'shape_id': (f'text_{2}',), })
 
-        # Add rectangles to delete
+        # Add texts
+        from use_cases.AddText.use_case import AddText
+        from use_cases.AddText.presenter import presenter_factory
+        presenter = presenter_factory()
+        presenter.attach(view.add_text)
         for i in range(10):
-            view_model = {'x': 40,
-                          'y': 10 + i * 30,
-                          'width': 100,
-                          'height': 20,
-                          'text_rotation': 0,
-                          'text': f'Move this text {i}',
-                          'tags': (f'rect_{i}',)
-                          }
-
-            view.add_text(view_model)
+            command_add = AddText(presenter, test_app.entities)
+            command_add.configure((40, 10 + i * 30), f'Move this text {i}', wh=(100, 20), tags=(f'text_{i}',))
+            command_add.execute()
 
         test_app.launch_app()
 

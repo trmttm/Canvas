@@ -5,13 +5,16 @@ from typing import Tuple
 
 class Shapes:
     def __init__(self):
-        self._next_id = 0
+        self._id_number = 0
         self._data: Dict[Any, dict] = {}
 
-    def add(self, **options) -> int:
-        self._next_id += 1
-        self._data[self._next_id] = options
-        return self._next_id
+    def add(self, shape_id, **options):
+        self._data[shape_id] = options
+        self._id_number += 1
+
+    @property
+    def new_id_number(self) -> int:
+        return self._id_number
 
     def remove(self, shape_id):
         if shape_id in self._data:
@@ -25,6 +28,9 @@ class Shapes:
             self._data[shape_id].update(options)
         else:
             self._data[shape_id] = options
+
+    def get_configuration(self, shape_id) -> dict:
+        return self._data.get(shape_id, {})
 
     def get(self, shape_id, option: str):
         individual_data = self._data.get(shape_id, None)
@@ -45,9 +51,12 @@ class ShapesWithTags(Shapes):
         return tuple(self._data.keys())
 
     def add(self, **options) -> str:
-        id_number = Shapes.add(self, **options)
-        shape_id = f'{self._tag_prefix}{id_number}'
+        shape_id = f'{self._tag_prefix}{self.new_id_number}'
         tags = options.get('tags', ()) + (shape_id,)
+        options.update({'tags': tags})
+
+        Shapes.add(self, shape_id, **options)
+
         for tag in tags:
             if tag in self._data[self._key_tags]:
                 self._data[self._key_tags][tag].append(shape_id)
@@ -134,3 +143,13 @@ class ShapesWithTagsXYWH(ShapesWithTagsXY):
     def set_height(self, shape_id, value: int):
         width = self.get_width(shape_id)
         self.configure(shape_id, wh=(width, value))
+
+    def get_coordinates_from(self, shape_id) -> Tuple[int, int]:
+        return self.get_xy(shape_id)
+
+    def get_coordinates_to(self, shape_id) -> Tuple[int, int]:
+        x1, y1 = self.get_coordinates_from(shape_id)
+        width = self.get_width(shape_id)
+        height = self.get_height(shape_id)
+        x2, y2 = x1 + width, y1 + height
+        return x2, y2

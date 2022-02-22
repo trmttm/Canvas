@@ -17,22 +17,26 @@ class Rectangles(ShapesWithTagsXYWH):
             'border_width': border_width,
             'tags': tags,
         })
-        return ShapesWithTagsXYWH.add(self, **options)
+        shape_id = ShapesWithTagsXYWH.add(self, **options)
+        return shape_id
 
     def get_fill_color(self, shape_id):
         return self.get(shape_id, 'fill')
 
-    def get_border_width(self, shape_id):
-        return self.get(shape_id, 'border_width')
-
     def set_fill_color(self, shape_id, color):
         self.configure(shape_id, fill=color)
 
-    def set_border_color(self, shape_id, color):
-        self.configure(shape_id, border_color=color)
+    def get_border_width(self, shape_id):
+        return self.get(shape_id, 'border_width')
 
     def set_border_width(self, shape_id, value):
         self.configure(shape_id, border_width=value)
+
+    def get_border_color(self, shape_id):
+        return self.get(shape_id, 'border_color')
+
+    def set_border_color(self, shape_id, color):
+        self.configure(shape_id, border_color=color)
 
     def set_shape(self, shape_id, coordinates_from: Tuple[int, int], coordinates_to: Tuple[int, int]):
         x1, y1 = coordinates_from

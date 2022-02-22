@@ -7,7 +7,7 @@ class Lines(ShapesWithTags):
     def __init__(self):
         ShapesWithTags.__init__(self, tag_prefix='line_')
 
-    def add(self, xy1: tuple, xy2: tuple, color: str, width: int, arrow, tags: tuple, **options) -> int:
+    def add(self, xy1: tuple, xy2: tuple, color: str, width: int, arrow, tags: tuple, **options) -> str:
         options.update({
             'xy1': xy1,
             'xy2': xy2,
@@ -16,7 +16,8 @@ class Lines(ShapesWithTags):
             'arrow': arrow,
             'tags': tags,
         })
-        return ShapesWithTags.add(self, **options)
+        shape_id = ShapesWithTags.add(self, **options)
+        return shape_id
 
     def get_xy1(self, shape_id):
         return self.get(shape_id, 'xy1')

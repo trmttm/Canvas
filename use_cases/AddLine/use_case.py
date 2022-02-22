@@ -1,9 +1,9 @@
 from typing import Tuple
 
-from ..use_case import BaseUseCase
+from ..use_case_abc import UseCaseABC
 
 
-class AddLine(BaseUseCase):
+class AddLine(UseCaseABC):
 
     def configure(self, xy1: Tuple[int, int], xy2: Tuple[int, int], color='black', width=2, arrow_at_start=False,
                   arrow_at_end=False, tags=(), **_):
@@ -23,4 +23,8 @@ class AddLine(BaseUseCase):
             'arrow': arrow, }
 
     def update_entities(self):
-        self._entities.lines.add(**self._configuration)
+        shape_id = self._entities.lines.add(**self._configuration)
+        self.create_response_model(shape_id)
+
+    def create_response_model(self, shape_id, *args, **kwargs):
+        self._response_model = self._entities.lines.get_configuration(shape_id)

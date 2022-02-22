@@ -42,19 +42,15 @@ class MyTestCase(unittest.TestCase):
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': (f'line_{1}',), })
 
-        # Add line
+        # Add rectangles
+        from use_cases.AddLine.use_case import AddLine
+        from use_cases.AddLine.presenter import presenter_factory
+        presenter = presenter_factory()
+        presenter.attach(view.add_line)
         for i in range(10):
-            view_model = {
-                'line_1': {'coordinate_from': (10, 10),
-                           'coordinate_to': (i * 15 + 10, 200),
-                           'line_width': 5,
-                           'line_color': 'blue',
-                           'arrow_at_star': True,
-                           'tags': (f'line_{i}',),
-                           }
-            }
-
-            view.add_line(view_model)
+            command_add = AddLine(presenter, test_app.entities)
+            command_add.configure((40, 10),  (i * 15 + 10, 200), 'blue',5, True,(f'line_{i}',) )
+            command_add.execute()
 
         test_app.launch_app()
 

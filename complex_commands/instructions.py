@@ -13,38 +13,38 @@ def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
     return package_names, request_models
 
 
-def get_instruction_move_left(shape_id, delta) -> tuple:
+def get_instruction_move_left(rectangle_id, text_id, delta) -> tuple:
     package_names = (use_cases.MoveRectangle, use_cases.MoveText)
     request_models = (
-        use_cases.get_request_model_for_move_rectangle(shape_id, -delta, 0),
-        use_cases.get_request_model_for_move_text(shape_id, -delta, 0),
+        use_cases.get_request_model_for_move_rectangle(rectangle_id, -delta, 0),
+        use_cases.get_request_model_for_move_text(text_id, -delta, 0),
     )
     return package_names, request_models
 
 
-def get_instruction_move_right(shape_id, delta) -> tuple:
+def get_instruction_move_right(rectangle_id, text_id, delta) -> tuple:
     package_names = (use_cases.MoveRectangle, use_cases.MoveText)
     request_models = (
-        use_cases.get_request_model_for_move_rectangle(shape_id, delta, 0),
-        use_cases.get_request_model_for_move_text(shape_id, delta, 0),
+        use_cases.get_request_model_for_move_rectangle(rectangle_id, delta, 0),
+        use_cases.get_request_model_for_move_text(text_id, delta, 0),
     )
     return package_names, request_models
 
 
-def get_instruction_move_up(shape_id, delta) -> tuple:
+def get_instruction_move_up(rectangle_id, text_id, delta) -> tuple:
     package_names = (use_cases.MoveRectangle, use_cases.MoveText)
     request_models = (
-        use_cases.get_request_model_for_move_rectangle(shape_id, 0, -delta),
-        use_cases.get_request_model_for_move_text(shape_id, 0, -delta),
+        use_cases.get_request_model_for_move_rectangle(rectangle_id, 0, -delta),
+        use_cases.get_request_model_for_move_text(text_id, 0, -delta),
     )
     return package_names, request_models
 
 
-def get_instruction_move_down(shape_id, delta) -> tuple:
+def get_instruction_move_down(rectangle_id, text_id, delta) -> tuple:
     package_names = (use_cases.MoveRectangle, use_cases.MoveText)
     request_models = (
-        use_cases.get_request_model_for_move_rectangle(shape_id, 0, delta),
-        use_cases.get_request_model_for_move_text(shape_id, 0, delta),
+        use_cases.get_request_model_for_move_rectangle(rectangle_id, 0, delta),
+        use_cases.get_request_model_for_move_text(text_id, 0, delta),
     )
     return package_names, request_models
 

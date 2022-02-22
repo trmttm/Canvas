@@ -1,9 +1,9 @@
 from typing import Tuple
 
-from ..use_case import BaseUseCase
+from ..use_case_abc import UseCaseABC
 
 
-class AddRectangle(BaseUseCase):
+class AddRectangle(UseCaseABC):
     def configure(self, xy: Tuple[int, int] = (20, 20), wh: Tuple[int, int] = (50, 20), border_color='black',
                   border_width=2, fill='white', tags=(), **_):
         self._configuration = {
@@ -16,4 +16,8 @@ class AddRectangle(BaseUseCase):
         }
 
     def update_entities(self):
-        self._entities.rectangles.add(**self._configuration)
+        shape_id = self._entities.rectangles.add(**self._configuration)
+        self.create_response_model(shape_id)
+
+    def create_response_model(self, shape_id, *args, **kwargs):
+        self._response_model = self._entities.rectangles.get_configuration(shape_id)

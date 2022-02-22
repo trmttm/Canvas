@@ -1,7 +1,7 @@
-from ..use_case import BaseUseCase
+from ..use_case_abc import UseCaseABC
 
 
-class SetTextColor(BaseUseCase):
+class SetTextColor(UseCaseABC):
     def configure(self, shape_id, color, **_):
         self._configuration = {'shape_id': shape_id, 'color': color}
 
@@ -9,3 +9,9 @@ class SetTextColor(BaseUseCase):
         shape_id = self._configuration.get('shape_id')
         color = self._configuration.get('color')
         self._entities.texts.set_color(shape_id, color)
+        self.create_response_model()
+
+    def create_response_model(self, *args, **kwargs):
+        shape_id = self._configuration.get('shape_id')
+        color = self._entities.texts.get_color(shape_id)
+        self._response_model = {'shape_id': shape_id, 'color': color}
