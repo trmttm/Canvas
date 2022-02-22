@@ -1,14 +1,22 @@
-from abc import abstractmethod
+from typing import Callable
+from typing import List
 
-from .presenter_abc import PresenterABC
 
+class BasePresenter:
+    def __init__(self, create_view_model: Callable = None):
+        self._observers: List[Callable, ...] = []
+        self._create_view_model = create_view_model
 
-class BasePresenter(PresenterABC):
+    def attach(self, observer: Callable):
+        self._observers.append(observer)
+
     def present(self, **response_model):
         view_model = self.create_view_model(response_model)
         for observer in self._observers:
             observer(view_model)
 
-    @abstractmethod
     def create_view_model(self, response_model):
-        pass
+        if self._create_view_model is not None:
+            return self._create_view_model(response_model)
+        else:
+            return response_model
