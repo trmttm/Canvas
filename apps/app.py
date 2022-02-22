@@ -13,16 +13,15 @@ from use_cases.use_case_abc import UseCaseABC
 
 
 class App:
-    _package_number = 'package_number'
     _instructions = 'instructions'
 
     def __init__(self, app_factory: Callable[[], ViewABC], package_names: List[str]):
         self._app = app_factory()
-        self._command_factories = []
-        self._presenters = []
-        self._views = []
+        self._command_factories = {}
+        self._presenters = {}
+        self._views = {}
         self._entities = Entities()
-        for package_number, package_name in enumerate(package_names):
+        for package_name in package_names:
             # Choose presenter & view
             presenter_factory = import_module(f'{package_name}.presenter', '.').presenter_factory
             presenter = presenter_factory()
@@ -30,13 +29,13 @@ class App:
             view_factory = import_module(f'{package_name}.view', '.').view_factory
             view = view_factory(self._app)
 
-            self._presenters.append(presenter)
-            self._views.append(view)
+            self._presenters[package_name] = presenter
+            self._views[package_name] = view
             presenter.attach(view)
 
             # Define controller command
             controller_command = import_module(f'{package_name}.controller', '.').controller_command
-            self._command_factories.append(controller_command)
+            self._command_factories[package_name] = controller_command
 
         self._keyboard_shortcut_map = {}
 
@@ -44,8 +43,8 @@ class App:
     def entities(self) -> Entities:
         return self._entities
 
-    def add_keyboard_shortcut(self, modifier, key, package_numbers: Iterable[int], request_models: Iterable[dict]):
-        commands = self.create_commands(package_numbers, request_models)
+    def add_keyboard_shortcut(self, modifier, key, package_names_: Iterable[int], request_models: Iterable[dict]):
+        commands = self.create_commands(package_names_, request_models)
         self._keyboard_shortcut_map[(modifier, key)] = commands
 
     def add_keyboard_shortcut_command(self, modifier, key, command):
@@ -54,16 +53,16 @@ class App:
     def add_keyboard_shortcut_commands(self, modifier, key, commands: Iterable):
         self._keyboard_shortcut_map[(modifier, key)] = commands
 
-    def create_commands(self, package_numbers: Iterable, request_models: Iterable) -> List[UseCaseABC]:
+    def create_commands(self, package_names_: Iterable, request_models: Iterable) -> List[UseCaseABC]:
         commands = []
-        for package_number, request_model in zip(package_numbers, request_models):
-            command = self.create_command(package_number, request_model)
+        for package_name, request_model in zip(package_names_, request_models):
+            command = self.create_command(package_name, request_model)
             commands.append(command)
         return commands
 
-    def create_command(self, package_number: int, request_model: dict) -> UseCaseABC:
-        command_factory = self._command_factories[package_number]
-        presenter_ = self._presenters[package_number]
+    def create_command(self, package_name_: str, request_model: dict) -> UseCaseABC:
+        command_factory = self._command_factories[package_name_]
+        presenter_ = self._presenters[package_name_]
         command = command_factory(presenter_, self._entities)
         command.configure(**request_model)
         return command
@@ -84,8 +83,8 @@ class App:
             command.execute()
 
     def execute_mouse(self, request):
-        package_numbers, request_models = request.get(self._instructions, ((), ()))
-        n = max(len(package_numbers), 1)
+        package_names_, request_models = request.get(self._instructions, ((), ()))
+        n = max(len(package_names_), 1)
         # delta will be applied to the same tag n times. So divide by n.
         request['delta_x'] /= n
         request['delta_y'] /= n
@@ -109,8 +108,8 @@ class App:
         Directly invokes presenter, as opposed to instantiating UseCases commands.
         This is because request_model cannot be determined until mouse input is provided.
         """
-        for package_number, request_model in zip(package_numbers, request_models):
-            presenter_ = self._presenters[package_number]
+        for package_name, request_model in zip(package_names_, request_models):
+            presenter_ = self._presenters[package_name]
             request_model.update(request)
 
             """

@@ -105,7 +105,7 @@ class MyTestCase(unittest.TestCase):
             (no_modifier, '7'): {'shape_id': 'rect_1', 'color': 'red', 'package_number': 5},
             (no_modifier, '8'): {'shape_id': 'rect_1', 'color': 'green', 'package_number': 5},
             (no_modifier, '9'): {'shape_id': 'rect_1', 'color': 'blue', 'package_number': 5},
-            (no_modifier, 't'): {'tags': ('text_1', ), 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
+            (no_modifier, 't'): {'tags': ('text_1',), 'xy': (100, 30), 'text': 'New Text!', 'package_number': 6},
             (no_modifier, 'c'): {'shape_id': 'text_1', 'color': 'red', 'package_number': 7},
             (no_modifier, 'f'): {'shape_id': 'text_1', 'font_size': 15, 'package_number': 8},
             (modifier_command, 'Left'): {
@@ -317,20 +317,21 @@ class MyTestCase(unittest.TestCase):
         from apps.app import App
         from app_tkinter import app_tkinter_factory
         from use_cases import package_names
-        import use_cases
+        import use_cases as uc
         app = App(app_tkinter_factory, package_names)
 
         def add_operator_command(text: str, tag):
-            add_text_box = app.create_command(18, use_cases.get_request_model_for_add_text_box
-            (text=text, font_size=20, tags_text=(tag,), tags_rect=(tag,)))
+            add_text_box = app.create_command(
+                uc.AddTextBox,
+                uc.get_request_model_for_add_text_box(text=text, font_size=20, tags_text=(tag,), tags_rect=(tag,)))
             add_text_box.execute()
 
-            shape_id0 = app.entities.rectangles.get_shape_ids_by_tag(tag)[0]
-            shape_id1 = app.entities.texts.get_shape_ids_by_tag(tag)[0]
+            shape_id0 = app.entities.rectangles.get_shape_ids_by_tag(tag)[-1]
+            shape_id1 = app.entities.texts.get_shape_ids_by_tag(tag)[-1]
 
-            fill_pink = app.create_command(5, use_cases.get_request_model_for_set_fill_color(tag, 'light green'))
-            position1 = app.create_command(2, use_cases.get_request_model_for_move_rectangle(tag, 100, 100))
-            position2 = app.create_command(9, use_cases.get_request_model_for_move_text(tag, 100, 100))
+            fill_pink = app.create_command(uc.SetFillColor, uc.get_request_model_for_set_fill_color(shape_id0, 'green'))
+            position1 = app.create_command(uc.MoveRectangle, uc.get_request_model_for_move_rectangle(shape_id1, 100, 100))
+            position2 = app.create_command(uc.MoveText, uc.get_request_model_for_move_text(tag, 100, 100))
             commands = [fill_pink, position1, position2]
             app.execute(commands)
 
