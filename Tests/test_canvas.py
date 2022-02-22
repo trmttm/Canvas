@@ -321,7 +321,8 @@ class MyTestCase(unittest.TestCase):
         app = App(app_tkinter_factory, package_names)
 
         def add_operator_command(text: str, tag):
-            add_text_box = app.create_command(18, use_cases.rm18(text=text, font_size=20, tags_text=(tag,)))
+            add_text_box = app.create_command(18, use_cases.rm18(text=text, font_size=20, tags_text=(tag,),
+                                                                 tags_rect=(tag, )))
             add_text_box.execute()
 
             shape_id0 = app.entities.rectangles.get_shape_ids_by_tag(tag)[0]
