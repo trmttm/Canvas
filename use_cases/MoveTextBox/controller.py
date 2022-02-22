@@ -1,6 +1,6 @@
-from .use_case import RemoveTextBox
+from .use_case import MoveTextBox
 
 
 def controller_command(presenter, entities):
-    command = RemoveTextBox(presenter, entities)
+    command = MoveTextBox(presenter, entities)
     return command

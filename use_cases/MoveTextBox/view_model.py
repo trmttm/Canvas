@@ -1,5 +1,5 @@
-from use_cases.RemoveRectangle.view_model import create_view_model as create_view_model_01
-from use_cases.RemoveText.view_model import create_view_model as create_view_model_02
+from use_cases.MoveRectangle.view_model import create_view_model as create_view_model_01
+from use_cases.MoveText.view_model import create_view_model as create_view_model_02
 
 
 def create_view_model(response_model):
