@@ -9,11 +9,8 @@ from entities import Entities
 
 class TestApp:
     def __init__(self, package_name: str, canvas_color='white'):
-        self._package_name = package_name
-        self._canvas_color = canvas_color
-
         # Instantiate Entities
-        entities = Entities()
+        self._entites = entities = Entities()
         # Choose View
         self._view = app_tkinter_factory(canvas_color)
 
@@ -32,6 +29,10 @@ class TestApp:
         self._mouse = MouseController()
         self._mouse_key = 0
         self._view.bind_command_to_widget('canvas1', self._mouse.handle)
+
+    @property
+    def entities(self) -> Entities:
+        return self._entites
 
     @property
     def view(self):

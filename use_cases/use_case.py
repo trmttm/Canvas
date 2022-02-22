@@ -15,3 +15,5 @@ class BaseUseCase(UseCaseABC):
     def execute(self):
         self.update_entities()
         self.present()
+
+
