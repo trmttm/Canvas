@@ -1,16 +1,10 @@
-from use_cases.MoveText.view_model import create_view_model
-from use_cases.presenter_abc import PresenterABC
+from use_cases.presenter import BasePresenter
+from .view_model import create_view_model
 
 
-class Presenter(PresenterABC):
-    def present(self, **response_model):
-        view_model = self.create_view_model(response_model)
-        for observer in self._observers:
-            observer(view_model)
-
+class Presenter(BasePresenter):
     def create_view_model(self, response_model):
-        view_model = create_view_model(response_model)
-        return view_model
+        return create_view_model(response_model)
 
 
 def presenter_factory():
