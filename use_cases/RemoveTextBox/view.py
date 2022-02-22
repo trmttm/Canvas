@@ -1,7 +1,7 @@
 from interface_view import ViewABC
 
-from use_cases.AddRectangle.view import view_factory as view_factory_01
-from use_cases.AddText.view import view_factory as view_factory_02
+from use_cases.RemoveRectangle.view import view_factory as view_factory_01
+from use_cases.RemoveText.view import view_factory as view_factory_02
 
 
 def view_factory(app: ViewABC):

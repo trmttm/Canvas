@@ -1,8 +1,10 @@
 from typing import Callable
 from typing import List
 
+from use_cases.presenter_abc import PresenterABC
 
-class BasePresenter:
+
+class BasePresenter(PresenterABC):
     def __init__(self, create_view_model: Callable = None):
         self._observers: List[Callable, ...] = []
         self._create_view_model = create_view_model
