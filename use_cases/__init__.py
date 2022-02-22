@@ -18,6 +18,7 @@ from .SetLineArrow.request_model import get_request_model as rm16
 from .ChangeRectangleShape.request_model import get_request_model as rm17
 from .AddTextBox.request_model import get_request_model as rm18
 from .RemoveTextBox.request_model import get_request_model as rm19
+from .MoveTextBox.request_model import get_request_model as rm20
 
 package_names = [
     'use_cases.AddRectangle',  # 0
@@ -41,4 +42,5 @@ package_names = [
     # Higher Level UseCases
     'use_cases.AddTextBox',  # 18
     'use_cases.RemoveTextBox',  # 19
+    'use_cases.MoveTextBox',  # 20
 ]

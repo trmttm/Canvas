@@ -197,6 +197,7 @@ class MyTestCase(unittest.TestCase):
         # Keyboard setting
         from entities import Entities
         entities = Entities()
+
         def keyboard_shortcut_handler(modifiers: int, key: str):
             request_model = keyboard_shortcut_map.get((modifiers, key), None)
             if request_model is not None:
