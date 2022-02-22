@@ -21,4 +21,7 @@ class HighLevelUseCase(UseCaseABC):
         self.create_response_model()
 
     def create_response_model(self, *args, **kwargs):
-        self._response_model = self._configuration
+        response_model = {}
+        for n, sub_use_case in enumerate(self._sub_use_cases):
+            response_model.update({f'{n + 1}': sub_use_case.response_model})
+        self._response_model = response_model
