@@ -30,7 +30,7 @@ class MyTestCase(unittest.TestCase):
                              'text': 'New Text by mouse!',
                              'color': 'orange',
                              'font_size': 30,
-                             'tags': 'text_1', }
+                             'tags': ('text_1', ), }
             command.configure(**request_model)
             command.execute()
 

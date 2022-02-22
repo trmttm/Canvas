@@ -1,46 +1,68 @@
-from .AddRectangle.request_model import get_request_model as rm00
-from .RemoveRectangle.request_model import get_request_model as rm01
-from .MoveRectangle.request_model import get_request_model as rm02
-from .SetBorderColor.request_model import get_request_model as rm03
-from .SetBorderWidth.request_model import get_request_model as rm04
-from .SetFillColor.request_model import get_request_model as rm05
-from .AddText.request_model import get_request_model as rm06
-from .SetTextColor.request_model import get_request_model as rm07
-from .SetTextFontSize.request_model import get_request_model as rm08
-from .MoveText.request_model import get_request_model as rm09
-from .RemoveText.request_model import get_request_model as rm10
-from .AddLine.request_model import get_request_model as rm11
-from .MoveLine.request_model import get_request_model as rm12
-from .RemoveLine.request_model import get_request_model as rm13
-from .SetLineWidth.request_model import get_request_model as rm14
-from .SetLineColor.request_model import get_request_model as rm15
-from .SetLineArrow.request_model import get_request_model as rm16
-from .ChangeRectangleShape.request_model import get_request_model as rm17
-from .AddTextBox.request_model import get_request_model as rm18
-from .RemoveTextBox.request_model import get_request_model as rm19
-from .MoveTextBox.request_model import get_request_model as rm20
+from .AddLine.request_model import get_request_model as get_request_model_for_add_line
+from .AddRectangle.request_model import get_request_model as get_request_model_for_add_rectangle
+from .AddText.request_model import get_request_model as get_request_model_for_add_text
+from .AddTextBox.request_model import get_request_model as get_request_model_for_add_text_box
+from .ChangeRectangleShape.request_model import get_request_model as get_request_model_for_change_rectangle_shape
+from .MoveLine.request_model import get_request_model as get_request_model_for_move_line
+from .MoveRectangle.request_model import get_request_model as get_request_model_for_move_rectangle
+from .MoveText.request_model import get_request_model as get_request_model_for_move_text
+from .MoveTextBox.request_model import get_request_model as get_request_model_for_move_text_box
+from .RemoveLine.request_model import get_request_model as get_request_model_for_remove_line
+from .RemoveRectangle.request_model import get_request_model as get_request_model_for_remove_rectangle
+from .RemoveText.request_model import get_request_model as get_request_model_for_remove_text
+from .RemoveTextBox.request_model import get_request_model as get_request_model_for_remove_text_box
+from .SetBorderColor.request_model import get_request_model as get_request_model_for_set_border_color
+from .SetBorderWidth.request_model import get_request_model as get_request_model_for_set_border_width
+from .SetFillColor.request_model import get_request_model as get_request_model_for_set_fill_color
+from .SetLineArrow.request_model import get_request_model as get_request_model_for_set_line_arrow
+from .SetLineColor.request_model import get_request_model as get_request_model_for_set_line_color
+from .SetLineWidth.request_model import get_request_model as get_request_model_for_set_line_with
+from .SetTextColor.request_model import get_request_model as get_request_model_for_set_text_color
+from .SetTextFontSize.request_model import get_request_model as get_request_model_for_set_text_font_size
+
+AddLine = 'use_cases.AddLine'
+AddRectangle = 'use_cases.AddRectangle'
+AddText = 'use_cases.AddText'
+AddTextBox = 'use_cases.AddTextBox'
+ChangeRectangleShape = 'use_cases.ChangeRectangleShape'
+MoveLine = 'use_cases.MoveLine'
+MoveRectangle = 'use_cases.MoveRectangle'
+MoveText = 'use_cases.MoveText'
+MoveTextBox = 'use_cases.MoveTextBox'
+RemoveLine = 'use_cases.RemoveLine'
+RemoveRectangle = 'use_cases.RemoveRectangle'
+RemoveText = 'use_cases.RemoveText'
+RemoveTextBox = 'use_cases.RemoveTextBox'
+SetBorderColor = 'use_cases.SetBorderColor'
+SetBorderWidth = 'use_cases.SetBorderWidth'
+SetFillColor = 'use_cases.SetFillColor'
+SetLineArrow = 'use_cases.SetLineArrow'
+SetLineColor = 'use_cases.SetLineColor'
+SetLineWidth = 'use_cases.SetLineWidth'
+SetTextColor = 'use_cases.SetTextColor'
+SetTextFontSize = 'use_cases.SetTextFontSize'
 
 package_names = [
-    'use_cases.AddRectangle',  # 0
-    'use_cases.RemoveRectangle',  # 1
-    'use_cases.MoveRectangle',  # 2
-    'use_cases.SetBorderColor',  # 3
-    'use_cases.SetBorderWidth',  # 4
-    'use_cases.SetFillColor',  # 5
-    'use_cases.AddText',  # 6
-    'use_cases.SetTextColor',  # 7
-    'use_cases.SetTextFontSize',  # 8
-    'use_cases.MoveText',  # 9
-    'use_cases.RemoveText',  # 10
-    'use_cases.AddLine',  # 11
-    'use_cases.MoveLine',  # 12
-    'use_cases.RemoveLine',  # 13
-    'use_cases.SetLineWidth',  # 14
-    'use_cases.SetLineColor',  # 15
-    'use_cases.SetLineArrow',  # 16
-    'use_cases.ChangeRectangleShape',  # 17
+    AddRectangle,  # 0
+    RemoveRectangle,  # 1
+    MoveRectangle,  # 2
+    SetBorderColor,  # 3
+    SetBorderWidth,  # 4
+    SetFillColor,  # 5
+    AddText,  # 6
+    SetTextColor,  # 7
+    SetTextFontSize,  # 8
+    MoveText,  # 9
+    RemoveText,  # 10
+    AddLine,  # 11
+    MoveLine,  # 12
+    RemoveLine,  # 13
+    SetLineWidth,  # 14
+    SetLineColor,  # 15
+    SetLineArrow,  # 16
+    ChangeRectangleShape,  # 17
     # Higher Level UseCases
-    'use_cases.AddTextBox',  # 18
-    'use_cases.RemoveTextBox',  # 19
-    'use_cases.MoveTextBox',  # 20
+    AddTextBox,  # 18
+    RemoveTextBox,  # 19
+    MoveTextBox,  # 20
 ]

@@ -4,8 +4,11 @@ from entities.shapes.base_shape import ShapesWithTagsXYWH
 
 
 class Rectangles(ShapesWithTagsXYWH):
+    def __init__(self):
+        ShapesWithTagsXYWH.__init__(self, tag_prefix='rectangle_')
+
     def add(self, xy: tuple = (20, 20), wh: tuple = (50, 20), fill: str = 'white', border_color: str = 'black',
-            border_width: int = 1, tags=(), **options) -> int:
+            border_width: int = 1, tags=(), **options) -> str:
         options.update({
             'xy': xy,
             'wh': wh,

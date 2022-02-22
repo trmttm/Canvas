@@ -4,8 +4,11 @@ from entities.shapes.base_shape import ShapesWithTagsXYWH
 
 
 class Texts(ShapesWithTagsXYWH):
+    def __init__(self):
+        ShapesWithTagsXYWH.__init__(self, tag_prefix='text_')
+
     def add(self, xy: Tuple[int, int] = (20, 20), text: str = 'text', color: str = 'black',
-            wh: Tuple[int, int] = (0, 0), text_rotation=0, font_size=13, tags=(), **options) -> int:
+            wh: Tuple[int, int] = (0, 0), text_rotation=0, font_size=13, tags=(), **options) -> str:
         options.update({
             'xy': xy,
             'wh': wh,

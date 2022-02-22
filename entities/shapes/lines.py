@@ -4,6 +4,9 @@ from entities.shapes.base_shape import ShapesWithTags
 
 
 class Lines(ShapesWithTags):
+    def __init__(self):
+        ShapesWithTags.__init__(self, tag_prefix='line_')
+
     def add(self, xy1: tuple, xy2: tuple, color: str, width: int, arrow, tags: tuple, **options) -> int:
         options.update({
             'xy1': xy1,

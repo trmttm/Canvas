@@ -33,29 +33,30 @@ class Shapes:
 
 
 class ShapesWithTags(Shapes):
-    # Shapes with common implementations
-    _prefix_tags = '_tags'
+    _key_tags = '_tags'
 
-    def __init__(self):
+    def __init__(self, tag_prefix: str = ''):
         Shapes.__init__(self)
-        self._data[self._prefix_tags] = {}
+        self._data[self._key_tags] = {}
+        self._tag_prefix = tag_prefix
 
     @property
     def shape_ids(self) -> tuple:
         return tuple(self._data.keys())
 
-    def add(self, **options) -> int:
-        tags = options.get('tags', ())
-        shape_id = options.get('shape_id', None)
+    def add(self, **options) -> str:
+        id_number = Shapes.add(self, **options)
+        shape_id = f'{self._tag_prefix}{id_number}'
+        tags = options.get('tags', ()) + (shape_id,)
         for tag in tags:
-            if tag in self._data[self._prefix_tags]:
-                self._data[self._prefix_tags][tag].append(shape_id)
+            if tag in self._data[self._key_tags]:
+                self._data[self._key_tags][tag].append(shape_id)
             else:
-                self._data[self._prefix_tags][tag] = [shape_id]
-        return Shapes.add(self, **options)
+                self._data[self._key_tags][tag] = [shape_id]
+        return shape_id
 
     def get_shape_ids_by_tag(self, tag) -> tuple:
-        return tuple(self._data[self._prefix_tags].get(tag, []))
+        return tuple(self._data[self._key_tags].get(tag, []))
 
     def get_tags(self, shape_id):
         return self.get(shape_id, 'tags')

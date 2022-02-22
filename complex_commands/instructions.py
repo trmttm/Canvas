@@ -1,11 +1,4 @@
-from use_cases import rm00
-from use_cases import rm01
-from use_cases import rm02
-from use_cases import rm05
-from use_cases import rm06
-from use_cases import rm09
-from use_cases import rm10
-from use_cases import rm13
+import use_cases
 
 
 def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
@@ -13,9 +6,9 @@ def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
     rectangle_id = f'rectangle_{shape_id}'
     text_id = f'text_{shape_id}'
     request_models = (
-        rm00(xy, wh, tags=rectangle_id),
-        rm05(rectangle_id, fill_color),
-        rm06(xy, text, wh=wh, tags=text_id),
+        use_cases.get_request_model_for_add_rectangle(xy, wh, tags=(rectangle_id,)),
+        use_cases.get_request_model_for_set_fill_color(rectangle_id, fill_color),
+        use_cases.get_request_model_for_add_text(xy, text, wh=wh, tags=(text_id,)),
     )
     return package_numbers, request_models
 
@@ -23,8 +16,8 @@ def get_instructions_add_text_box(shape_id, text, fill_color, xy, wh) -> tuple:
 def get_instruction_move_left(shape_id, delta) -> tuple:
     package_numbers = (2, 9)
     request_models = (
-        rm02(shape_id, -delta, 0),
-        rm09(shape_id, -delta, 0),
+        use_cases.get_request_model_for_move_rectangle(shape_id, -delta, 0),
+        use_cases.get_request_model_for_move_text(shape_id, -delta, 0),
     )
     return package_numbers, request_models
 
@@ -32,8 +25,8 @@ def get_instruction_move_left(shape_id, delta) -> tuple:
 def get_instruction_move_right(shape_id, delta) -> tuple:
     package_numbers = (2, 9)
     request_models = (
-        rm02(shape_id, delta, 0),
-        rm09(shape_id, delta, 0),
+        use_cases.get_request_model_for_move_rectangle(shape_id, delta, 0),
+        use_cases.get_request_model_for_move_text(shape_id, delta, 0),
     )
     return package_numbers, request_models
 
@@ -41,8 +34,8 @@ def get_instruction_move_right(shape_id, delta) -> tuple:
 def get_instruction_move_up(shape_id, delta) -> tuple:
     package_numbers = (2, 9)
     request_models = (
-        rm02(shape_id, 0, -delta),
-        rm09(shape_id, 0, -delta),
+        use_cases.get_request_model_for_move_rectangle(shape_id, 0, -delta),
+        use_cases.get_request_model_for_move_text(shape_id, 0, -delta),
     )
     return package_numbers, request_models
 
@@ -50,8 +43,8 @@ def get_instruction_move_up(shape_id, delta) -> tuple:
 def get_instruction_move_down(shape_id, delta) -> tuple:
     package_numbers = (2, 9)
     request_models = (
-        rm02(shape_id, 0, delta),
-        rm09(shape_id, 0, delta),
+        use_cases.get_request_model_for_move_rectangle(shape_id, 0, delta),
+        use_cases.get_request_model_for_move_text(shape_id, 0, delta),
     )
     return package_numbers, request_models
 
@@ -59,8 +52,8 @@ def get_instruction_move_down(shape_id, delta) -> tuple:
 def get_instructions_remove_all() -> tuple:
     package_numbers = (1, 10, 13)
     request_models = (
-        rm01('all', ),
-        rm10('all', ),
-        rm13('all', ),
+        use_cases.get_request_model_for_remove_rectangle('all', ),
+        use_cases.get_request_model_for_remove_text('all', ),
+        use_cases.get_request_model_for_remove_line('all', ),
     )
     return package_numbers, request_models
