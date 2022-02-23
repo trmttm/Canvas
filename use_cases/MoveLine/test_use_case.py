@@ -15,11 +15,11 @@ class MyTestCase(unittest.TestCase):
         def keyboard_shortcut_handler(modifiers: int, key: str):
             request_model = None
             if modifiers == 8 and key == '1':
-                request_model = {'shape_id': (f'line_{0}',), 'coordinates_from': (100, 50), 'coordinates_to': (300, 50)}
+                request_model = {'shape_id': f'line_{0}', 'coordinates_from': (100, 50), 'coordinates_to': (300, 50)}
             elif modifiers == 8 and key == '2':
-                request_model = {'shape_id': (f'line_{1}',), 'coordinates_from': (100, 60), 'coordinates_to': (300, 60)}
+                request_model = {'shape_id': f'line_{1}', 'coordinates_from': (100, 60), 'coordinates_to': (300, 60)}
             elif modifiers == 8 and key == '3':
-                request_model = {'shape_id': (f'line_{3}',), 'coordinates_from': (100, 70), 'coordinates_to': (300, 70)}
+                request_model = {'shape_id': f'line_{3}', 'coordinates_from': (100, 70), 'coordinates_to': (300, 70)}
 
             if request_model is not None:
                 command.configure(**request_model)
@@ -40,17 +40,10 @@ class MyTestCase(unittest.TestCase):
                 command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
-        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': (f'line_{1}',), })
+        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': f'line_{1}', })
 
-        # Add rectangles
-        from use_cases.AddLine.use_case import AddLine
-        from use_cases.AddLine.presenter import presenter_factory
-        presenter = presenter_factory()
-        presenter.attach(view.add_line)
-        for i in range(10):
-            command_add = AddLine(presenter, test_app.entities)
-            command_add.configure((40, 10), (i * 15 + 10, 200), 'blue', 5, True, (f'line_{i}',))
-            command_add.execute()
+        from Tests.test_methods import add_ten_lines
+        add_ten_lines(test_app, view)
 
         test_app.launch_app()
 
