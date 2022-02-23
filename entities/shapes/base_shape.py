@@ -76,7 +76,7 @@ class ShapesWithTags(Shapes):
 
     def get_a_single_shape_id_by_tag(self, tag):
         try:
-            return self.get_a_single_shape_id_by_tag(tag)[0]
+            return self.get_shape_ids_by_tag(tag)[0]
         except IndexError:
             return tag
 
