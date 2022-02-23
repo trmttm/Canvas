@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.AddTextBox'
+        package_name = 'use_cases.HighlightTextBox'
         canvas_color = 'light yellow'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
@@ -12,17 +12,10 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
-        from use_cases.AddRectangle.request_model import get_request_model as get_request_model_01
-        from use_cases.AddText.request_model import get_request_model as get_request_model_02
+        from use_cases import get_request_model_for_highlight_text_box as rm
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
-                wh = (100, 20)
-                request_model = {
-                    '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
-                                              ('rect_01',)),
-                    '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=13, wh=wh,
-                                              tags=('text_01',)),
-                }
+                request_model = rm('rectangle_2', 'pink', 'red', 5, 'text_2', 'blue')
                 command.configure(**request_model)
                 command.execute()
 
@@ -30,17 +23,15 @@ class MyTestCase(unittest.TestCase):
 
         # Mouse setting
         def upon_mouse_click(request):
-            wh = (200, 40)
-            request_model = {
-                '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
-                                          ('rect_01', )),
-                '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=30, wh=wh,
-                                          tags=('text_01',)),
-            }
+            request_model = rm('rectangle_3', 'orange', 'green', 2, 'text_3', 'white')
             command.configure(**request_model)
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
+
+        from Tests.test_methods import add_ten_text_boxes
+        add_ten_text_boxes(test_app, view)
+
         test_app.launch_app()
 
 

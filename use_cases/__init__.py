@@ -20,6 +20,7 @@ from .SetLineColor.request_model import get_request_model as get_request_model_f
 from .SetLineWidth.request_model import get_request_model as get_request_model_for_set_line_with
 from .SetTextColor.request_model import get_request_model as get_request_model_for_set_text_color
 from .SetTextFontSize.request_model import get_request_model as get_request_model_for_set_text_font_size
+from .HighlightTextBox.request_model import get_request_model as get_request_model_for_highlight_text_box
 
 AddLine = 'use_cases.AddLine'
 AddRectangle = 'use_cases.AddRectangle'
@@ -43,6 +44,7 @@ SetLineWidth = 'use_cases.SetLineWidth'
 SetTextColor = 'use_cases.SetTextColor'
 SetTextFontSize = 'use_cases.SetTextFontSize'
 SelectShape = 'use_cases.SelectShape'
+HighlightTextBox = 'use_cases.HighlightTextBox'
 
 package_names = [
     AddRectangle,  # 0
@@ -68,4 +70,5 @@ package_names = [
     RemoveTextBox,  # 19
     MoveTextBox,  # 20
     SelectShape,  # 21
+    HighlightTextBox,  # 22
 ]
