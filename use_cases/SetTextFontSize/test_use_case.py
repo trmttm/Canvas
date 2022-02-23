@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
                 font_size = 20
 
             if font_size is not None:
-                request_model = {'shape_id': (f'text_{8}',), 'font_size': font_size}
+                request_model = {'shape_id': f'text_{8}', 'font_size': font_size}
                 command.configure(**request_model)
                 command.execute()
 
@@ -38,22 +38,12 @@ class MyTestCase(unittest.TestCase):
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click,
-                                 {'shape_id': (f'text_{5}',), 'size': 4})
+                                 {'shape_id': f'text_{5}', 'size': 4})
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click,
-                                 {'shape_id': (f'text_{6}',), 'size': 14})
+                                 {'shape_id': f'text_{6}', 'size': 14})
 
-        # Add rectangles to delete
-        for i in range(10):
-            view_model = {'x': 40,
-                          'y': 10 + i * 30,
-                          'width': 10 + i * 30,
-                          'height': 20,
-                          'text': f'Text_{i}',
-                          'text_rotation': 0,
-                          'tags': (f'text_{i}',)
-                          }
-
-            view.add_text(view_model)
+        from Tests.test_methods import add_ten_texts
+        add_ten_texts(test_app, view)
 
         test_app.launch_app()
 

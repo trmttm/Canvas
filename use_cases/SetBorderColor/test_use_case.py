@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
                 color = 'yellow'
 
             if color is not None:
-                request_model = {'shape_id': (f'rect_{8}',), 'color': color}
+                request_model = {'shape_id': f'rect_{8}', 'color': color}
                 command.configure(**request_model)
                 command.execute()
 
@@ -37,23 +37,12 @@ class MyTestCase(unittest.TestCase):
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click,
-                                 {'shape_id': (f'rect_{5}',), 'color': 'red'})
+                                 {'shape_id': f'rect_{5}', 'color': 'red'})
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click,
-                                 {'shape_id': (f'rect_{6}',), 'color': 'blue'})
+                                 {'shape_id': f'rect_{6}', 'color': 'blue'})
 
-        # Add rectangles to delete
-        for i in range(10):
-            view_model = {'x': 40,
-                          'y': 10 + i * 30,
-                          'width': 10 + i * 30,
-                          'height': 20,
-                          'border_color': 'red',
-                          'border_width': i,
-                          'fill': 'light green',
-                          'tags': (f'rect_{i}',)
-                          }
-
-            view.add_rectangle(view_model)
+        from Tests.test_methods import add_ten_rectangles
+        add_ten_rectangles(test_app, view)
 
         test_app.launch_app()
 

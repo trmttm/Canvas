@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
-        from use_cases import get_request_model_for_select_shape
+        from request_models import get_request_model_for_select_shape
         get_request_model = get_request_model_for_select_shape
 
         def keyboard_shortcut_handler(modifiers: int, key: str):

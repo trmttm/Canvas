@@ -47,15 +47,8 @@ class MyTestCase(unittest.TestCase):
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': f'rectangle_{1}', })
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_shift_left_drag, {'shape_id': f'rectangle_{2}', })
 
-        # Add rectangles
-        from use_cases.AddRectangle.use_case import AddRectangle
-        from use_cases.AddRectangle.presenter import presenter_factory
-        presenter = presenter_factory()
-        presenter.attach(view.add_rectangle)
-        for i in range(10):
-            command_add = AddRectangle(presenter, test_app.entities)
-            command_add.configure((40, 10 + i * 30), (10 + i * 30, 20), 'red', i, 'light green', (f'rect_{i}',))
-            command_add.execute()
+        from Tests.test_methods import add_ten_rectangles
+        add_ten_rectangles(test_app, view)
 
         test_app.launch_app()
 

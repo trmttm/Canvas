@@ -45,17 +45,10 @@ class MyTestCase(unittest.TestCase):
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_shift_left_click, {})
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {'shape_id': f'text_{1}', })
-        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_shift_left_drag, {'shape_id': (f'text_{2}',), })
+        test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_shift_left_drag, {'shape_id': f'text_{2}', })
 
-        # Add texts
-        from use_cases.AddText.use_case import AddText
-        from use_cases.AddText.presenter import presenter_factory
-        presenter = presenter_factory()
-        presenter.attach(view.add_text)
-        for i in range(10):
-            command_add = AddText(presenter, test_app.entities)
-            command_add.configure((40, 10 + i * 30), f'Move this text {i}', wh=(100, 20), tags=(f'text_{i}',))
-            command_add.execute()
+        from Tests.test_methods import add_ten_texts
+        add_ten_texts(test_app, view)
 
         test_app.launch_app()
 
