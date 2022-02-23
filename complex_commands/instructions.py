@@ -53,8 +53,8 @@ def get_instruction_move_down(rectangle_id, text_id, delta) -> tuple:
 def get_instructions_remove_all() -> tuple:
     package_names = (plugin_setting.RemoveRectangle, plugin_setting.RemoveText, plugin_setting.RemoveLine)
     request_models = (
-        rm.get_request_model_for_remove_rectangle('all', ),
-        rm.get_request_model_for_remove_text('all', ),
-        rm.get_request_model_for_remove_line('all', ),
+        rm.get_request_model_for_remove_rectangle('rectangle_1', ),
+        rm.get_request_model_for_remove_text('text_1', ),
+        rm.get_request_model_for_remove_line('line_1', ),
     )
     return package_names, request_models
