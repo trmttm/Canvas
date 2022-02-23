@@ -6,7 +6,8 @@ class RemoveRectangle(UseCaseABC):
         self._configuration = {'shape_id': shape_id}
 
     def update_entities(self):
-        shape_id = self._configuration.get('shape_id')
+        shape_id_passed = self._configuration.get('shape_id')
+        shape_id = self._entities.rectangles.get_shape_ids_by_tag(shape_id_passed)[0]
         self._entities.rectangles.remove(shape_id)
         self.create_response_model()
 
