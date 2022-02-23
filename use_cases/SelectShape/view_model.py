@@ -1,9 +1,6 @@
 def create_view_model(response_model):
-    view_model = {
-        response_model.get('tags'): {'coordinate_from': response_model.get('xy1'),
-                                     'coordinate_to': response_model.get('xy2'),
-                                     'line_color': response_model.get('color'),
-                                     'line_width': response_model.get('width'),
-                                     'tags': response_model.get('tags')}
-    }
+    # items = tuple((shape_id, 'red') for shape_id in response_model.get('contents', ()))
+    # view_model = dict(zip(range(len(items)), items))
+    shape_ids = response_model.get('contents', ())
+    view_model = dict(zip(shape_ids, tuple('red' for _ in shape_ids)))
     return view_model

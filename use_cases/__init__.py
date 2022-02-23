@@ -11,6 +11,7 @@ from .RemoveLine.request_model import get_request_model as get_request_model_for
 from .RemoveRectangle.request_model import get_request_model as get_request_model_for_remove_rectangle
 from .RemoveText.request_model import get_request_model as get_request_model_for_remove_text
 from .RemoveTextBox.request_model import get_request_model as get_request_model_for_remove_text_box
+from .SelectShape.request_model import get_request_model as get_request_model_for_select_shape
 from .SetBorderColor.request_model import get_request_model as get_request_model_for_set_border_color
 from .SetBorderWidth.request_model import get_request_model as get_request_model_for_set_border_width
 from .SetFillColor.request_model import get_request_model as get_request_model_for_set_fill_color
@@ -41,6 +42,7 @@ SetLineColor = 'use_cases.SetLineColor'
 SetLineWidth = 'use_cases.SetLineWidth'
 SetTextColor = 'use_cases.SetTextColor'
 SetTextFontSize = 'use_cases.SetTextFontSize'
+SelectShape = 'use_cases.SelectShape'
 
 package_names = [
     AddRectangle,  # 0
@@ -65,4 +67,5 @@ package_names = [
     AddTextBox,  # 18
     RemoveTextBox,  # 19
     MoveTextBox,  # 20
+    SelectShape,  # 21
 ]

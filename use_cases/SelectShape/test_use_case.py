@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.AddLine'
+        package_name = 'use_cases.SelectShape'
         canvas_color = 'white'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
@@ -12,15 +12,12 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
+        from use_cases import get_request_model_for_select_shape
+        get_request_model = get_request_model_for_select_shape
+
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
-                request_model = {'xy1': (10, 10),
-                                 'xy2': view.get_mouse_canvas_coordinate(),
-                                 'width': 3,
-                                 'color': 'red',
-                                 'arrow_at_end': True,
-                                 'tags': ('line_1',),
-                                 }
+                request_model = get_request_model('rectangle_0')
                 command.configure(**request_model)
                 command.update_entities()
                 command.present()
@@ -29,17 +26,15 @@ class MyTestCase(unittest.TestCase):
 
         # Mouse setting
         def upon_mouse_click(request):
-            request_model = {'xy1': (10, 10),
-                             'xy2': view.get_mouse_canvas_coordinate(),
-                             'width': 5,
-                             'color': 'blue',
-                             'arrow_at_end': True,
-                             'tags': ('line_1',),
-                             }
+            request_model = get_request_model('rectangle_2')
             command.configure(**request_model)
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
+
+        from Tests.test_methods import add_ten_text_boxes
+        add_ten_text_boxes(test_app, view)
+
         test_app.launch_app()
 
 

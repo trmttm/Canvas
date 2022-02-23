@@ -1,30 +1,21 @@
-from typing import Tuple
-
+from interactor import get_shape_types
 from ..use_case_abc import UseCaseABC
 
 
-class AddLine(UseCaseABC):
+class SelectShape(UseCaseABC):
+    _group_name = 'selected_shapes'
 
-    def configure(self, xy1: Tuple[int, int], xy2: Tuple[int, int], color='black', width=2, arrow_at_start=False,
-                  arrow_at_end=False, tags=(), **_):
-        arrow = None
-        if arrow_at_start and arrow_at_end:
-            arrow = 'both'
-        elif arrow_at_start:
-            arrow = 'start'
-        elif arrow_at_end:
-            arrow = 'end'
-        self._configuration = {
-            'xy1': xy1,
-            'xy2': xy2,
-            'color': color,
-            'width': width,
-            'tags': tags,
-            'arrow': arrow, }
+    def configure(self, shape_id, **_):
+        self._configuration = {'group_name': self._group_name, 'content': shape_id, }
 
     def update_entities(self):
-        shape_id = self._entities.lines.add(**self._configuration)
-        self.create_response_model(shape_id)
+        initial_contents = self._entities.group.get_contents(self._group_name)
 
-    def create_response_model(self, shape_id, *args, **kwargs):
-        self._response_model = self._entities.lines.get_configuration(shape_id)
+        self._entities.group.add(**self._configuration)
+        self.create_response_model(initial_contents)
+
+    def create_response_model(self, initial_contents: tuple, *args, **kwargs):
+        new_contents = self._entities.group.get_contents(self._group_name)
+        difference = tuple(set(new_contents) - set(initial_contents))
+        shape_types = get_shape_types(self._entities.shape_entities, difference)
+        self._response_model = {'group_name': self._group_name, 'contents': difference, 'shape_types': shape_types}

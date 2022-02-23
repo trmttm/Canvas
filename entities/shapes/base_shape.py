@@ -37,6 +37,9 @@ class Shapes:
         if individual_data is not None:
             return individual_data.get(option, None)
 
+    def __contains__(self, item) -> bool:
+        return item in self._data
+
 
 class ShapesWithTags(Shapes):
     _key_tags = '_tags'
@@ -45,6 +48,10 @@ class ShapesWithTags(Shapes):
         Shapes.__init__(self)
         self._data[self._key_tags] = {}
         self._tag_prefix = tag_prefix
+
+    @property
+    def shape_type(self) -> str:
+        return self._tag_prefix.replace('_', '')
 
     @property
     def shape_ids(self) -> tuple:
