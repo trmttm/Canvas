@@ -7,13 +7,13 @@ class SetLineArrow(UseCaseABC):
 
     def update_entities(self):
         shape_id_passed = self._configuration.get('shape_id')
-        shape_id = self._entities.lines.get_shape_ids_by_tag(shape_id_passed)[0]
+        shape_id = self._entities.lines.get_a_single_shape_id_by_tag(shape_id_passed)
         arrow = self._configuration.get('arrow')
         self._entities.lines.set_arrow(shape_id, arrow)
         self.create_response_model()
 
     def create_response_model(self, *args, **kwargs):
         shape_id_passed = self._configuration.get('shape_id')
-        shape_id = self._entities.lines.get_shape_ids_by_tag(shape_id_passed)[0]
+        shape_id = self._entities.lines.get_a_single_shape_id_by_tag(shape_id_passed)
         arrow = self._entities.lines.get_arrow(shape_id)
         self._response_model = {'shape_id': shape_id, 'arrow': arrow}
