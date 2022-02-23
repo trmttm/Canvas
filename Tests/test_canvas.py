@@ -1,7 +1,6 @@
 import unittest
 
 import plugin_setting
-import use_cases
 
 
 class MyTestCase(unittest.TestCase):

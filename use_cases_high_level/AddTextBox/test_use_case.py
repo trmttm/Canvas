@@ -33,7 +33,7 @@ class MyTestCase(unittest.TestCase):
             wh = (200, 40)
             request_model = {
                 '1': get_request_model_01(view.get_mouse_canvas_coordinate(), wh, 'red', 1, 'light green',
-                                          ('rect_01', )),
+                                          ('rect_01',)),
                 '2': get_request_model_02(view.get_mouse_canvas_coordinate(), 'New Text!', font_size=30, wh=wh,
                                           tags=('text_01',)),
             }

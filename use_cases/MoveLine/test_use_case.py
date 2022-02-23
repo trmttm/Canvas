@@ -49,7 +49,7 @@ class MyTestCase(unittest.TestCase):
         presenter.attach(view.add_line)
         for i in range(10):
             command_add = AddLine(presenter, test_app.entities)
-            command_add.configure((40, 10),  (i * 15 + 10, 200), 'blue',5, True,(f'line_{i}',) )
+            command_add.configure((40, 10), (i * 15 + 10, 200), 'blue', 5, True, (f'line_{i}',))
             command_add.execute()
 
         test_app.launch_app()
