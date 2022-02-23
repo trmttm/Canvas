@@ -1,9 +1,10 @@
+from request_models import get_request_model_for_add_text_box as rm
+from use_cases_high_level.AddTextBox.presenter import presenter_factory
+from use_cases_high_level.AddTextBox.use_case import AddTextBox
+from use_cases_high_level.AddTextBox.view import view_factory
+
+
 def add_ten_text_boxes(test_app, view):
-    # Add 10 text boxes
-    from use_cases.AddTextBox.use_case import AddTextBox
-    from use_cases.AddTextBox.presenter import presenter_factory
-    from use_cases.AddTextBox.view import view_factory
-    from use_cases import get_request_model_for_add_text_box as rm
     presenter = presenter_factory()
     presenter.attach(view_factory(view))
     for i in range(10):

@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.HighlightTextBox'
+        package_name = 'use_cases_high_level.HighlightTextBox'
         canvas_color = 'light yellow'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
 
         # Controller setting
         # Keyboard setting
-        from use_cases import get_request_model_for_highlight_text_box as rm
+        from request_models import get_request_model_for_highlight_text_box as rm
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
                 request_model = rm('rectangle_2', 'pink', 'red', 5, 'text_2', 'blue')

@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.RemoveTextBox'
+        package_name = 'use_cases_high_level.RemoveTextBox'
         canvas_color = 'light yellow'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view

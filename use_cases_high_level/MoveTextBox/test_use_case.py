@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.MoveTextBox'
+        package_name = 'use_cases_high_level.MoveTextBox'
         canvas_color = 'pink'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
@@ -53,10 +53,10 @@ class MyTestCase(unittest.TestCase):
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click, {})
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_right_drag, {'n': 2})
 
-        from use_cases.AddTextBox.use_case import AddTextBox
-        from use_cases.AddTextBox.presenter import presenter_factory
-        from use_cases.AddTextBox.view import view_factory
-        from use_cases import get_request_model_for_add_text_box as rm
+        from use_cases_high_level.AddTextBox.use_case import AddTextBox
+        from use_cases_high_level.AddTextBox.presenter import presenter_factory
+        from use_cases_high_level.AddTextBox.view import view_factory
+        from request_models import get_request_model_for_add_text_box as rm
         presenter = presenter_factory()
         presenter.attach(view_factory(view))
         for i in range(10):

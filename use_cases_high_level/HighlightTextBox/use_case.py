@@ -1,12 +1,12 @@
 from typing import List
 
-from ..SetBorderColor.use_case import SetBorderColor
-from ..SetBorderWidth.use_case import SetBorderWidth
-from ..SetFillColor.use_case import SetFillColor
-from ..SetTextColor.use_case import SetTextColor
-from ..presenter_abc import PresenterABC
-from ..use_case_abc import UseCaseABC
-from ..use_case_high_level import HighLevelUseCase
+from use_cases.SetBorderColor.use_case import SetBorderColor
+from use_cases.SetBorderWidth.use_case import SetBorderWidth
+from use_cases.SetFillColor.use_case import SetFillColor
+from use_cases.SetTextColor.use_case import SetTextColor
+from use_cases.presenter_abc import PresenterABC
+from use_cases.use_case_abc import UseCaseABC
+from use_cases_high_level.use_case_high_level import HighLevelUseCase
 
 
 class HighlightTextBox(HighLevelUseCase):

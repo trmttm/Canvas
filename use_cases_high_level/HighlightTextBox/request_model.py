@@ -1,7 +1,7 @@
-from use_cases import get_request_model_for_set_border_color
-from use_cases import get_request_model_for_set_border_width
-from use_cases import get_request_model_for_set_fill_color
-from use_cases import get_request_model_for_set_text_color
+from request_models import get_request_model_for_set_border_color
+from request_models import get_request_model_for_set_border_width
+from request_models import get_request_model_for_set_fill_color
+from request_models import get_request_model_for_set_text_color
 
 
 def get_request_model(rectangle_id, color_fill, color_border, width_border, text_id, color_text):

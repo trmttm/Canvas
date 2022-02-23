@@ -8,7 +8,7 @@ from view_tkinter import View
 from view_tkinter import tk_interface as intf
 
 from entities import Entities
-from use_cases import package_names
+from plugin_setting import package_names
 from use_cases.use_case_abc import UseCaseABC
 
 

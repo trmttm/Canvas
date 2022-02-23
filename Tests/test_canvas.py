@@ -1,5 +1,8 @@
 import unittest
 
+import plugin_setting
+import use_cases
+
 
 class MyTestCase(unittest.TestCase):
     def test_integrating_basic_use_cases(self):
@@ -173,7 +176,7 @@ class MyTestCase(unittest.TestCase):
                                  },
         }
 
-        from use_cases import package_names
+        from plugin_setting import package_names
         command_factories = []
         presenters = []
         views = []
@@ -254,7 +257,7 @@ class MyTestCase(unittest.TestCase):
         from apps.app import App
         from app_tkinter import app_tkinter_factory
         from complex_commands import instructions as i
-        from use_cases import package_names
+        from plugin_setting import package_names
 
         app = App(app_tkinter_factory, package_names)
 
@@ -316,8 +319,8 @@ class MyTestCase(unittest.TestCase):
         # This is the better wat, because entity manipylation can be encapsulated in each use_case command.
         from apps.app import App
         from app_tkinter import app_tkinter_factory
-        from use_cases import package_names
-        import use_cases as uc
+        from plugin_setting import package_names
+        import request_models as uc
         app = App(app_tkinter_factory, package_names)
 
         def add_operator_command(text: str, tags: tuple):
@@ -331,7 +334,7 @@ class MyTestCase(unittest.TestCase):
                 tags_rect=tags,
                 fill='pink',
             )
-            add_text_box = app.create_command(uc.AddTextBox, request_model)
+            add_text_box = app.create_command(plugin_setting.AddTextBox, request_model)
             add_text_box.execute()
 
         from interface_keymaps import KeyMapABC

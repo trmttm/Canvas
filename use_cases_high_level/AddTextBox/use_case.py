@@ -2,9 +2,9 @@ from typing import List
 
 from use_cases.AddRectangle.use_case import AddRectangle
 from use_cases.AddText.use_case import AddText
-from ..presenter_abc import PresenterABC
-from ..use_case_abc import UseCaseABC
-from ..use_case_high_level import HighLevelUseCase
+from use_cases.presenter_abc import PresenterABC
+from use_cases.use_case_abc import UseCaseABC
+from use_cases_high_level.use_case_high_level import HighLevelUseCase
 
 
 class AddTextBox(HighLevelUseCase):
