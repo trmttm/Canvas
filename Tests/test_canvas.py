@@ -320,22 +320,47 @@ class MyTestCase(unittest.TestCase):
         import use_cases as uc
         app = App(app_tkinter_factory, package_names)
 
-        def add_operator_command(text: str, tag):
-            add_text_box = app.create_command(
-                uc.AddTextBox,
-                uc.get_request_model_for_add_text_box(text=text, font_size=20, tags_text=(tag,), tags_rect=(tag,)))
+        def add_operator_command(text: str, tags: tuple):
+            xy = app._app.get_mouse_canvas_coordinate()
+            request_model = uc.get_request_model_for_add_text_box(
+                xy_rect=xy,
+                xy_text=xy,
+                text=text,
+                font_size=20,
+                tags_text=tags,
+                tags_rect=tags,
+                fill='pink',
+            )
+            add_text_box = app.create_command(uc.AddTextBox, request_model)
             add_text_box.execute()
 
-            shape_id0 = app.entities.rectangles.get_shape_ids_by_tag(tag)[-1]
-            shape_id1 = app.entities.texts.get_shape_ids_by_tag(tag)[-1]
+        from interface_keymaps import KeyMapABC
+        operators_dict = {
+            '+': (KeyMapABC.none, KeyMapABC.zero),
+            '-': (KeyMapABC.none, KeyMapABC.one),
+            'x': (KeyMapABC.none, KeyMapABC.two),
+            '/': (KeyMapABC.none, KeyMapABC.three),
+            '=': (KeyMapABC.none, KeyMapABC.four),
+            '<': (KeyMapABC.none, KeyMapABC.five),
+            '<=': (KeyMapABC.none, KeyMapABC.six),
+            '>': (KeyMapABC.none, KeyMapABC.seven),
+            '>=': (KeyMapABC.none, KeyMapABC.eight),
+            '^': (KeyMapABC.none, KeyMapABC.nine),
+            'min': (KeyMapABC.shift, KeyMapABC.one),
+            'max': (KeyMapABC.shift, KeyMapABC.two),
+            'ave': (KeyMapABC.shift, KeyMapABC.three),
+        }
+        f = add_operator_command
 
-            fill_pink = app.create_command(uc.SetFillColor, uc.get_request_model_for_set_fill_color(shape_id0, 'green'))
-            position1 = app.create_command(uc.MoveRectangle, uc.get_request_model_for_move_rectangle(shape_id0, 100, 100))
-            position2 = app.create_command(uc.MoveText, uc.get_request_model_for_move_text(shape_id1, 100, 100))
-            commands = [fill_pink, position1, position2]
-            app.execute(commands)
+        for operator, key_combo in operators_dict.items():
+            modifier, key = key_combo
+            app.add_keyboard_shortcut_command(modifier, key, lambda op=operator: f(op, ('operator', op)))
 
-        app.add_keyboard_shortcut_command(0, '1', lambda: add_operator_command('+', 't'))
+        # Mouse
+        from mouse import MouseController
+        mouse = MouseController()
+        app._app.bind_command_to_widget('canvas1', mouse.handle)
+
         app.launch_app()
 
 
