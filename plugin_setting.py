@@ -18,6 +18,7 @@ SetTextColor = 'use_cases.SetTextColor'
 SetTextFontSize = 'use_cases.SetTextFontSize'
 SelectShape = 'use_cases.SelectShape'
 SelectShapesInRange = 'use_cases.SelectShapesInRange'
+SetTextValue = 'use_cases.SetTextValue'
 
 AddTextBox = 'use_cases_high_level.AddTextBox'
 RemoveTextBox = 'use_cases_high_level.RemoveTextBox'
@@ -52,4 +53,5 @@ package_names = [
     HighlightTextBox,  # 22
 
     SelectShapesInRange,  # 23
+    SetTextValue,  # 24
 ]
