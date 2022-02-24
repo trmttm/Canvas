@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.SelectShape'
+        package_name = 'use_cases.SelectShapesInRange'
         canvas_color = 'white'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view

@@ -8,20 +8,25 @@ class Shapes:
         self._id_number = 0
         self._data: Dict[Any, dict] = {}
 
+    @property
+    def new_id_number(self) -> int:
+        return self._id_number
+
     def add(self, shape_id, **options):
         self._data[shape_id] = options
         self._id_number += 1
 
-    @property
-    def new_id_number(self) -> int:
-        return self._id_number
+    def set(self, data: dict[Any, dict]):
+        self._data = data
 
     def remove(self, shape_id):
         if shape_id in self._data:
             del self._data[shape_id]
 
-    def set(self, data: dict[Any, dict]):
-        self._data = data
+    def get(self, shape_id, option: str):
+        individual_data = self._data.get(shape_id, None)
+        if individual_data is not None:
+            return individual_data.get(option, None)
 
     def configure(self, shape_id, **options):
         if shape_id in self._data:
@@ -31,11 +36,6 @@ class Shapes:
 
     def get_configuration(self, shape_id) -> dict:
         return self._data.get(shape_id, {})
-
-    def get(self, shape_id, option: str):
-        individual_data = self._data.get(shape_id, None)
-        if individual_data is not None:
-            return individual_data.get(option, None)
 
     def __contains__(self, item) -> bool:
         return item in self._data

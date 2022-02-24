@@ -12,6 +12,9 @@ class Group:
         else:
             self._data[group_name] = [content]
 
+    def set(self, group_name: str, contents):
+        self._data[group_name] = list(contents)
+
     @property
     def _all_group_names(self) -> tuple:
         return tuple(self._data.keys())
