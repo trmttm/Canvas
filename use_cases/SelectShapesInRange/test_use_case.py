@@ -17,10 +17,7 @@ class MyTestCase(unittest.TestCase):
 
         def keyboard_shortcut_handler(modifiers: int, key: str):
             if modifiers == 8 and key == '1':
-                request_model = get_request_model('rectangle_0')
-                command.configure(**request_model)
-                command.update_entities()
-                command.present()
+                pass
 
         test_app.set_keyboard_shortcut_handler(keyboard_shortcut_handler)
 
@@ -36,6 +33,14 @@ class MyTestCase(unittest.TestCase):
         presenter.attach(view_factory(view))
         move_text_box = MoveTextBox(presenter, test_app.entities)
 
+        from use_cases.SetTextValue.use_case import SetTextValue
+        from use_cases.SetTextValue.presenter import presenter_factory
+        from use_cases.SetTextValue.view import view_factory
+        from request_models import get_request_model_for_set_text_value
+        presenter = presenter_factory()
+        presenter.attach(view_factory(view))
+        set_text_value = SetTextValue(presenter, test_app.entities)
+
         def upon_mouse_drag(request):
             request_model = get_request_model_for_move_text_box('rectangle_1',
                                                                 'text_0',
@@ -48,12 +53,9 @@ class MyTestCase(unittest.TestCase):
             command.execute()
 
             selected_shape_ids = test_app.entities.group.get_contents('selected_shapes')
-            r = 'rectangle_1'
-            if r in selected_shape_ids:
-                print(f'{r} is selected!')
-            r = 'text_0'
-            if r in selected_shape_ids:
-                print(f'{r} is selected!\n')
+            request_model = get_request_model_for_set_text_value('text_1', f'{selected_shape_ids}')
+            set_text_value.configure(**request_model)
+            set_text_value.execute()
 
         from use_cases.MoveLine.use_case import MoveLine
         from use_cases.MoveLine.presenter import presenter_factory
@@ -79,9 +81,9 @@ class MyTestCase(unittest.TestCase):
             command.execute()
 
             selected_shape_ids = test_app.entities.group.get_contents('selected_shapes')
-            r = 'line_0'
-            if r in selected_shape_ids:
-                print(f'{r} is selected!')
+            request_model = get_request_model_for_set_text_value('text_1', f'{selected_shape_ids}')
+            set_text_value.configure(**request_model)
+            set_text_value.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click, {})
         test_app.configure_mouse(upon_mouse_drag, test_app.mouse.is_left_drag, {})
@@ -128,7 +130,7 @@ class MyTestCase(unittest.TestCase):
         presenter = presenter_factory()
         presenter.attach(view_factory(view))
         add_text = AddText(presenter, test_app.entities)
-        add_text.configure((40, 400), 'Selection = ', wh=(200, 20), tags=('selector',))
+        add_text.configure((200, 400), 'Selection = ', wh=(200, 20), tags=('feedback',))
         add_text.execute()
 
         test_app.launch_app()
