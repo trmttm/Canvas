@@ -55,7 +55,7 @@ class ShapesWithTags(Shapes):
 
     @property
     def shape_ids(self) -> tuple:
-        return tuple(self._data.keys())
+        return tuple(t for t in self._data.keys() if t not in [self._key_tags])
 
     def add(self, **options) -> str:
         shape_id = f'{self._tag_prefix}{self.new_id_number}'

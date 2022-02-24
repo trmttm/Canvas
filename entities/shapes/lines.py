@@ -82,3 +82,9 @@ class Lines(ShapesWithTags):
 
     def set_arrow(self, shape_id, value):
         self.configure(shape_id, arrow=value)
+
+    def get_coordinates_from(self, shape_id) -> Tuple[int, int]:
+        return self.get_xy1(shape_id)
+
+    def get_coordinates_to(self, shape_id) -> Tuple[int, int]:
+        return self.get_xy2(shape_id)

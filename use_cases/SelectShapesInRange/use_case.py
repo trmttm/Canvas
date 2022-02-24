@@ -5,22 +5,20 @@ from ..use_case_abc import UseCaseABC
 class SelectShapesInRange(UseCaseABC):
     _group_name = 'selected_shapes'
 
-    def configure(self, rectangle_id, **_):
+    def configure(self, shape_id, **_):
         shape_ids = []
 
-        x1, y1 = self._entities.rectangles.get_coordinates_from(rectangle_id)
-        x2, y2 = self._entities.rectangles.get_coordinates_to(rectangle_id)
+        x1, y1 = self._entities.rectangles.get_coordinates_from(shape_id)
+        x2, y2 = self._entities.rectangles.get_coordinates_to(shape_id)
         range_coordinates = x1, y1, x2, y2
 
-        for shape_entity in [self._entities.rectangles, self._entities.texts]:
+        for shape_entity in [self._entities.rectangles, self._entities.texts, self._entities.lines]:
             for shape_id in shape_entity.shape_ids:
                 coordinates_from = shape_entity.get_coordinates_from(shape_id)
                 coordinates_to = shape_entity.get_coordinates_to(shape_id)
                 shape_coordinates = coordinates_from + coordinates_to
                 if coordinates_overlap(range_coordinates, shape_coordinates):
                     shape_ids.append(shape_id)
-
-        # Do the same thing for lines, too
 
         self._configuration = {'group_name': self._group_name, 'contents': shape_ids, }
 

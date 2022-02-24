@@ -17,6 +17,7 @@ SetLineWidth = 'use_cases.SetLineWidth'
 SetTextColor = 'use_cases.SetTextColor'
 SetTextFontSize = 'use_cases.SetTextFontSize'
 SelectShape = 'use_cases.SelectShape'
+SelectShapesInRange = 'use_cases.SelectShapesInRange'
 
 AddTextBox = 'use_cases_high_level.AddTextBox'
 RemoveTextBox = 'use_cases_high_level.RemoveTextBox'
@@ -49,4 +50,6 @@ package_names = [
     MoveTextBox,  # 20
     SelectShape,  # 21
     HighlightTextBox,  # 22
+
+    SelectShapesInRange,  # 23
 ]
