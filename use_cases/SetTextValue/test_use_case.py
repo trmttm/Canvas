@@ -4,7 +4,7 @@ import unittest
 class MyTestCase(unittest.TestCase):
     def test_use_case(self):
         from apps.test_app import TestApp
-        package_name = 'use_cases.SetTextColor'
+        package_name = 'use_cases.SetTextValue'
         canvas_color = 'grey'
         test_app = TestApp(package_name, canvas_color)
         view = test_app.view
@@ -13,18 +13,18 @@ class MyTestCase(unittest.TestCase):
         # Controller setting
         # Keyboard setting
         def keyboard_shortcut_handler(modifiers: int, key: str):
-            color = None
+            text = None
             if modifiers == 8 and key == '1':
-                color = 'red'
+                text = 'red'
             elif modifiers == 8 and key == '2':
-                color = 'green'
+                text = 'green'
             elif modifiers == 8 and key == '3':
-                color = 'blue'
+                text = 'blue'
             elif modifiers == 8 and key == '4':
-                color = 'yellow'
+                text = 'yellow'
 
-            if color is not None:
-                request_model = {'shape_id': f'text_{8}', 'color': color}
+            if text is not None:
+                request_model = {'shape_id': f'text_{8}', 'text': text}
                 command.configure(**request_model)
                 command.execute()
 
@@ -32,14 +32,14 @@ class MyTestCase(unittest.TestCase):
 
         # Mouse setting
         def upon_mouse_click(request):
-            request_model = {'shape_id': request['shape_id'], 'color': request['color']}
+            request_model = {'shape_id': request['shape_id'], 'text': request['text']}
             command.configure(**request_model)
             command.execute()
 
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_left_click,
-                                 {'shape_id': f'text_{5}', 'color': 'blue'})
+                                 {'shape_id': f'text_{5}', 'text': 'blue'})
         test_app.configure_mouse(upon_mouse_click, test_app.mouse.is_right_click,
-                                 {'shape_id': f'text_{6}', 'color': 'orange'})
+                                 {'shape_id': f'text_{6}', 'text': 'orange'})
 
         from Tests.test_methods import add_ten_texts
         add_ten_texts(test_app, view)

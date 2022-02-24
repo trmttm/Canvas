@@ -1,6 +1,6 @@
-from .use_case import SetTextColor
+from .use_case import SetTextValue
 
 
 def controller_command(presenter, entities):
-    command = SetTextColor(presenter, entities)
+    command = SetTextValue(presenter, entities)
     return command

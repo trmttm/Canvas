@@ -1,19 +1,19 @@
 from ..use_case_abc import UseCaseABC
 
 
-class SetTextColor(UseCaseABC):
-    def configure(self, shape_id, color, **_):
-        self._configuration = {'shape_id': shape_id, 'color': color}
+class SetTextValue(UseCaseABC):
+    def configure(self, shape_id, text, **_):
+        self._configuration = {'shape_id': shape_id, 'text': text}
 
     def update_entities(self):
         shape_id_passed = self._configuration.get('shape_id')
         shape_id = self._entities.texts.get_a_single_shape_id_by_tag(shape_id_passed)
-        color = self._configuration.get('color')
-        self._entities.texts.set_color(shape_id, color)
+        text = self._configuration.get('text')
+        self._entities.texts.set_text(shape_id, text)
         self.create_response_model()
 
     def create_response_model(self, *args, **kwargs):
         shape_id_passed = self._configuration.get('shape_id')
         shape_id = self._entities.texts.get_a_single_shape_id_by_tag(shape_id_passed)
-        color = self._entities.texts.get_color(shape_id)
-        self._response_model = {'shape_id': shape_id, 'color': color}
+        text = self._entities.texts.get_text(shape_id)
+        self._response_model = {'shape_id': shape_id, 'text': text}

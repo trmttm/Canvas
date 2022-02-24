@@ -1,2 +1,2 @@
-def get_request_model(shape_id, color):
-    return {'shape_id': shape_id, 'color': color}
+def get_request_model(shape_id, text: str):
+    return {'shape_id': shape_id, 'text': text}

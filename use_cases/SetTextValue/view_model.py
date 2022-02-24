@@ -1,3 +1,3 @@
 def create_view_model(response_model):
-    view_model = {response_model.get('shape_id'): response_model.get('color')}
+    view_model = {response_model.get('shape_id'): response_model.get('text')}
     return view_model
