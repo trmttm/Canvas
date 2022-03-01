@@ -170,8 +170,10 @@ class ShapesWithTagsXYWH(ShapesWithTagsXY):
         return self.get_xy(shape_id)
 
     def get_coordinates_to(self, shape_id) -> Tuple[int, int]:
-        x1, y1 = self.get_coordinates_from(shape_id)
-        width = self.get_width(shape_id)
-        height = self.get_height(shape_id)
-        x2, y2 = x1 + width, y1 + height
-        return x2, y2
+        x1y1 = self.get_coordinates_from(shape_id)
+        if x1y1 is not None:
+            x1, y1 = x1y1
+            width = self.get_width(shape_id)
+            height = self.get_height(shape_id)
+            x2, y2 = x1 + width, y1 + height
+            return x2, y2
