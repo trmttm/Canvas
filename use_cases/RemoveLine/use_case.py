@@ -9,7 +9,7 @@ class RemoveLine(UseCaseABC):
         shape_id_passed = self._configuration.get('shape_id')
         shape_id = self._entities.lines.get_a_single_shape_id_by_tag(shape_id_passed)
         self._entities.lines.remove(shape_id)
-        self.create_response_model()
+        self.create_response_model(shape_id)
 
-    def create_response_model(self, *args, **kwargs):
-        self._response_model = self._configuration
+    def create_response_model(self, shape_id, *args, **kwargs):
+        self._response_model = {'shape_id': shape_id}

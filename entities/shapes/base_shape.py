@@ -71,6 +71,11 @@ class ShapesWithTags(Shapes):
                 self._data[self._key_tags][tag] = [shape_id]
         return shape_id
 
+    def remove(self, shape_id):
+        Shapes.remove(self, shape_id)
+        if shape_id in self._data[self._key_tags]:
+            del self._data[self._key_tags][shape_id]
+
     def get_shape_ids_by_tag(self, tag) -> tuple:
         return tuple(self._data[self._key_tags].get(tag, []))
 
