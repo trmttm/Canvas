@@ -19,6 +19,8 @@ class SelectShapesInRange(UseCaseABC):
             for shape_id in shape_entity.shape_ids:
                 coordinates_from = shape_entity.get_coordinates_from(shape_id)
                 coordinates_to = shape_entity.get_coordinates_to(shape_id)
+                if coordinates_from is None or coordinates_to is None:
+                    continue
                 shape_coordinates = coordinates_from + coordinates_to
                 if coordinates_overlap(range_coordinates, shape_coordinates):
                     shape_ids.append(shape_id)
