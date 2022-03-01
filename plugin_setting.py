@@ -26,6 +26,7 @@ MoveTextBox = 'use_cases_high_level.MoveTextBox'
 HighlightTextBox = 'use_cases_high_level.HighlightTextBox'
 
 package_names = [
+    # Lower Level UseCases
     AddRectangle,  # 0
     RemoveRectangle,  # 1
     MoveRectangle,  # 2
@@ -52,6 +53,7 @@ package_names = [
     SelectShape,  # 21
     HighlightTextBox,  # 22
 
+    # More UseCases (Low or High)
     SelectShapesInRange,  # 23
     SetTextValue,  # 24
 ]
