@@ -8,6 +8,9 @@ class SelectShapesInRange(UseCaseABC):
     def configure(self, shape_id, **_):
         shape_ids = []
 
+        shape_id_passed = shape_id
+        shape_id = self._entities.rectangles.get_a_single_shape_id_by_tag(shape_id_passed)
+
         x1, y1 = self._entities.rectangles.get_coordinates_from(shape_id)
         x2, y2 = self._entities.rectangles.get_coordinates_to(shape_id)
         range_coordinates = x1, y1, x2, y2
