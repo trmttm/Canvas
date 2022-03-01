@@ -15,6 +15,11 @@ class Group:
     def set(self, group_name: str, contents):
         self._data[group_name] = list(contents)
 
+    def remove(self, group_name, contents):
+        if group_name in self._data:
+            current_contents = self._data[group_name]
+            self._data[group_name] = [c for c in current_contents if c not in contents]
+
     @property
     def _all_group_names(self) -> tuple:
         return tuple(self._data.keys())
